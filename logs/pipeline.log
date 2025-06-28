@@ -1,0 +1,160 @@
+2025-06-28 14:56:56,752 - src.utils - INFO - Validating pipeline setup...
+2025-06-28 14:56:56,753 - src.utils - INFO - ✅ Data file found: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-28 14:56:56,753 - src.utils - INFO - ✅ Configuration validation passed
+2025-06-28 14:56:56,753 - src.utils - INFO - ✅ All required packages available
+2025-06-28 14:56:56,754 - src.utils - INFO - Pipeline validation completed successfully
+2025-06-28 14:56:56,754 - src.utils - ERROR - Step 1 failed: name 'logging' is not defined
+2025-06-28 14:56:56,754 - src.utils - ERROR - Pipeline failed: name 'logging' is not defined
+2025-06-28 14:56:56,754 - src.utils - ERROR - Pipeline failed: name 'logging' is not defined
+2025-06-28 14:59:23,128 - src.utils - INFO - Validating pipeline setup...
+2025-06-28 14:59:23,129 - src.utils - INFO - ✅ Data file found: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-28 14:59:23,129 - src.utils - INFO - ✅ Configuration validation passed
+2025-06-28 14:59:23,129 - src.utils - INFO - ✅ All required packages available
+2025-06-28 14:59:23,129 - src.utils - INFO - Pipeline validation completed successfully
+2025-06-28 14:59:23,129 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-06-28 14:59:23,129 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-06-28 14:59:23,129 - src.data_preprocessing - INFO - Loading raw data...
+2025-06-28 14:59:23,129 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-28 14:59:23,148 - src.utils - INFO - Data loaded successfully. Shape: (2000, 26)
+2025-06-28 14:59:23,148 - src.data_preprocessing - INFO - Raw data loaded: (2000, 26)
+2025-06-28 14:59:23,149 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.019392
+2025-06-28 14:59:23,149 - src.data_preprocessing - INFO - Analyzing raw data...
+2025-06-28 14:59:23,149 - src.utils - INFO - Analyzing data...
+2025-06-28 14:59:23,249 - src.utils - INFO - Data analysis completed
+2025-06-28 14:59:23,249 - src.utils - INFO - Detecting outliers using iqr method...
+2025-06-28 14:59:23,303 - src.utils - INFO - Outlier detection completed. Found outliers in 25 columns
+2025-06-28 14:59:23,303 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/raw_data_analysis.json
+2025-06-28 14:59:23,306 - src.utils - INFO - JSON saved successfully
+2025-06-28 14:59:23,307 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.177373
+2025-06-28 14:59:23,307 - src.data_preprocessing - INFO - Cleaning data...
+2025-06-28 14:59:23,318 - src.data_preprocessing - ERROR - Preprocessing failed: name 'EXCLUDE_FEATURES' is not defined
+2025-06-28 14:59:23,318 - src.utils - ERROR - Step 1 failed: name 'EXCLUDE_FEATURES' is not defined
+2025-06-28 14:59:23,318 - src.utils - ERROR - Pipeline failed: name 'EXCLUDE_FEATURES' is not defined
+2025-06-28 14:59:23,318 - src.utils - ERROR - Pipeline failed: name 'EXCLUDE_FEATURES' is not defined
+2025-06-28 15:06:36,313 - src.utils - INFO - Validating pipeline setup...
+2025-06-28 15:06:36,314 - src.utils - INFO - ✅ Data file found: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-28 15:06:36,314 - src.utils - INFO - ✅ Configuration validation passed
+2025-06-28 15:06:36,314 - src.utils - INFO - ✅ All required packages available
+2025-06-28 15:06:36,314 - src.utils - INFO - Pipeline validation completed successfully
+2025-06-28 15:06:36,314 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-06-28 15:06:36,315 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-06-28 15:06:36,315 - src.data_preprocessing - INFO - Loading raw data...
+2025-06-28 15:06:36,315 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-28 15:06:36,354 - src.utils - INFO - Data loaded successfully. Shape: (2000, 26)
+2025-06-28 15:06:36,355 - src.data_preprocessing - INFO - Raw data loaded: (2000, 26)
+2025-06-28 15:06:36,355 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.040260
+2025-06-28 15:06:36,355 - src.data_preprocessing - INFO - Analyzing raw data...
+2025-06-28 15:06:36,355 - src.utils - INFO - Analyzing data...
+2025-06-28 15:06:36,423 - src.utils - INFO - Data analysis completed
+2025-06-28 15:06:36,424 - src.utils - INFO - Detecting outliers using iqr method...
+2025-06-28 15:06:36,465 - src.utils - INFO - Outlier detection completed. Found outliers in 25 columns
+2025-06-28 15:06:36,465 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/raw_data_analysis.json
+2025-06-28 15:06:36,467 - src.utils - INFO - JSON saved successfully
+2025-06-28 15:06:36,468 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.153314
+2025-06-28 15:06:36,468 - src.data_preprocessing - INFO - Cleaning data...
+2025-06-28 15:06:36,475 - src.data_preprocessing - ERROR - Preprocessing failed: name 'EXCLUDE_FEATURES' is not defined
+2025-06-28 15:06:36,475 - src.utils - ERROR - Step 1 failed: name 'EXCLUDE_FEATURES' is not defined
+2025-06-28 15:06:36,475 - src.utils - ERROR - Pipeline failed: name 'EXCLUDE_FEATURES' is not defined
+2025-06-28 15:06:36,476 - src.utils - ERROR - Pipeline failed: name 'EXCLUDE_FEATURES' is not defined
+2025-06-28 15:10:42,567 - src.utils - INFO - Validating pipeline setup...
+2025-06-28 15:10:42,568 - src.utils - INFO - ✅ Data file found: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-28 15:10:42,568 - src.utils - INFO - ✅ Configuration validation passed
+2025-06-28 15:10:42,568 - src.utils - INFO - ✅ All required packages available
+2025-06-28 15:10:42,568 - src.utils - INFO - Pipeline validation completed successfully
+2025-06-28 15:10:42,568 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-06-28 15:10:42,568 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-06-28 15:10:42,568 - src.data_preprocessing - INFO - Loading raw data...
+2025-06-28 15:10:42,569 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-28 15:10:42,586 - src.utils - INFO - Data loaded successfully. Shape: (2000, 26)
+2025-06-28 15:10:42,587 - src.data_preprocessing - INFO - Raw data loaded: (2000, 26)
+2025-06-28 15:10:42,587 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.018416
+2025-06-28 15:10:42,587 - src.data_preprocessing - INFO - Analyzing raw data...
+2025-06-28 15:10:42,587 - src.utils - INFO - Analyzing data...
+2025-06-28 15:10:42,659 - src.utils - INFO - Data analysis completed
+2025-06-28 15:10:42,659 - src.utils - INFO - Detecting outliers using iqr method...
+2025-06-28 15:10:42,699 - src.utils - INFO - Outlier detection completed. Found outliers in 25 columns
+2025-06-28 15:10:42,699 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/raw_data_analysis.json
+2025-06-28 15:10:42,703 - src.utils - INFO - JSON saved successfully
+2025-06-28 15:10:42,703 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.135113
+2025-06-28 15:10:42,704 - src.data_preprocessing - INFO - Cleaning data...
+2025-06-28 15:10:42,714 - src.data_preprocessing - ERROR - Preprocessing failed: name 'EXCLUDE_FEATURES' is not defined
+2025-06-28 15:10:42,714 - src.utils - ERROR - Step 1 failed: name 'EXCLUDE_FEATURES' is not defined
+2025-06-28 15:10:42,714 - src.utils - ERROR - Pipeline failed: name 'EXCLUDE_FEATURES' is not defined
+2025-06-28 15:10:42,715 - src.utils - ERROR - Pipeline failed: name 'EXCLUDE_FEATURES' is not defined
+2025-06-28 15:23:13,340 - src.utils - INFO - Validating pipeline setup...
+2025-06-28 15:23:13,341 - src.utils - INFO - ✅ Data file found: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-28 15:23:13,341 - src.utils - INFO - ✅ Configuration validation passed
+2025-06-28 15:23:13,341 - src.utils - INFO - ✅ All required packages available
+2025-06-28 15:23:13,341 - src.utils - INFO - Pipeline validation completed successfully
+2025-06-28 15:23:13,341 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-06-28 15:23:13,341 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-06-28 15:23:13,341 - src.data_preprocessing - INFO - Loading raw data...
+2025-06-28 15:23:13,341 - src.data_preprocessing - ERROR - Preprocessing failed: name 'DATA_PATH' is not defined
+2025-06-28 15:23:13,342 - src.utils - ERROR - Step 1 failed: name 'DATA_PATH' is not defined
+2025-06-28 15:23:13,342 - src.utils - ERROR - Pipeline failed: name 'DATA_PATH' is not defined
+2025-06-28 15:23:13,342 - src.utils - ERROR - Pipeline failed: name 'DATA_PATH' is not defined
+2025-06-28 15:24:53,392 - src.utils - INFO - Validating pipeline setup...
+2025-06-28 15:24:53,393 - src.utils - INFO - ✅ Data file found: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-28 15:24:53,393 - src.utils - INFO - ✅ Configuration validation passed
+2025-06-28 15:24:53,393 - src.utils - INFO - ✅ All required packages available
+2025-06-28 15:24:53,393 - src.utils - INFO - Pipeline validation completed successfully
+2025-06-28 15:24:53,394 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-06-28 15:24:53,394 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-06-28 15:24:53,394 - src.data_preprocessing - INFO - Loading raw data...
+2025-06-28 15:24:53,394 - src.data_preprocessing - ERROR - Preprocessing failed: name 'DATA_PATH' is not defined
+2025-06-28 15:24:53,394 - src.utils - ERROR - Step 1 failed: name 'DATA_PATH' is not defined
+2025-06-28 15:24:53,394 - src.utils - ERROR - Pipeline failed: name 'DATA_PATH' is not defined
+2025-06-28 15:24:53,394 - src.utils - ERROR - Pipeline failed: name 'DATA_PATH' is not defined
+2025-06-28 15:26:05,494 - src.utils - INFO - Validating pipeline setup...
+2025-06-28 15:26:05,495 - src.utils - INFO - ✅ Data file found: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-28 15:26:05,495 - src.utils - INFO - ✅ Configuration validation passed
+2025-06-28 15:26:05,495 - src.utils - INFO - ✅ All required packages available
+2025-06-28 15:26:05,495 - src.utils - INFO - Pipeline validation completed successfully
+2025-06-28 15:26:05,495 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-06-28 15:26:05,495 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-06-28 15:26:05,495 - src.data_preprocessing - INFO - Loading raw data...
+2025-06-28 15:26:05,495 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-28 15:26:05,517 - src.utils - INFO - Data loaded successfully. Shape: (2000, 26)
+2025-06-28 15:26:05,518 - src.data_preprocessing - INFO - Raw data loaded: (2000, 26)
+2025-06-28 15:26:05,518 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.022645
+2025-06-28 15:26:05,519 - src.data_preprocessing - INFO - Analyzing raw data...
+2025-06-28 15:26:05,519 - src.utils - INFO - Analyzing data...
+2025-06-28 15:26:05,589 - src.utils - INFO - Data analysis completed
+2025-06-28 15:26:05,589 - src.utils - INFO - Detecting outliers using iqr method...
+2025-06-28 15:26:05,629 - src.utils - INFO - Outlier detection completed. Found outliers in 25 columns
+2025-06-28 15:26:05,629 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/raw_data_analysis.json
+2025-06-28 15:26:05,632 - src.utils - INFO - JSON saved successfully
+2025-06-28 15:26:05,632 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.137138
+2025-06-28 15:26:05,632 - src.data_preprocessing - INFO - Cleaning data...
+2025-06-28 15:26:05,642 - src.data_preprocessing - INFO - Excluding features for ML: ['ชั้นปี', 'GPA', 'ความพึงพอใจในแผนก', 'หากเลือกใหม่จะเลือกแผนกเดิมไหม']
+2025-06-28 15:26:05,642 - src.utils - INFO - Step 3/6 (50.0%) - Cleaning data - Elapsed: 0:00:00.147220
+2025-06-28 15:26:05,643 - src.data_preprocessing - INFO - Handling missing values...
+2025-06-28 15:26:05,658 - src.data_preprocessing - INFO - Missing values after imputation: 0
+2025-06-28 15:26:05,658 - src.utils - INFO - Step 4/6 (66.7%) - Handling missing values - Elapsed: 0:00:00.162597
+2025-06-28 15:26:05,658 - src.data_preprocessing - INFO - Encoding categorical features...
+2025-06-28 15:26:05,659 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/target_mapping.json
+2025-06-28 15:26:05,660 - src.utils - INFO - JSON saved successfully
+2025-06-28 15:26:05,660 - src.data_preprocessing - INFO - Encoded 0 categorical features
+2025-06-28 15:26:05,660 - src.utils - INFO - Step 5/6 (83.3%) - Encoding categorical features - Elapsed: 0:00:00.164828
+2025-06-28 15:26:05,660 - src.data_preprocessing - INFO - Normalizing features using standard...
+2025-06-28 15:26:05,684 - src.data_preprocessing - INFO - Normalized 25 numeric features
+2025-06-28 15:26:05,684 - src.utils - INFO - Step 6/6 (100.0%) - Normalizing features - Elapsed: 0:00:00.188842
+2025-06-28 15:26:05,684 - src.utils - INFO - Data Preprocessing completed in 0:00:00.188942
+2025-06-28 15:26:05,684 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/data_normalization.csv
+2025-06-28 15:26:05,756 - src.utils - INFO - Data saved successfully
+2025-06-28 15:26:05,756 - src.data_preprocessing - INFO - Creating preprocessing report...
+2025-06-28 15:26:05,756 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/normalization_report.json
+2025-06-28 15:26:05,757 - src.utils - INFO - JSON saved successfully
+2025-06-28 15:26:05,757 - src.data_preprocessing - INFO - Splitting data into train/test sets...
+2025-06-28 15:26:05,758 - src.data_preprocessing - INFO - Excluded 4 features from ML
+2025-06-28 15:26:05,766 - src.data_preprocessing - INFO - Data split - Train: (1600, 21), Test: (400, 21)
+2025-06-28 15:26:05,767 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/data_split_info.json
+2025-06-28 15:26:05,768 - src.utils - INFO - JSON saved successfully
+2025-06-28 15:26:05,769 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/train_data.csv
+2025-06-28 15:26:05,812 - src.utils - INFO - Data saved successfully
+2025-06-28 15:26:05,812 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/test_data.csv
+2025-06-28 15:26:05,825 - src.utils - INFO - Data saved successfully
+2025-06-28 15:26:05,825 - src.data_preprocessing - INFO - Data preprocessing completed successfully
+2025-06-28 15:26:05,826 - src.utils - ERROR - Step 2 failed: name 'logging' is not defined
+2025-06-28 15:26:05,826 - src.utils - ERROR - Pipeline failed: name 'logging' is not defined
+2025-06-28 15:26:05,826 - src.utils - ERROR - Pipeline failed: name 'logging' is not defined
