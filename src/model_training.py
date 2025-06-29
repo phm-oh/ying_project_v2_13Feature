@@ -1,9 +1,9 @@
 # ไฟล์: model_training.py
 # Path: src/model_training.py
-# วัตถุประสงค์: Step 3 - Model Training ด้วย 3 algorithms + 10-fold CV + Confusion Matrix (แก้แล้ว)
+# วัตถุประสงค์: Step 3 - Model Training ด้วย 3 algorithms + 10-fold CV + Confusion Matrix (แก้แล้ว - ลบ statistical tests)
 
 """
-model_training.py - ขั้นตอนการฝึกสอนโมเดลและประเมินผล
+model_training.py - ขั้นตอนการฝึกสอนโมเดลและประเมินผล (เรียบง่าย)
 """
 
 import pandas as pd
@@ -19,7 +19,6 @@ from sklearn.metrics import (
 )
 import matplotlib.pyplot as plt
 import seaborn as sns
-from scipy import stats
 from typing import Dict, Tuple, Any, Optional, Union
 from datetime import datetime
 import warnings
@@ -38,7 +37,7 @@ from .config import *
 from .utils import *
 
 class ModelTrainer:
-    """คลาสสำหรับการฝึกสอนและประเมินโมเดล"""
+    """คลาสสำหรับการฝึกสอนและประเมินโมเดล (เรียบง่าย)"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -98,18 +97,6 @@ class ModelTrainer:
         if 'logistic_regression' in SELECTED_MODELS:
             lr_params = get_model_config('logistic_regression')['params']
             models['Logistic_Regression'] = LogisticRegression(**lr_params)
-        
-        # SVM (ถ้ามีในการตั้งค่า)
-        if 'svm' in SELECTED_MODELS:
-            svm_params = get_model_config('svm')['params']
-            models['SVM'] = SVC(**svm_params)
-        
-        # XGBoost (ถ้าติดตั้งแล้ว)
-        if 'xgboost' in SELECTED_MODELS and XGBOOST_AVAILABLE:
-            xgb_params = get_model_config('xgboost')['params']
-            models['XGBoost'] = XGBClassifier(**xgb_params)
-        elif 'xgboost' in SELECTED_MODELS and not XGBOOST_AVAILABLE:
-            self.logger.warning("XGBoost requested but not available, skipping...")
         
         self.models = models
         self.logger.info(f"Initialized {len(models)} models: {list(models.keys())}")
@@ -279,72 +266,8 @@ class ModelTrainer:
         
         return confusion_matrices
     
-    def statistical_significance_testing(self) -> Dict:
-        """ทดสอบนัยสำคัญทางสถิติระหว่างโมเดล"""
-        self.logger.info("Performing statistical significance testing...")
-        
-        if len(self.cv_results) < 2:
-            self.logger.warning("Need at least 2 models for statistical testing")
-            return {}
-        
-        statistical_tests = {}
-        model_names = list(self.cv_results.keys())
-        
-        # เปรียบเทียบทุกคู่โมเดล
-        for i, model1 in enumerate(model_names):
-            for j, model2 in enumerate(model_names[i+1:], i+1):
-                
-                # ดึง accuracy scores จาก CV
-                scores1 = self.cv_results[model1]['accuracy']['test_scores']
-                scores2 = self.cv_results[model2]['accuracy']['test_scores']
-                
-                # ทดสอบทางสถิติ
-                comparison_key = f"{model1}_vs_{model2}"
-                statistical_tests[comparison_key] = {}
-                
-                # Paired t-test
-                if STATISTICAL_TESTS['paired_ttest']:
-                    t_stat, p_value = stats.ttest_rel(scores1, scores2)
-                    statistical_tests[comparison_key]['paired_ttest'] = {
-                        'statistic': t_stat,
-                        'p_value': p_value,
-                        'significant': p_value < SIGNIFICANCE_LEVEL
-                    }
-                
-                # Wilcoxon signed-rank test
-                if STATISTICAL_TESTS['wilcoxon']:
-                    try:
-                        w_stat, p_value = stats.wilcoxon(scores1, scores2)
-                        statistical_tests[comparison_key]['wilcoxon'] = {
-                            'statistic': w_stat,
-                            'p_value': p_value,
-                            'significant': p_value < SIGNIFICANCE_LEVEL
-                        }
-                    except ValueError:
-                        # ถ้าค่าเท่ากันหมด
-                        statistical_tests[comparison_key]['wilcoxon'] = {
-                            'error': 'All values are identical'
-                        }
-        
-        # Friedman test (สำหรับหลายโมเดล)
-        if len(model_names) >= 3 and STATISTICAL_TESTS['friedman']:
-            all_scores = [self.cv_results[model]['accuracy']['test_scores'] 
-                         for model in model_names]
-            f_stat, p_value = stats.friedmanchisquare(*all_scores)
-            
-            statistical_tests['friedman_test'] = {
-                'statistic': f_stat,
-                'p_value': p_value,
-                'significant': p_value < SIGNIFICANCE_LEVEL,
-                'models_tested': model_names
-            }
-        
-        self.logger.info("Statistical significance testing completed")
-        
-        return statistical_tests
-    
-    def create_training_report(self, confusion_matrices: Dict, statistical_tests: Dict) -> Dict:
-        """สร้างรายงานการฝึกสอนโมเดล"""
+    def create_training_report(self, confusion_matrices: Dict) -> Dict:
+        """สร้างรายงานการฝึกสอนโมเดล (ไม่มี statistical tests)"""
         self.logger.info("Creating training report...")
         
         # สรุปผลการประเมิน
@@ -377,19 +300,19 @@ class ModelTrainer:
         best_model_test = max(model_summary.keys(), 
                              key=lambda x: model_summary[x]['test_performance']['accuracy'])
         
-        # สร้างรายงาน
+        # สร้างรายงาน (ไม่มี statistical tests)
         report = {
             'training_config': {
                 'models_used': list(self.models.keys()),
                 'cv_folds': CV_FOLDS,
                 'scoring_metrics': CV_SCORING_METRICS,
-                'random_state': RANDOM_STATE
+                'random_state': RANDOM_STATE,
+                'statistical_tests_enabled': False  # แสดงว่าไม่ได้ใช้
             },
             'cross_validation_results': self.cv_results,
             'test_evaluation_results': self.evaluation_results,
             'model_summary': model_summary,
             'confusion_matrices': confusion_matrices,
-            'statistical_significance': statistical_tests,
             'best_models': {
                 'best_cv_accuracy': best_model_cv,
                 'best_test_accuracy': best_model_test,
@@ -403,11 +326,11 @@ class ModelTrainer:
         return report
     
     def run_model_training(self) -> Tuple[Dict, Dict]:
-        """รันขั้นตอนการฝึกสอนโมเดลทั้งหมด (เอา decorator ออก)"""
+        """รันขั้นตอนการฝึกสอนโมเดลทั้งหมด (ไม่มี statistical tests)"""
         self.logger.info("Starting model training pipeline...")
         
         try:
-            tracker = ProgressTracker(8, "Model Training")
+            tracker = ProgressTracker(7, "Model Training")  # ลดจาก 8 เป็น 7
             
             # 1. โหลดข้อมูล
             X_train, X_test, y_train, y_test = self.load_selected_data()
@@ -433,12 +356,8 @@ class ModelTrainer:
             confusion_matrices = self.create_confusion_matrices(y_test)
             tracker.update("Creating confusion matrices")
             
-            # 7. ทดสอบนัยสำคัญทางสถิติ
-            statistical_tests = self.statistical_significance_testing()
-            tracker.update("Statistical significance testing")
-            
-            # 8. สร้างรายงานและบันทึกผลลัพธ์
-            report = self.create_training_report(confusion_matrices, statistical_tests)
+            # 7. สร้างรายงานและบันทึกผลลัพธ์ (ไม่มี statistical tests)
+            report = self.create_training_report(confusion_matrices)
             
             # บันทึกไฟล์ผลลัพธ์
             save_json(report, get_output_path('evaluation', 'training_report.json'))
@@ -479,7 +398,7 @@ class ModelTrainer:
                     'Best CV Accuracy': f"{report['best_models']['cv_accuracy']:.4f}",
                     'Best Test Accuracy': f"{report['best_models']['test_accuracy']:.4f}",
                     'Cross-Validation': f"{CV_FOLDS}-fold",
-                    'Statistical Tests': len(statistical_tests)
+                    'Statistical Tests': "Disabled (simplified)"
                 })
             
             self.logger.info("Model training completed successfully")

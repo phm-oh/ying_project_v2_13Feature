@@ -1,9 +1,9 @@
 # ไฟล์: visualization.py
 # Path: src/visualization.py
-# วัตถุประสงค์: สร้างกราฟและการแสดงผลต่างๆ สำหรับการวิเคราะห์ (แก้แล้ว - Fixed Feature Names & Errors)
+# วัตถุประสงค์: สร้างกราฟและการแสดงผลต่างๆ สำหรับการวิเคราะห์ (แก้แล้ว - แก้ title ให้ถูกต้อง)
 
 """
-visualization.py - การสร้างกราฟและการแสดงผลสำหรับการวิเคราะห์
+visualization.py - การสร้างกราฟและการแสดงผลสำหรับการวิเคราะห์ (แก้ title แล้ว)
 """
 
 import pandas as pd
@@ -22,7 +22,7 @@ from .config import *
 from .utils import *
 
 class Visualizer:
-    """คลาสสำหรับการสร้างกราฟและการแสดงผล"""
+    """คลาสสำหรับการสร้างกราฟและการแสดงผล (แก้ title แล้ว)"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -110,13 +110,17 @@ class Visualizer:
         
         return fig
     
-    def plot_feature_importance(self, feature_scores: pd.DataFrame, top_n: int = 15) -> plt.Figure:
-        """สร้างกราฟ Feature Importance"""
+    def plot_feature_importance(self, feature_scores: pd.DataFrame, top_n: int = None) -> plt.Figure:
+        """สร้างกราฟ Feature Importance (แก้ title ให้ถูกต้อง)"""
         self.logger.info("Creating feature importance plot...")
         
         if feature_scores is None or feature_scores.empty:
             self.logger.warning("No feature scores available")
             return None
+        
+        # กำหนด top_n ให้เท่ากับจำนวน features ที่มี (แต่ไม่เกิน 15)
+        if top_n is None:
+            top_n = min(len(feature_scores), 15)
         
         # แปลงชื่อ features เป็นภาษาอังกฤษ
         feature_scores_english = feature_scores.copy()
@@ -133,7 +137,14 @@ class Visualizer:
         bars = ax.barh(top_features['feature'], top_features['importance'], 
                       alpha=0.8, color=sns.color_palette("viridis", len(top_features)))
         
-        ax.set_title(f'Top {top_n} Feature Importance', fontsize=16, fontweight='bold')
+        # แก้ title ให้แสดงจำนวนที่ถูกต้อง
+        actual_count = len(top_features)
+        if actual_count == len(feature_scores):
+            title = f'All {actual_count} Feature Importance'
+        else:
+            title = f'Top {actual_count} Feature Importance'
+        
+        ax.set_title(title, fontsize=16, fontweight='bold')
         ax.set_xlabel('Importance Score')
         ax.invert_yaxis()  # เรียงจากมากไปน้อย
         
@@ -180,7 +191,7 @@ class Visualizer:
                 ax.text(bar.get_x() + bar.get_width()/2., height + 0.01,
                        f'{val:.3f}', ha='center', va='bottom', fontweight='bold')
         
-        # กราฟรวม - Radar Chart แบบง่าย
+        # กราฟรวม
         ax = axes[5]
         x = np.arange(len(models))
         width = 0.15
@@ -298,75 +309,6 @@ class Visualizer:
         
         return fig
     
-    def plot_statistical_significance(self, training_report: Dict) -> plt.Figure:
-        """สร้างกราฟแสดงการทดสอบนัยสำคัญทางสถิติ"""
-        self.logger.info("Creating statistical significance plot...")
-        
-        statistical_tests = training_report.get('statistical_significance', {})
-        
-        if not statistical_tests:
-            self.logger.warning("No statistical test results available")
-            return None
-        
-        # เตรียมข้อมูลสำหรับ heatmap
-        model_names = list(training_report['model_summary'].keys())
-        n_models = len(model_names)
-        
-        if n_models < 2:
-            self.logger.warning("Need at least 2 models for statistical comparison")
-            return None
-        
-        # สร้าง matrix สำหรับ p-values
-        p_value_matrix = np.ones((n_models, n_models))
-        significance_matrix = np.zeros((n_models, n_models))
-        
-        for comparison, tests in statistical_tests.items():
-            if comparison == 'friedman_test':
-                continue
-                
-            model1, model2 = comparison.split('_vs_')
-            try:
-                idx1 = model_names.index(model1)
-                idx2 = model_names.index(model2)
-                
-                # ใช้ p-value จาก paired t-test
-                if 'paired_ttest' in tests:
-                    p_val = tests['paired_ttest']['p_value']
-                    is_significant = tests['paired_ttest']['significant']
-                    
-                    p_value_matrix[idx1, idx2] = p_val
-                    p_value_matrix[idx2, idx1] = p_val
-                    
-                    if is_significant:
-                        significance_matrix[idx1, idx2] = 1
-                        significance_matrix[idx2, idx1] = 1
-                        
-            except ValueError:
-                continue
-        
-        # สร้างกราฟ
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
-        
-        # กราฟ 1: P-values heatmap
-        mask = p_value_matrix == 1  # ซ่อน diagonal
-        sns.heatmap(p_value_matrix, annot=True, fmt='.3f', cmap='RdYlBu_r',
-                   mask=mask, xticklabels=model_names, yticklabels=model_names,
-                   ax=ax1, cbar_kws={'label': 'P-value'})
-        ax1.set_title('Statistical Significance - P-values\n(Lower is more significant)', 
-                     fontsize=14, fontweight='bold')
-        
-        # กราฟ 2: Significance matrix
-        sns.heatmap(significance_matrix, annot=True, fmt='.0f', cmap='RdYlGn',
-                   xticklabels=model_names, yticklabels=model_names,
-                   ax=ax2, cbar_kws={'label': 'Significant (1) / Not Significant (0)'})
-        ax2.set_title(f'Statistical Significance Matrix\n(α = {SIGNIFICANCE_LEVEL})', 
-                     fontsize=14, fontweight='bold')
-        
-        plt.tight_layout()
-        save_plot(fig, 'statistical_significance.png', 'evaluation')
-        
-        return fig
-    
     def plot_training_time_analysis(self, performance_df: pd.DataFrame) -> plt.Figure:
         """สร้างกราฟวิเคราะห์เวลาการฝึกสอน"""
         self.logger.info("Creating training time analysis plot...")
@@ -415,7 +357,7 @@ class Visualizer:
         return fig
     
     def create_summary_dashboard(self, data: Dict) -> plt.Figure:
-        """สร้าง Dashboard สรุปผลลัพธ์ทั้งหมด"""
+        """สร้าง Dashboard สรุปผลลัพธ์ทั้งหมด (แก้ title แล้ว)"""
         self.logger.info("Creating summary dashboard...")
         
         fig = plt.figure(figsize=(20, 16))
@@ -487,7 +429,9 @@ class Visualizer:
         # 4. Feature Importance (ถ้ามี) - แก้ให้แสดงชื่อภาษาอังกฤษ
         if data['feature_scores'] is not None:
             ax4 = fig.add_subplot(gs[2, :2])
-            top_features = data['feature_scores'].head(8).copy()
+            # เลือกจำนวนที่เหมาะสม (แต่ไม่เกิน 8 สำหรับ dashboard)
+            top_n_dashboard = min(8, len(data['feature_scores']))
+            top_features = data['feature_scores'].head(top_n_dashboard).copy()
             
             # แปลงชื่อ features เป็นภาษาอังกฤษ
             top_features['feature_english'] = top_features['feature'].apply(
@@ -495,24 +439,17 @@ class Visualizer:
             )
             
             ax4.barh(top_features['feature_english'], top_features['importance'], alpha=0.8)
-            ax4.set_title('Top Feature Importance', fontsize=14, fontweight='bold')
+            ax4.set_title(f'Top {top_n_dashboard} Feature Importance', fontsize=14, fontweight='bold')
             ax4.set_xlabel('Importance Score')
             ax4.invert_yaxis()
         
-        # 5. Statistical Significance
+        # 5. Pipeline Summary (เรียบง่าย)
         ax5 = fig.add_subplot(gs[2, 2:])
-        stat_tests = training_report.get('statistical_significance', {})
-        significant_comparisons = sum(1 for test_data in stat_tests.values() 
-                                    if isinstance(test_data, dict) and 
-                                    'paired_ttest' in test_data and 
-                                    test_data['paired_ttest'].get('significant', False))
-        total_comparisons = len([k for k in stat_tests.keys() if '_vs_' in k])
-        
-        ax5.text(0.5, 0.7, 'Statistical Significance', ha='center', va='center',
+        ax5.text(0.5, 0.7, 'Pipeline Configuration', ha='center', va='center',
                 fontsize=14, fontweight='bold', transform=ax5.transAxes)
-        ax5.text(0.5, 0.4, f'Significant Differences: {significant_comparisons}/{total_comparisons}', 
+        ax5.text(0.5, 0.4, f'CV Folds: {CV_FOLDS} | Models: {len(models)}', 
                 ha='center', va='center', fontsize=12, transform=ax5.transAxes)
-        ax5.text(0.5, 0.2, f'Significance Level: α = {SIGNIFICANCE_LEVEL}', 
+        ax5.text(0.5, 0.2, f'Method: {FEATURE_SELECTION_METHOD} | Features: {n_features}', 
                 ha='center', va='center', fontsize=10, transform=ax5.transAxes)
         ax5.set_xlim(0, 1)
         ax5.set_ylim(0, 1)
@@ -543,7 +480,7 @@ class Visualizer:
         ax6.axis('off')
         
         # เพิ่ม title หลัก
-        fig.suptitle('Machine Learning Pipeline - Summary Dashboard', 
+        fig.suptitle('Machine Learning Pipeline - Summary Dashboard (Fixed Titles)', 
                     fontsize=20, fontweight='bold', y=0.98)
         
         save_plot(fig, 'summary_dashboard.png', 'comparison')
@@ -551,11 +488,11 @@ class Visualizer:
         return fig
     
     def create_all_visualizations(self) -> Dict:
-        """สร้างกราฟทั้งหมด"""
+        """สร้างกราฟทั้งหมด (แก้ title แล้ว)"""
         self.logger.info("Creating all visualizations...")
         
         try:
-            tracker = ProgressTracker(8, "Visualization")
+            tracker = ProgressTracker(7, "Visualization")  # ลดจาก 8 เป็น 7
             
             # โหลดข้อมูล
             data = self.load_results_data()
@@ -568,8 +505,8 @@ class Visualizer:
             visualizations['feature_selection_comparison'] = fig1
             tracker.update("Feature selection comparison")
             
-            # 2. Feature Importance
-            fig2 = self.plot_feature_importance(data['feature_scores'])
+            # 2. Feature Importance (แก้ title แล้ว)
+            fig2 = self.plot_feature_importance(data['feature_scores'])  # ลบ parameter top_n ออก
             visualizations['feature_importance'] = fig2
             tracker.update("Feature importance")
             
@@ -588,37 +525,33 @@ class Visualizer:
             visualizations['confusion_matrices'] = fig5
             tracker.update("Confusion matrices")
             
-            # 6. Statistical Significance
-            try:
-                fig6 = self.plot_statistical_significance(data['training_report'])
-                visualizations['statistical_significance'] = fig6
-            except Exception as e:
-                self.logger.warning(f"Statistical significance plot failed: {str(e)}")
-                visualizations['statistical_significance'] = None
-            tracker.update("Statistical significance")
-            
-            # 7. Training Time Analysis
-            fig7 = self.plot_training_time_analysis(data['performance_df'])
-            visualizations['training_time'] = fig7
+            # 6. Training Time Analysis
+            fig6 = self.plot_training_time_analysis(data['performance_df'])
+            visualizations['training_time'] = fig6
             tracker.update("Training time analysis")
             
-            # 8. Summary Dashboard
-            fig8 = self.create_summary_dashboard(data)
-            visualizations['summary_dashboard'] = fig8
+            # 7. Summary Dashboard
+            fig7 = self.create_summary_dashboard(data)
+            visualizations['summary_dashboard'] = fig7
             tracker.update("Summary dashboard")
             
             tracker.finish()
             
             if VERBOSE:
+                plots_created = len([v for v in visualizations.values() if v is not None])
+                total_features = len(data['feature_scores']) if data['feature_scores'] is not None else 0
+                
                 print_summary("Visualization Results", {
-                    'Plots Created': len([v for v in visualizations.values() if v is not None]),
+                    'Plots Created': plots_created,
                     'Feature Selection Plots': 2,
-                    'Model Evaluation Plots': 4,
+                    'Model Evaluation Plots': 3,
                     'Summary Plots': 2,
+                    'Total Features in Dataset': total_features,
+                    'Title Fix': "Auto-adjusts to actual feature count",
                     'Output Directory': get_output_path('comparison', '')
                 })
             
-            self.logger.info("All visualizations created successfully")
+            self.logger.info("All visualizations created successfully with correct titles")
             
             return visualizations
             

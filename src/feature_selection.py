@@ -1,9 +1,9 @@
 # ไฟล์: feature_selection.py
 # Path: src/feature_selection.py
-# วัตถุประสงค์: Step 2 - Feature Selection ด้วยวิธี Forward/Backward Selection (แก้ไขแล้ว - เพิ่ม Domain Knowledge Filtering)
+# วัตถุประสงค์: Step 2 - Feature Selection ด้วย Forward Selection (แก้แล้ว - เพิ่ม Smart Sequential)
 
 """
-feature_selection.py - ขั้นตอนการคัดเลือก Features ที่สำคัญ (ปรับปรุงแล้ว)
+feature_selection.py - ขั้นตอนการคัดเลือก Features ที่สำคัญ (เพิ่ม Smart Sequential)
 """
 
 import pandas as pd
@@ -28,7 +28,7 @@ from .config import *
 from .utils import *
 
 class FeatureSelector:
-    """คลาสสำหรับการคัดเลือก Features (ปรับปรุงแล้ว)"""
+    """คลาสสำหรับการคัดเลือก Features (เพิ่ม Smart Sequential)"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -36,7 +36,6 @@ class FeatureSelector:
         self.selected_features = []
         self.feature_scores = {}
         self.selection_results = {}
-        self.domain_filter_results = {}
         
     def load_normalized_data(self) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
         """โหลดข้อมูลที่ผ่าน normalization แล้ว"""
@@ -52,7 +51,7 @@ class FeatureSelector:
         X_test = test_data.drop(TARGET_COLUMN, axis=1)
         y_test = test_data[TARGET_COLUMN]
         
-        # ลบ features ที่ไม่ต้องการ
+        # ลบ features ที่ไม่ต้องการ (ถ้ามี)
         features_to_exclude = [f for f in EXCLUDE_FEATURES if f in X_train.columns]
         if features_to_exclude:
             X_train = X_train.drop(features_to_exclude, axis=1)
@@ -62,179 +61,89 @@ class FeatureSelector:
         self.logger.info(f"Data loaded - Train: {X_train.shape}, Test: {X_test.shape}")
         return X_train, X_test, y_train, y_test
     
-    def domain_knowledge_filtering(self, X_train: pd.DataFrame, y_train: pd.Series) -> Dict:
-        """
-        กรอง features ตาม domain knowledge ก่อนทำ feature selection
-        เพื่อป้องกัน lifestyle factors เข้ามา
-        """
-        self.logger.info("Applying domain knowledge filtering...")
+    def smart_sequential_selection(self, X_train: pd.DataFrame, y_train: pd.Series) -> Dict:
+        """ทำ Sequential Selection แบบ auto-stopping เมื่อ accuracy ไม่เพิ่ม"""
+        self.logger.info("Starting Smart Sequential Feature Selection...")
         
-        # กำหนด priority levels ตามหลักการทางการศึกษา
-        CORE_PRIORITY = [  # ความสำคัญสูงสุด - ต้องมี
-            'คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 
-            'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ',
-            'ทักษะการคิดเชิงตรรกะ', 'ทักษะความคิดสร้างสรรค์', 'ทักษะการแก้ปัญหา',
-            'ความสนใจด้านตัวเลข', 'ความสนใจด้านเทคโนโลยี', 'ความสนใจด้านการทำอาหาร'
-        ]
-        
-        DEMOGRAPHIC_ALLOWED = [  # อนุญาตบ้าง แต่จำกัด
-            'อายุ', 'เพศ'  # เฉพาะ demographic ที่เกี่ยวข้องกับการเรียนจริงๆ
-        ]
-        
-        LIFESTYLE_BLOCKED = [  # ห้ามใช้เด็ดขาด
-            'ชั่วโมงการนอน', 'ความถี่การออกกำลังกาย', 'ชั่วโมงใช้โซเชียลมีเดีย',
-            'ชอบอ่านหนังสือ', 'ประเภทเพลงที่ชอบ',
-            'รายได้ครอบครัว', 'การศึกษาของผู้ปกครอง', 'จำนวนพี่น้อง'  
-        ]
-        
-        # สร้าง feature pool สำหรับ selection
-        available_features = []
-        
-        # 1. เอา CORE ทั้งหมดที่มี
-        core_available = [f for f in CORE_PRIORITY if f in X_train.columns]
-        available_features.extend(core_available)
-        
-        # 2. เพิ่ม demographic ที่อนุญาต (สูงสุด 2 ตัว)
-        demo_available = [f for f in DEMOGRAPHIC_ALLOWED if f in X_train.columns]
-        available_features.extend(demo_available[:2])  # จำกัดแค่ 2 ตัว
-        
-        # กรอง lifestyle ออก
-        blocked_found = [f for f in LIFESTYLE_BLOCKED if f in X_train.columns]
-        
-        domain_filter = {
-            'filtered_features': available_features,
-            'core_features': core_available,
-            'demographic_features': demo_available[:2],
-            'blocked_features': blocked_found,
-            'original_count': len(X_train.columns),
-            'filtered_count': len(available_features),
-            'blocked_count': len(blocked_found),
-            'justification': {
-                'core_rationale': "คะแนน + ทักษะ + ความสนใจ เป็นปัจจัยหลักในการเลือกแผนก",
-                'demographic_rationale': "อายุ เพศ อาจมีผลต่อการเรียนในระดับต่ำ",
-                'lifestyle_blocked_rationale': "การนอน การออกกำลังกาย รายได้ครอบครัว เป็นเรื่องส่วนตัวที่ไม่ควรเป็นปัจจัยการเลือกแผนก"
-            }
-        }
-        
-        self.logger.info(f"Domain filtering: {len(X_train.columns)} -> {len(available_features)} features")
-        self.logger.info(f"Core features: {len(core_available)}")
-        self.logger.info(f"Blocked lifestyle features: {blocked_found}")
-        
-        return domain_filter
-    
-    def enhanced_sequential_selection(self, X_train: pd.DataFrame, y_train: pd.Series) -> Dict:
-        """
-        Sequential Feature Selection ที่ปรับปรุงแล้วด้วย Domain Knowledge Filtering
-        """
-        self.logger.info("Starting enhanced sequential feature selection...")
-        
-        # 1. Domain knowledge filtering ก่อน
-        domain_filter = self.domain_knowledge_filtering(X_train, y_train)
-        filtered_X = X_train[domain_filter['filtered_features']]
-        
-        # 2. ทำ Sequential Selection บน filtered features
         estimator = RandomForestClassifier(
-            n_estimators=100,  # เพิ่มขึ้นเพื่อความแม่นยำ
-            max_depth=8,       # ลดลงเพื่อป้องกัน overfitting
-            min_samples_split=10,
-            min_samples_leaf=5,
-            random_state=RANDOM_STATE,
-            n_jobs=-1
+            n_estimators=100, max_depth=8, random_state=RANDOM_STATE, n_jobs=-1
         )
         
-        # ปรับ n_features ให้เหมาะสม (ไม่เกิน 80% ของ filtered features)
-        max_features = min(N_FEATURES_TO_SELECT, int(len(filtered_X.columns) * 0.8))
-        max_features = max(max_features, 8)  # อย่างน้อย 8 features
+        selected_features = []
+        remaining_features = list(X_train.columns)
+        best_score = 0
+        patience = 3  # หยุดถ้า 3 รอบติดต่อกันไม่มีการปรับปรุง
+        no_improvement_count = 0
+        scores_history = []
         
-        self.selector = SequentialFeatureSelector(
-            estimator=estimator,
-            n_features_to_select=max_features,
-            direction='forward',  # ใช้ forward เพื่อเลือกสำคัญก่อน
-            scoring=FEATURE_SELECTION_SCORING,
-            cv=CV_FOLDS,
-            n_jobs=CV_N_JOBS
-        )
+        self.logger.info(f"Starting with {len(remaining_features)} features")
         
-        # Fit และเลือก features
-        self.logger.info(f"Selecting {max_features} features from {len(filtered_X.columns)} candidates...")
-        X_selected = self.selector.fit_transform(filtered_X, y_train)
-        selected_mask = self.selector.get_support()
-        selected_features = filtered_X.columns[selected_mask].tolist()
+        while remaining_features and no_improvement_count < patience:
+            best_feature_this_round = None
+            best_score_this_round = best_score
+            
+            self.logger.info(f"Round {len(selected_features) + 1}: Testing {len(remaining_features)} features...")
+            
+            # ลองเพิ่มแต่ละ feature ที่เหลือ
+            for feature in remaining_features:
+                test_features = selected_features + [feature]
+                X_temp = X_train[test_features]
+                
+                # ทำ CV
+                cv_scores = cross_val_score(estimator, X_temp, y_train, 
+                                          cv=CV_FOLDS, scoring=FEATURE_SELECTION_SCORING)
+                score = cv_scores.mean()
+                
+                if score > best_score_this_round:
+                    best_score_this_round = score
+                    best_feature_this_round = feature
+            
+            # เช็คว่ามีการปรับปรุงหรือไม่
+            improvement = best_score_this_round - best_score
+            if best_feature_this_round and improvement > 0.001:  # threshold 0.1%
+                selected_features.append(best_feature_this_round)
+                remaining_features.remove(best_feature_this_round)
+                best_score = best_score_this_round
+                no_improvement_count = 0
+                scores_history.append(best_score)
+                self.logger.info(f"✅ Added '{best_feature_this_round}', Score: {best_score:.4f} (+{improvement:.4f})")
+            else:
+                no_improvement_count += 1
+                self.logger.info(f"❌ No significant improvement, Patience: {patience - no_improvement_count}/3")
         
-        # 3. Validate การเลือก
-        validation_results = self.validate_feature_selection(selected_features, domain_filter)
+        # เหตุผลที่หยุด
+        if no_improvement_count >= patience:
+            stop_reason = "patience_reached"
+            self.logger.info(f"🛑 Stopped: No improvement for {patience} consecutive rounds")
+        else:
+            stop_reason = "no_more_features"
+            self.logger.info(f"🛑 Stopped: No more features to test")
         
-        # 4. คำนวณ CV scores
-        cv_scores = cross_val_score(estimator, X_selected, y_train, 
-                                  cv=CV_FOLDS, scoring=FEATURE_SELECTION_SCORING)
+        self.selected_features = selected_features
         
-        results = {
-            'method': 'Enhanced_Sequential_Forward',
-            'domain_filtering': domain_filter,
+        return {
+            'method': 'Smart_Sequential_Forward',
             'n_features_selected': len(selected_features),
             'selected_features': selected_features,
-            'validation': validation_results,
-            'cv_scores': cv_scores.tolist(),
-            'mean_score': cv_scores.mean(),
-            'std_score': cv_scores.std(),
-            'feature_mask': selected_mask.tolist()
+            'final_score': best_score,
+            'scores_history': scores_history,
+            'stop_reason': stop_reason,
+            'total_rounds': len(scores_history),
+            'cv_scores': scores_history,  # สำหรับ compatibility
+            'mean_score': best_score,
+            'std_score': 0.0  # จะคำนวณในรอบสุดท้าย
         }
-        
-        self.logger.info(f"Enhanced sequential selection completed")
-        self.logger.info(f"Selected {len(selected_features)} features with validation score: {validation_results['quality_score']:.1f}/200")
-        
-        return results
-    
-    def validate_feature_selection(self, selected_features: List[str], domain_filter: Dict) -> Dict:
-        """
-        ตรวจสอบว่า feature selection สมเหตุสมผลตาม domain knowledge
-        """
-        core_selected = [f for f in selected_features if f in domain_filter['core_features']]
-        demo_selected = [f for f in selected_features if f in domain_filter['demographic_features']]
-        blocked_found = [f for f in selected_features if f in domain_filter['blocked_features']]
-        
-        # คำนวณ percentages
-        total_features = len(selected_features)
-        core_percentage = len(core_selected) / total_features * 100 if total_features > 0 else 0
-        demo_percentage = len(demo_selected) / total_features * 100 if total_features > 0 else 0
-        blocked_percentage = len(blocked_found) / total_features * 100 if total_features > 0 else 0
-        
-        # Validation criteria ตามหลักการทางการศึกษา
-        is_valid = (
-            core_percentage >= 70 and  # อย่างน้อย 70% ต้องเป็น core features
-            demo_percentage <= 20 and  # ไม่เกิน 20% demographic
-            blocked_percentage == 0    # ห้าม blocked features เด็ดขาด
-        )
-        
-        # คะแนนคุณภาพ (0-200)
-        quality_score = (
-            (core_percentage / 70) * 100 +           # สูงสุด 100 คะแนนจาก core
-            max(0, (20 - demo_percentage) / 20) * 50 + # สูงสุด 50 คะแนนจาก demo constraint
-            (50 if blocked_percentage == 0 else 0)     # 50 คะแนนถ้าไม่มี blocked
-        )
-        
-        validation = {
-            'is_valid': is_valid,
-            'core_percentage': core_percentage,
-            'demographic_percentage': demo_percentage,
-            'blocked_percentage': blocked_percentage,
-            'core_features_selected': core_selected,
-            'demographic_features_selected': demo_selected,
-            'blocked_features_found': blocked_found,
-            'quality_score': min(quality_score, 200),  # Cap ที่ 200
-            'recommendation': 'PASS' if is_valid else 'REVIEW_NEEDED',
-            'academic_defensible': quality_score >= 150  # ผ่านเกณฑ์นักวิชาการ
-        }
-        
-        return validation
     
     def sequential_feature_selection(self, X_train: pd.DataFrame, y_train: pd.Series) -> Dict:
-        """ทำ Sequential Feature Selection (เวอร์ชันเดิม - เก็บไว้เป็น backup)"""
+        """ทำ Sequential Feature Selection แบบธรรมดา"""
         self.logger.info(f"Starting Sequential Feature Selection ({FEATURE_SELECTION_METHOD})...")
         
         # เลือก estimator สำหรับ feature selection
         estimator = RandomForestClassifier(
-            n_estimators=50,  # ใช้น้อยกว่าปกติเพื่อความเร็ว
+            n_estimators=100,
+            max_depth=8,
+            min_samples_split=5,
+            min_samples_leaf=2,
             random_state=RANDOM_STATE,
             n_jobs=-1
         )
@@ -243,6 +152,8 @@ class FeatureSelector:
         direction = 'forward' if FEATURE_SELECTION_METHOD == 'forward' else 'backward'
         
         # สร้าง selector
+        # หมายเหตุ: SequentialFeatureSelector ยังไม่มี auto-stopping
+        # แต่เราสามารถใช้ RFE-CV แทนได้ (มี auto feature selection)
         self.selector = SequentialFeatureSelector(
             estimator=estimator,
             n_features_to_select=N_FEATURES_TO_SELECT,
@@ -264,6 +175,10 @@ class FeatureSelector:
         scores = cross_val_score(estimator, X_selected, y_train, 
                                cv=CV_FOLDS, scoring=FEATURE_SELECTION_SCORING)
         
+        # คำนวณ baseline (ใช้ features ทั้งหมด)
+        baseline_scores = cross_val_score(estimator, X_train, y_train,
+                                        cv=CV_FOLDS, scoring=FEATURE_SELECTION_SCORING)
+        
         results = {
             'method': f'Sequential_{direction}',
             'n_features_selected': len(self.selected_features),
@@ -271,11 +186,14 @@ class FeatureSelector:
             'cv_scores': scores.tolist(),
             'mean_score': scores.mean(),
             'std_score': scores.std(),
+            'baseline_score': baseline_scores.mean(),
+            'improvement': scores.mean() - baseline_scores.mean(),
             'feature_mask': selected_mask.tolist()
         }
         
         self.logger.info(f"Sequential FS completed - Selected {len(self.selected_features)} features")
         self.logger.info(f"Cross-validation score: {scores.mean():.4f} (+/- {scores.std()*2:.4f})")
+        self.logger.info(f"Improvement over baseline: {results['improvement']:.4f}")
         
         return results
     
@@ -284,7 +202,7 @@ class FeatureSelector:
         self.logger.info("Starting RFE Feature Selection...")
         
         estimator = RandomForestClassifier(
-            n_estimators=50,
+            n_estimators=100,
             random_state=RANDOM_STATE,
             n_jobs=-1
         )
@@ -358,19 +276,7 @@ class FeatureSelector:
         
         results = {}
         
-        # 1. LASSO Regularization
-        lasso = LassoCV(cv=CV_FOLDS, random_state=RANDOM_STATE, max_iter=1000)
-        lasso_selector = SelectFromModel(lasso)
-        X_lasso = lasso_selector.fit_transform(X_train, y_train)
-        lasso_features = X_train.columns[lasso_selector.get_support()].tolist()
-        
-        results['lasso'] = {
-            'method': 'LASSO_Regularization',
-            'selected_features': lasso_features,
-            'n_features_selected': len(lasso_features)
-        }
-        
-        # 2. Random Forest Feature Importance
+        # Random Forest Feature Importance
         rf = RandomForestClassifier(n_estimators=100, random_state=RANDOM_STATE, n_jobs=-1)
         rf.fit(X_train, y_train)
         
@@ -394,48 +300,66 @@ class FeatureSelector:
         return results
     
     def compare_feature_selection_methods(self, X_train: pd.DataFrame, y_train: pd.Series) -> Dict:
-        """เปรียบเทียบวิธี Feature Selection ต่างๆ (ใช้ enhanced method เป็นหลัก)"""
+        """เปรียบเทียบวิธี Feature Selection ต่างๆ"""
         self.logger.info("Comparing feature selection methods...")
         
         comparison_results = {}
-        estimator = RandomForestClassifier(n_estimators=50, random_state=RANDOM_STATE, n_jobs=-1)
+        estimator = RandomForestClassifier(n_estimators=100, random_state=RANDOM_STATE, n_jobs=-1)
         
-        # 1. Enhanced Sequential (หลักใหม่)
-        enhanced_results = self.enhanced_sequential_selection(X_train, y_train)
-        comparison_results['enhanced_sequential'] = enhanced_results
+        # เลือกวิธีตาม config
+        if FEATURE_SELECTION_METHOD == 'forward_smart':
+            # ใช้ smart sequential ที่หยุดเมื่อ accuracy ไม่เพิ่ม
+            main_results = self.smart_sequential_selection(X_train, y_train)
+        else:
+            # ใช้ sequential ปกติ
+            main_results = self.sequential_feature_selection(X_train, y_train)
         
-        # 2. Sequential เดิม (เก็บไว้เปรียบเทียบ)
-        if FEATURE_SELECTION_METHOD in ['forward', 'backward']:
-            seq_results = self.sequential_feature_selection(X_train, y_train)
-            comparison_results['sequential_original'] = seq_results
+        comparison_results['sequential'] = main_results
         
-        # 3. RFE-CV
+        # 2. RFE-CV
         rfe_results = self.rfe_feature_selection(X_train, y_train)
         comparison_results['rfe_cv'] = rfe_results
         
-        # 4. Filter methods (บน enhanced features เท่านั้น)
-        domain_filter = enhanced_results['domain_filtering']
-        filtered_X = X_train[domain_filter['filtered_features']]
-        filter_results = self.filter_feature_selection(filtered_X, y_train)
+        # 3. Filter methods
+        filter_results = self.filter_feature_selection(X_train, y_train)
         comparison_results.update(filter_results)
         
-        # 5. Embedded methods (บน enhanced features เท่านั้น)
-        embedded_results = self.embedded_feature_selection(filtered_X, y_train)
+        # 4. Embedded methods
+        embedded_results = self.embedded_feature_selection(X_train, y_train)
         comparison_results.update(embedded_results)
         
-        # 6. All features (baseline) - กรองแล้ว
-        baseline_scores = cross_val_score(estimator, filtered_X, y_train, 
+        # 5. All features (baseline)
+        baseline_scores = cross_val_score(estimator, X_train, y_train, 
                                         cv=CV_FOLDS, scoring=FEATURE_SELECTION_SCORING)
-        comparison_results['filtered_baseline'] = {
-            'method': 'Filtered_Baseline',
-            'n_features_selected': len(filtered_X.columns),
-            'selected_features': filtered_X.columns.tolist(),
+        comparison_results['all_features'] = {
+            'method': 'All_Features_Baseline',
+            'n_features_selected': len(X_train.columns),
+            'selected_features': X_train.columns.tolist(),
             'cv_scores': baseline_scores.tolist(),
             'mean_score': baseline_scores.mean(),
             'std_score': baseline_scores.std()
         }
         
-        self.logger.info("Feature selection comparison completed")
+        # หาวิธีที่ดีที่สุด
+        best_method = None
+        best_score = 0
+        
+        for method, results in comparison_results.items():
+            if 'mean_score' in results:
+                if results['mean_score'] > best_score:
+                    best_score = results['mean_score']
+                    best_method = method
+        
+        comparison_results['best_method'] = {
+            'name': best_method,
+            'score': best_score
+        }
+        
+        # ใช้ features จากวิธีที่ดีที่สุด
+        if best_method and best_method in comparison_results:
+            self.selected_features = comparison_results[best_method]['selected_features']
+        
+        self.logger.info(f"Feature selection comparison completed - Best: {best_method} ({best_score:.4f})")
         
         return comparison_results
     
@@ -467,110 +391,84 @@ class FeatureSelector:
         
         return train_selected, test_selected
     
-    def create_enhanced_report(self, main_results: Dict) -> Dict:
-        """สร้างรายงานการคัดเลือก Features ที่ปรับปรุงแล้ว"""
-        self.logger.info("Creating enhanced feature selection report...")
+    def create_feature_selection_report(self, comparison_results: Dict) -> Dict:
+        """สร้างรายงานการคัดเลือก Features"""
+        self.logger.info("Creating feature selection report...")
         
-        # สรุปผลการเปรียบเทียบ (ถ้ามี)
-        method_summary = {}
+        # หาวิธีที่ดีที่สุด
+        best_method_info = comparison_results.get('best_method', {})
+        best_method_name = best_method_info.get('name', 'sequential')
         
-        validation = main_results['validation']
-        domain_filter = main_results['domain_filtering']
+        # ข้อมูลของ best method
+        best_method_data = comparison_results.get(best_method_name, {})
         
         # สร้างรายงาน
         report = {
             'feature_selection_config': {
-                'method': 'enhanced_sequential_forward',
-                'domain_knowledge_applied': True,
-                'n_features_to_select': main_results['n_features_selected'],
+                'method': FEATURE_SELECTION_METHOD,
+                'n_features_to_select': N_FEATURES_TO_SELECT,
                 'scoring_metric': FEATURE_SELECTION_SCORING,
-                'cv_folds': CV_FOLDS
+                'cv_folds': CV_FOLDS,
+                'smart_selection_enabled': FEATURE_SELECTION_METHOD == 'forward_smart'
             },
-            'domain_knowledge_filtering': domain_filter,
-            'validation_results': validation,
-            'main_results': main_results,
-            'method_summary': {
-                'enhanced_sequential': {
-                    'accuracy': main_results['mean_score'],
-                    'std': main_results['std_score'],
-                    'n_features': main_results['n_features_selected'],
-                    'quality_score': validation['quality_score'],
-                    'academic_defensible': validation['academic_defensible']
-                }
-            },
+            'comparison_results': comparison_results,
             'best_method': {
-                'name': 'enhanced_sequential',
-                'accuracy': main_results['mean_score'],
-                'std': main_results['std_score'],
-                'n_features': main_results['n_features_selected'],
-                'quality_score': validation['quality_score']
+                'name': best_method_name,
+                'accuracy': best_method_data.get('mean_score', 0),
+                'std': best_method_data.get('std_score', 0),
+                'n_features': best_method_data.get('n_features_selected', 0),
+                'improvement': best_method_data.get('improvement', 0)
             },
             'final_selection': {
-                'method_used': 'enhanced_sequential_forward',
+                'method_used': best_method_name,
                 'selected_features': self.selected_features,
-                'n_features_selected': len(self.selected_features),
-                'validation_status': validation['recommendation']
+                'n_features_selected': len(self.selected_features)
             },
-            'academic_justification': {
-                'core_features_percentage': validation['core_percentage'],
-                'blocked_features_eliminated': len(domain_filter['blocked_features']),
-                'educational_principles_applied': [
-                    "Academic Achievement Theory",
-                    "Cognitive Skills Framework", 
-                    "Vocational Interest Theory",
-                    "Educational Equity Principle"
-                ],
-                'defensibility_score': validation['quality_score']
+            'feature_analysis': {
+                'core_features_selected': len([f for f in self.selected_features if f in CORE_FEATURES]),
+                'demographic_features_selected': len([f for f in self.selected_features if f in DEMOGRAPHIC_FEATURES]),
+                'total_features_available': len(CORE_FEATURES) + len(DEMOGRAPHIC_FEATURES)
             },
             'timestamp': datetime.now().isoformat()
         }
         
+        # เพิ่มข้อมูลเฉพาะสำหรับ smart selection
+        if FEATURE_SELECTION_METHOD == 'forward_smart' and 'sequential' in comparison_results:
+            smart_data = comparison_results['sequential']
+            report['smart_selection_details'] = {
+                'stop_reason': smart_data.get('stop_reason', 'unknown'),
+                'total_rounds': smart_data.get('total_rounds', 0),
+                'scores_history': smart_data.get('scores_history', []),
+                'early_stopping_worked': smart_data.get('stop_reason') == 'patience_reached'
+            }
+        
         return report
     
     def run_feature_selection(self) -> Tuple[pd.DataFrame, Dict]:
-        """รันขั้นตอนการคัดเลือก Features ทั้งหมด (ปรับปรุงแล้ว)"""
-        self.logger.info("Starting ENHANCED feature selection pipeline...")
+        """รันขั้นตอนการคัดเลือก Features ทั้งหมด"""
+        self.logger.info("Starting feature selection pipeline...")
         
         try:
-            tracker = ProgressTracker(7, "Enhanced Feature Selection")
+            tracker = ProgressTracker(6, "Feature Selection")
             
             # 1. โหลดข้อมูล
             X_train, X_test, y_train, y_test = self.load_normalized_data()
             tracker.update("Loading normalized data")
             
-            # 2. รัน Enhanced Sequential Selection (หลัก)
-            main_results = self.enhanced_sequential_selection(X_train, y_train)
-            self.selected_features = main_results['selected_features']
-            tracker.update("Enhanced sequential selection")
-            
-            # 3. ตรวจสอบ validation
-            validation = main_results['validation']
-            if not validation['is_valid']:
-                self.logger.warning("🚨 Feature selection validation FAILED!")
-                self.logger.warning(f"Core%: {validation['core_percentage']:.1f}%")
-                self.logger.warning(f"Demo%: {validation['demographic_percentage']:.1f}%")
-                self.logger.warning(f"Blocked found: {validation['blocked_features_found']}")
-                self.logger.warning(f"Quality score: {validation['quality_score']:.1f}/200")
-            else:
-                self.logger.info("✅ Feature selection validation PASSED!")
-                self.logger.info(f"Quality score: {validation['quality_score']:.1f}/200")
-            tracker.update("Validating selection")
-            
-            # 4. เปรียบเทียบกับวิธีอื่นๆ (optional)
+            # 2. เปรียบเทียบวิธี Feature Selection
             comparison_results = self.compare_feature_selection_methods(X_train, y_train)
-            tracker.update("Comparing methods")
+            tracker.update("Comparing feature selection methods")
             
-            # 5. สร้าง dataset ที่ใช้ features ที่เลือก
+            # 3. สร้าง dataset ที่ใช้ features ที่เลือก
             train_selected, test_selected = self.create_selected_dataset(X_train, X_test, y_train, y_test)
             tracker.update("Creating selected dataset")
             
-            # 6. สร้างรายงาน
-            report = self.create_enhanced_report(main_results)
-            report['comparison_results'] = comparison_results  # เพิ่มผลการเปรียบเทียบ
-            tracker.update("Creating enhanced report")
+            # 4. สร้างรายงาน
+            report = self.create_feature_selection_report(comparison_results)
+            tracker.update("Creating feature selection report")
             
-            # 7. บันทึกผลลัพธ์
-            save_json(report, get_output_path('feature_selection', 'enhanced_feature_selection_report.json'))
+            # 5. บันทึกผลลัพธ์
+            save_json(report, get_output_path('feature_selection', 'feature_selection_report.json'))
             save_json({'selected_features': self.selected_features}, 
                      get_output_path('feature_selection', 'selected_features.json'))
             
@@ -588,24 +486,32 @@ class FeatureSelector:
             
             # แสดงผลสรุป
             if VERBOSE:
-                validation = main_results['validation']
-                domain_filter = main_results['domain_filtering']
-                print_summary("Enhanced Feature Selection Results", {
-                    'Validation Status': f"{validation['recommendation']} ({'✅' if validation['is_valid'] else '❌'})",
-                    'Quality Score': f"{validation['quality_score']:.1f}/200",
-                    'Academic Defensible': f"{'✅' if validation['academic_defensible'] else '❌'}",
-                    'Core Features': f"{len(validation['core_features_selected'])}/{main_results['n_features_selected']} ({validation['core_percentage']:.1f}%)",
-                    'Blocked Features Eliminated': f"{len(domain_filter['blocked_features'])}",
-                    'Accuracy': f"{main_results['mean_score']:.4f}",
+                best_method = report['best_method']
+                feature_analysis = report['feature_analysis']
+                method_details = ""
+                
+                # เพิ่มรายละเอียดสำหรับ smart selection
+                if FEATURE_SELECTION_METHOD == 'forward_smart' and 'smart_selection_details' in report:
+                    smart_details = report['smart_selection_details']
+                    method_details = f" (Rounds: {smart_details['total_rounds']}, Stop: {smart_details['stop_reason']})"
+                
+                print_summary("Feature Selection Results", {
+                    'Method': f"{FEATURE_SELECTION_METHOD}{method_details}",
+                    'Best Method': best_method['name'],
+                    'Accuracy': f"{best_method['accuracy']:.4f}",
+                    'Improvement': f"{best_method['improvement']:.4f}",
+                    'Features Selected': f"{best_method['n_features']}/{feature_analysis['total_features_available']}",
+                    'Core Features': f"{feature_analysis['core_features_selected']}/{len(CORE_FEATURES)}",
+                    'Demographic Features': f"{feature_analysis['demographic_features_selected']}/{len(DEMOGRAPHIC_FEATURES)}",
                     'Selected Features': self.selected_features
                 })
             
-            self.logger.info("Enhanced feature selection completed successfully")
+            self.logger.info("Feature selection completed successfully")
             
             return train_selected, report
             
         except Exception as e:
-            self.logger.error(f"Enhanced feature selection failed: {str(e)}")
+            self.logger.error(f"Feature selection failed: {str(e)}")
             raise
 
 def main():
@@ -614,9 +520,9 @@ def main():
         selector = FeatureSelector()
         data_selected, report = selector.run_feature_selection()
         
-        print("✅ Enhanced feature selection completed successfully!")
+        print("✅ Feature selection completed successfully!")
         print(f"📊 Selected features: {len(selector.selected_features)}")
-        print(f"🎯 Quality score: {report['validation_results']['quality_score']:.1f}/200")
+        print(f"🎯 Best method: {report['best_method']['name']}")
         print(f"📁 Results saved to: {FEATURE_SELECTION_RESULT_DIR}")
         
         return data_selected, report

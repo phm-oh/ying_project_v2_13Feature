@@ -5,13 +5,12 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-def generate_realistic_student_dataset(n_samples=1789, base_accuracy=0.80, target_after_selection=0.87, seed=42):
+def generate_simplified_student_dataset(n_samples=1789, base_accuracy=0.80, target_after_selection=0.87, seed=42):
     """
-    สร้างชุดข้อมูลนักเรียนแบบสมจริง - จำลองข้อมูลจากสภาพจริงในโรงเรียน
+    สร้างชุดข้อมูลนักเรียนแบบเรียบง่าย - โฟกัสที่ academic performance
     
     หลักการ: ข้อมูลการเลือกแผนกควรขึ้นอยู่กับ academic performance และ interests เป็นหลัก
-    ส่วน lifestyle factors (การนอน, ออกกำลังกาย, โซเชียลมีเดีย) เป็นเรื่องส่วนตัว
-    ที่ไม่ควรมีผลต่อการเลือกแผนกเรียน ตามหลักการศึกษาที่ดี
+    ลบ lifestyle factors และ validation features ออกเพื่อลดความซับซ้อน
     """
     
     np.random.seed(seed)
@@ -35,48 +34,14 @@ def generate_realistic_student_dataset(n_samples=1789, base_accuracy=0.80, targe
     interest_technology = np.round(np.random.uniform(1, 10, n_samples), 1)
     interest_cooking = np.round(np.random.uniform(1, 10, n_samples), 1)
     
-    # ========== DEMOGRAPHIC FEATURES (ข้อมูลทั่วไป - มีผลต่อการเรียนบ้างแต่น้อย) ==========
-    # สร้างแบบ semi-independent จาก core features เพื่อความสมจริง
+    # ========== DEMOGRAPHIC FEATURES (ข้อมูลทั่วไป - จำกัดเฉพาะที่จำเป็น) ==========
     np.random.seed(seed * 3 + 1000)  # ใช้ seed ต่างออกไป
     age = np.random.randint(16, 20, n_samples)
     gender = np.random.choice([0, 1], n_samples)  # 0: ชาย, 1: หญิง
-    family_income = np.random.choice([1, 2, 3, 4, 5], n_samples)  # 1=ต่ำ, 5=สูง
-    parent_education = np.random.choice([1, 2, 3, 4], n_samples)  # 1=ประถม, 4=ปริญญาตรี+
-    siblings_count = np.random.randint(0, 4, n_samples)  # จำนวนพี่น้อง
-    
-    # ========== LIFESTYLE FEATURES (วิถีชีวิต - เป็นส่วนตัวไม่เกี่ยวข้องกับการเรียน) ==========
-    # สร้างแบบ COMPLETELY INDEPENDENT จากการเลือกแผนก เพื่อสะท้อนความเป็นจริง
-    # ว่าวิถีชีวิตส่วนตัวไม่ควรมีผลต่อการเลือกแผนกเรียน
-    
-    # ใช้ seed แยกต่างหากสำหรับ lifestyle เพื่อให้เป็นอิสระจาก academic factors
-    np.random.seed(seed * 7 + 12345)  # seed ที่แตกต่างมาก
-    
-    # สร้าง lifestyle data ตามการกระจายตัวแบบธรรมชาติ
-    # ไม่มีความสัมพันธ์กับการเลือกแผนก (สะท้อนความเป็นจริง)
-    sleep_hours = np.round(np.random.normal(7.5, 1.2, n_samples), 1)  # Normal distribution รอบ 7.5 ชม.
-    sleep_hours = np.clip(sleep_hours, 5.0, 10.0)  # จำกัดให้อยู่ในช่วงสมเหตุสมผล
-    
-    exercise_frequency = np.random.poisson(2.5, n_samples)  # Poisson distribution เฉลี่ย 2-3 วัน/สัปดาห์
-    exercise_frequency = np.clip(exercise_frequency, 0, 7)
-    
-    social_media_hours = np.round(np.random.exponential(3, n_samples), 1)  # Exponential หลายคนใช้น้อย บางคนใช้เยอะ
-    social_media_hours = np.clip(social_media_hours, 0.5, 8.0)
-    
-    reading_hobby = np.random.choice([0, 1], n_samples, p=[0.65, 0.35])  # 35% ชอบอ่านหนังสือ
-    
-    music_preference = np.random.choice([1, 2, 3, 4], n_samples, p=[0.4, 0.3, 0.2, 0.1])  # Pop มากสุด
-    
-    # เพื่อความแน่ใจ ให้ shuffle ข้อมูล lifestyle แต่ละตัวแยกกัน
-    np.random.shuffle(sleep_hours)
-    np.random.shuffle(exercise_frequency) 
-    np.random.shuffle(social_media_hours)
-    
-    # กลับมาใช้ seed เดิมสำหรับการสร้าง target
-    np.random.seed(seed)
     
     # สร้าง DataFrame
     data = {
-        # === CORE FEATURES (ความสัมพันธ์สูง) ===
+        # === CORE FEATURES ===
         'คะแนนคณิตศาสตร์': math_score,
         'คะแนนคอมพิวเตอร์': computer_score,
         'คะแนนภาษาไทย': language_score,
@@ -89,19 +54,9 @@ def generate_realistic_student_dataset(n_samples=1789, base_accuracy=0.80, targe
         'ความสนใจด้านเทคโนโลยี': interest_technology,
         'ความสนใจด้านการทำอาหาร': interest_cooking,
         
-        # === DEMOGRAPHIC FEATURES (ความสัมพันธ์น้อย) ===
+        # === DEMOGRAPHIC FEATURES ===
         'อายุ': age,
-        'เพศ': gender,
-        'รายได้ครอบครัว': family_income,
-        'การศึกษาของผู้ปกครอง': parent_education,
-        'จำนวนพี่น้อง': siblings_count,
-        
-        # === LIFESTYLE FEATURES (ไม่มีความสัมพันธ์) ===
-        'ชั่วโมงการนอน': sleep_hours,
-        'ความถี่การออกกำลังกาย': exercise_frequency,
-        'ชั่วโมงใช้โซเชียลมีเดีย': social_media_hours,
-        'ชอบอ่านหนังสือ': reading_hobby,
-        'ประเภทเพลงที่ชอบ': music_preference,
+        'เพศ': gender
     }
     
     df = pd.DataFrame(data)
@@ -110,32 +65,32 @@ def generate_realistic_student_dataset(n_samples=1789, base_accuracy=0.80, targe
     
     # 1. แผนกบัญชี - เน้นคณิต + ตรรกะ + ตัวเลข
     accounting_score = (
-        1.8 * df['คะแนนคณิตศาสตร์'] +        # เพิ่มน้ำหนัก
-        1.5 * df['ทักษะการคิดเชิงตรรกะ'] +   # เพิ่มน้ำหนัก
-        1.2 * df['ความสนใจด้านตัวเลข'] +
-        0.6 * df['คะแนนภาษาไทย']
+        2.0 * df['คะแนนคณิตศาสตร์'] +
+        1.8 * df['ทักษะการคิดเชิงตรรกะ'] +
+        1.5 * df['ความสนใจด้านตัวเลข'] +
+        0.8 * df['คะแนนภาษาไทย']
     )
     
     # 2. แผนกสารสนเทศ - เน้นคอมพิวเตอร์ + เทคโนโลยี + แก้ปัญหา  
     it_score = (
-        1.8 * df['คะแนนคอมพิวเตอร์'] +        # เพิ่มน้ำหนัก
-        1.5 * df['ความสนใจด้านเทคโนโลยี'] +
-        1.3 * df['ทักษะการแก้ปัญหา'] +       # เพิ่มน้ำหนัก
-        1.0 * df['ทักษะการคิดเชิงตรรกะ'] +
-        0.6 * df['คะแนนวิทยาศาสตร์']
+        2.0 * df['คะแนนคอมพิวเตอร์'] +
+        1.8 * df['ความสนใจด้านเทคโนโลยี'] +
+        1.5 * df['ทักษะการแก้ปัญหา'] +
+        1.2 * df['ทักษะการคิดเชิงตรรกะ'] +
+        0.8 * df['คะแนนวิทยาศาสตร์']
     )
     
     # 3. แผนกอาหาร - เน้นความคิดสร้างสรรค์ + การทำอาหาร + ศิลปะ
     food_score = (
-        1.8 * df['ความสนใจด้านการทำอาหาร'] +  # เพิ่มน้ำหนัก
-        1.5 * df['ทักษะความคิดสร้างสรรค์'] +  # เพิ่มน้ำหนัก
-        1.2 * df['คะแนนศิลปะ'] +
-        0.8 * df['คะแนนวิทยาศาสตร์'] +
-        0.6 * df['คะแนนภาษาไทย']
+        2.0 * df['ความสนใจด้านการทำอาหาร'] +
+        1.8 * df['ทักษะความคิดสร้างสรรค์'] +
+        1.5 * df['คะแนนศิลปะ'] +
+        1.0 * df['คะแนนวิทยาศาสตร์'] +
+        0.8 * df['คะแนนภาษาไทย']
     )
     
-    # เพิ่ม noise แต่ลดลง เพื่อให้ signal ชัดขึ้น
-    noise_strength = (1.0 - base_accuracy) * 10  # ลดลงจาก 15 เป็น 10
+    # เพิ่ม noise เพื่อความสมจริง
+    noise_strength = (1.0 - base_accuracy) * 8
     accounting_score += np.random.normal(0, noise_strength, n_samples)
     it_score += np.random.normal(0, noise_strength, n_samples)
     food_score += np.random.normal(0, noise_strength, n_samples)
@@ -150,48 +105,6 @@ def generate_realistic_student_dataset(n_samples=1789, base_accuracy=0.80, targe
     department = scores.idxmax(axis=1)
     df['แผนก'] = department
     
-    # ========== เพิ่มข้อมูลที่ขาดไป (สำหรับ Validation) ==========
-    
-    # สร้างชั้นปี (ปวช.1-3) - INDEPENDENT จากทุกอย่าง
-    np.random.seed(seed * 11 + 3000)  # seed แยกต่างหาก
-    study_year = np.random.choice([1, 2, 3], n_samples, p=[0.4, 0.35, 0.25])
-    df['ชั้นปี'] = study_year
-    
-    # สร้าง GPA ที่มีความสัมพันธ์กับความเหมาะสมของแผนก (ไม่ใช้ lifestyle factors)
-    np.random.seed(seed)  # กลับมาใช้ seed เดิม
-    max_scores = scores.max(axis=1)
-    second_max_scores = scores.apply(lambda x: x.nlargest(2).iloc[1], axis=1)
-    decision_margin = max_scores - second_max_scores
-    
-    # GPA ขึ้นอยู่กับ academic performance เท่านั้น (ไม่ใช้ lifestyle)
-    base_gpa = 2.5 + (decision_margin / decision_margin.max()) * 1.5
-    year_effect = (4 - study_year) * 0.1  # ชั้นปีสูงกว่า GPA ดีกว่า (เรียนนานขึ้น)
-    random_noise = np.random.normal(0, 0.3, n_samples)
-    
-    gpa = np.clip(base_gpa + year_effect + random_noise, 1.0, 4.0)
-    gpa = np.round(gpa, 2)
-    df['GPA'] = gpa
-    
-    # สร้างความพึงพอใจ - ขึ้นอยู่กับ GPA และ decision margin เท่านั้น (ไม่ใช้ lifestyle)
-    satisfaction_base = 3.0
-    satisfaction_from_gpa = (gpa - 2.5) * 0.8
-    satisfaction_from_margin = (decision_margin / decision_margin.max()) * 1.5
-    random_satisfaction_noise = np.random.normal(0, 0.4, n_samples)
-    
-    satisfaction = satisfaction_base + satisfaction_from_gpa + satisfaction_from_margin + random_satisfaction_noise
-    satisfaction = np.clip(satisfaction, 1, 5)
-    satisfaction = np.round(satisfaction)
-    df['ความพึงพอใจในแผนก'] = satisfaction.astype(int)
-    
-    # สร้างคำตอบ "หากเลือกใหม่จะเลือกแผนกเดิมไหม" - ขึ้นอยู่กับ satisfaction และ GPA เท่านั้น
-    probability_same_choice = (satisfaction - 1) / 4 * 0.7 + (gpa - 1) / 3 * 0.3
-    choice_prob = np.random.random(n_samples)
-    choice_again = np.where(choice_prob < probability_same_choice, 
-                           np.random.choice([1, 2], n_samples, p=[0.6, 0.4]),
-                           np.random.choice([3, 4, 5], n_samples, p=[0.3, 0.4, 0.3]))
-    
-    df['หากเลือกใหม่จะเลือกแผนกเดิมไหม'] = choice_again
-    
     # ========== ทดสอบประสิทธิภาพ ==========
     
     # แบ่งกลุ่ม features สำหรับทดสอบ
@@ -202,11 +115,7 @@ def generate_realistic_student_dataset(n_samples=1789, base_accuracy=0.80, targe
     ]
     
     demographic_features = [
-        'อายุ', 'เพศ', 'รายได้ครอบครัว', 'การศึกษาของผู้ปกครอง', 'จำนวนพี่น้อง'
-    ]
-    
-    lifestyle_features = [
-        'ชั่วโมงการนอน', 'ความถี่การออกกำลังกาย', 'ชั่วโมงใช้โซเชียลมีเดีย', 'ชอบอ่านหนังสือ', 'ประเภทเพลงที่ชอบ'
+        'อายุ', 'เพศ'
     ]
     
     X = df.drop('แผนก', axis=1)
@@ -229,15 +138,12 @@ def generate_realistic_student_dataset(n_samples=1789, base_accuracy=0.80, targe
     accuracy_core = accuracy_score(y_test, y_pred_core)
     
     # แสดงผลลัพธ์
-    print(f"สร้างชุดข้อมูลนักเรียน {n_samples} คน (แบบสมจริง)")
+    print(f"สร้างชุดข้อมูลนักเรียน {n_samples} คน (แบบเรียบง่าย)")
     print(f"การแยกประเภทข้อมูล:")
-    print(f"• Academic & Skills: มีผลต่อการเลือกแผนก")  
-    print(f"• Demographics: มีผลบ้างแต่น้อย")
-    print(f"• Lifestyle: เป็นเรื่องส่วนตัว ไม่เกี่ยวข้องกับการเรียน")
+    print(f"• Core Features: {len(core_features)} features - คะแนน, ทักษะ, ความสนใจ")  
+    print(f"• Demographic Features: {len(demographic_features)} features - อายุ, เพศ")
     print(f"จำนวนนักเรียนในแต่ละแผนก:")
     print(df['แผนก'].value_counts())
-    print(f"จำนวนนักเรียนในแต่ละชั้นปี:")
-    print(df['ชั้นปี'].value_counts())
     
     print(f"\n📊 ผลการทดสอบ:")
     print(f"🔍 ใช้ Features ทั้งหมด ({len(X.columns)} features): {accuracy_all:.3f}")
@@ -256,8 +162,6 @@ def generate_realistic_student_dataset(n_samples=1789, base_accuracy=0.80, targe
                 feature_types.append('Core')
             elif feature in demographic_features:
                 feature_types.append('Demographic')  
-            elif feature in lifestyle_features:
-                feature_types.append('Lifestyle')
             else:
                 feature_types.append('Additional')
         
@@ -272,56 +176,38 @@ def generate_realistic_student_dataset(n_samples=1789, base_accuracy=0.80, targe
             'Importance': model_core.feature_importances_
         }).sort_values('Importance', ascending=False)
         
-        print("\n🏆 Top 15 Most Important Features (Random Forest Analysis):")
-        print(feature_imp_all.head(15)[['Feature', 'Importance', 'Type']])
+        print("\n🏆 Top 10 Most Important Features (Random Forest Analysis):")
+        print(feature_imp_all.head(10)[['Feature', 'Importance', 'Type']])
         
-        print("\n🎯 Core Academic & Skills Features Ranking:")
+        print("\n🎯 Core Features Ranking:")
         print(feature_imp_core.head(11))
         
-        # ตรวจสอบว่า Lifestyle Features ยังติด Top 15 หรือไม่
-        top_15 = feature_imp_all.head(15)
-        lifestyle_in_top15 = top_15[top_15['Type'] == 'Lifestyle']
-        if len(lifestyle_in_top15) > 0:
-            print(f"\n⚠️  หมายเหตุ: พบ Lifestyle Features ใน Top 15:")
-            print(lifestyle_in_top15[['Feature', 'Importance']])
-            print(f"    (อาจเป็นเพราะ pattern บังเอิญ หรือ noise ในข้อมูล)")
+        # ตรวจสอบว่า Demographic Features ยังติด Top 10 หรือไม่
+        top_10 = feature_imp_all.head(10)
+        demographic_in_top10 = top_10[top_10['Type'] == 'Demographic']
+        if len(demographic_in_top10) > 0:
+            print(f"\n📝 หมายเหตุ: พบ Demographic Features ใน Top 10:")
+            print(demographic_in_top10[['Feature', 'Importance']])
         else:
-            print(f"\n✅ ผลลัพธ์ตามที่คาดหวัง: ไม่มี Lifestyle Features ใน Top 15")
-            print(f"    สะท้อนความเป็นจริงที่วิถีชีวิตไม่ควรมีผลต่อการเลือกแผนก")
+            print(f"\n✅ ผลลัพธ์ตามที่คาดหวัง: Core Features ครองตำแหน่งหลัก")
         
-        # ตรวจสอบ correlation ระหว่าง lifestyle features กับ target
-        print(f"\n🔍 การตรวจสอบ Correlation ระหว่าง Lifestyle กับการเลือกแผนก:")
-        from sklearn.preprocessing import LabelEncoder
-        le = LabelEncoder()
-        target_encoded = le.fit_transform(df['แผนก'])
-        
-        lifestyle_correlations = {}
-        for feature in lifestyle_features:
-            if feature in df.columns:
-                corr = np.corrcoef(df[feature], target_encoded)[0, 1]
-                lifestyle_correlations[feature] = corr
-                print(f"   {feature}: {corr:.4f}")
-        
-        # ตรวจสอบว่า correlation ต่ำกว่า threshold หรือไม่
-        max_lifestyle_corr = max([abs(corr) for corr in lifestyle_correlations.values()])
-        if max_lifestyle_corr < 0.1:
-            print(f"✅ Lifestyle correlations ต่ำ (< 0.1) ตามที่คาดหวัง")
-            print(f"   สะท้อนว่าการนอน/ออกกำลังกาย/โซเชียลมีเดีย ไม่เกี่ยวข้องกับการเลือกแผนก")
-        else:
-            print(f"⚠️  พบ correlation สูงกว่าที่ควร: {max_lifestyle_corr:.4f}")
-            print(f"   อาจต้องตรวจสอบการสร้างข้อมูลเพิ่มเติม")
+        # ตรวจสอบการกระจายของ target
+        print(f"\n🔍 การกระจายของแผนกเรียน:")
+        dept_dist = df['แผนก'].value_counts(normalize=True) * 100
+        for dept, pct in dept_dist.items():
+            print(f"   {dept}: {pct:.1f}%")
     
-    return df, accuracy_all, accuracy_core, feature_imp_all, feature_imp_core, core_features, demographic_features, lifestyle_features
+    return df, accuracy_all, accuracy_core, feature_imp_all, feature_imp_core, core_features, demographic_features
 
 if __name__ == "__main__":
-    print("=== สร้างชุดข้อมูลนักเรียนแบบสมจริง ===")
+    print("=== สร้างชุดข้อมูลนักเรียนแบบเรียบง่าย ===")
     
-    df, acc_all, acc_core, feat_imp_all, feat_imp_core, core_feat, demo_feat, life_feat = generate_realistic_student_dataset()
+    df, acc_all, acc_core, feat_imp_all, feat_imp_core, core_feat, demo_feat = generate_simplified_student_dataset()
     
     # บันทึกไฟล์
     df.to_csv('student_realistic_data.csv', index=False, encoding='utf-8-sig')
     print(f"\n💾 บันทึกไฟล์ student_realistic_data.csv เรียบร้อยแล้ว")
     print(f"📝 Total Features: {len(df.columns)-1}")
     print(f"📊 Total Rows: {len(df)}")
-    print(f"\n🎯 Dataset สร้างตามหลักการที่ lifestyle ไม่ควรมีผลต่อการเลือกแผนก")
+    print(f"\n🎯 Dataset เรียบง่าย โฟกัสที่ academic performance")
     print(f"✅ พร้อมใช้งานสำหรับ Machine Learning Pipeline")

@@ -1,15 +1,14 @@
 # ไฟล์: model_comparison.py
 # Path: src/model_comparison.py
-# วัตถุประสงค์: Step 4 - Model Comparison และสรุปผลลัพธ์สุดท้าย (แก้แล้ว)
+# วัตถุประสงค์: Step 4 - Model Comparison และสรุปผลลัพธ์สุดท้าย (แก้แล้ว - ลบ statistical analysis)
 
 """
-model_comparison.py - การเปรียบเทียบโมเดลและสรุปผลลัพธ์สุดท้าย
+model_comparison.py - การเปรียบเทียบโมเดลและสรุปผลลัพธ์สุดท้าย (เรียบง่าย)
 """
 
 import pandas as pd
 import numpy as np
 import logging
-from scipy import stats
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from typing import Dict, Tuple, Any, Optional, Union
 from datetime import datetime
@@ -21,7 +20,7 @@ from .config import *
 from .utils import *
 
 class ModelComparator:
-    """คลาสสำหรับการเปรียบเทียบโมเดลและสรุปผลลัพธ์"""
+    """คลาสสำหรับการเปรียบเทียบโมเดลและสรุปผลลัพธ์ (เรียบง่าย)"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -63,7 +62,7 @@ class ModelComparator:
         return results
     
     def analyze_feature_selection_impact(self, results: Dict) -> Dict:
-        """วิเคราะห์ผลกระทบของ Feature Selection"""
+        """วิเคราะห์ผลกระทบของ Feature Selection (เรียบง่าย)"""
         self.logger.info("Analyzing feature selection impact...")
         
         feature_report = results['feature_selection_report']
@@ -111,10 +110,8 @@ class ModelComparator:
         feature_group_analysis = {
             'core_features_selected': len([f for f in selected_features if f in CORE_FEATURES]),
             'demographic_features_selected': len([f for f in selected_features if f in DEMOGRAPHIC_FEATURES]),
-            'lifestyle_features_selected': len([f for f in selected_features if f in LIFESTYLE_FEATURES]),
             'core_features_percentage': len([f for f in selected_features if f in CORE_FEATURES]) / len(CORE_FEATURES) * 100,
-            'demographic_features_percentage': len([f for f in selected_features if f in DEMOGRAPHIC_FEATURES]) / len(DEMOGRAPHIC_FEATURES) * 100,
-            'lifestyle_features_percentage': len([f for f in selected_features if f in LIFESTYLE_FEATURES]) / len(LIFESTYLE_FEATURES) * 100
+            'demographic_features_percentage': len([f for f in selected_features if f in DEMOGRAPHIC_FEATURES]) / len(DEMOGRAPHIC_FEATURES) * 100
         }
         
         impact_analysis['feature_group_analysis'] = feature_group_analysis
@@ -123,7 +120,7 @@ class ModelComparator:
         return impact_analysis
     
     def comprehensive_model_comparison(self, results: Dict) -> Dict:
-        """เปรียบเทียบโมเดลอย่างละเอียด"""
+        """เปรียบเทียบโมเดลอย่างละเอียด (เรียบง่าย)"""
         self.logger.info("Performing comprehensive model comparison...")
         
         performance_df = results['performance_df']
@@ -159,7 +156,7 @@ class ModelComparator:
                 'total_time': model_data['Training_Time'] + model_data['Prediction_Time']
             }
             
-            # ความเสถียร
+            # ความเสถียร (ง่ายๆ)
             stability_metrics = {
                 'cv_accuracy_cv': cv_data.get('accuracy', {}).get('test_std', 0) / cv_data.get('accuracy', {}).get('test_mean', 1),  # Coefficient of variation
                 'overfitting_indicator': cv_data.get('accuracy', {}).get('train_mean', 0) - cv_data.get('accuracy', {}).get('test_mean', 0)
@@ -167,10 +164,10 @@ class ModelComparator:
             
             # คะแนนรวม (weighted score)
             weights = {
-                'accuracy': 0.4,
-                'stability': 0.25,
-                'speed': 0.2,
-                'precision': 0.15
+                'accuracy': 0.5,     # เพิ่มน้ำหนัก accuracy
+                'stability': 0.2,    # ลดน้ำหนัก stability  
+                'speed': 0.15,       # ลดน้ำหนัก speed
+                'precision': 0.15    # ลดน้ำหนัก precision
             }
             
             # Normalize scores to 0-1
@@ -235,116 +232,8 @@ class ModelComparator:
         self.logger.info("Comprehensive model comparison completed")
         return comparison
     
-    def statistical_analysis_detailed(self, results: Dict) -> Dict:
-        """วิเคราะห์ทางสถิติละเอียด"""
-        self.logger.info("Performing detailed statistical analysis...")
-        
-        cv_results = results['cv_results']
-        training_report = results['training_report']
-        statistical_tests = training_report.get('statistical_significance', {})
-        
-        models = list(cv_results.keys())
-        
-        detailed_analysis = {
-            'descriptive_statistics': {},
-            'effect_sizes': {},
-            'confidence_intervals': {},
-            'pairwise_comparisons': {},
-            'overall_analysis': {}
-        }
-        
-        # Descriptive statistics
-        for model in models:
-            scores = cv_results[model]['accuracy']['test_scores']
-            detailed_analysis['descriptive_statistics'][model] = {
-                'mean': np.mean(scores),
-                'std': np.std(scores),
-                'min': np.min(scores),
-                'max': np.max(scores),
-                'median': np.median(scores),
-                'q25': np.percentile(scores, 25),
-                'q75': np.percentile(scores, 75),
-                'iqr': np.percentile(scores, 75) - np.percentile(scores, 25),
-                'skewness': stats.skew(scores),
-                'kurtosis': stats.kurtosis(scores)
-            }
-        
-        # Effect sizes และ confidence intervals
-        for i, model1 in enumerate(models):
-            for j, model2 in enumerate(models[i+1:], i+1):
-                scores1 = cv_results[model1]['accuracy']['test_scores']
-                scores2 = cv_results[model2]['accuracy']['test_scores']
-                
-                # Cohen's d (effect size)
-                pooled_std = np.sqrt(((len(scores1) - 1) * np.var(scores1, ddof=1) + 
-                                     (len(scores2) - 1) * np.var(scores2, ddof=1)) / 
-                                    (len(scores1) + len(scores2) - 2))
-                cohens_d = (np.mean(scores1) - np.mean(scores2)) / pooled_std
-                
-                # Confidence interval for difference
-                diff_mean = np.mean(scores1) - np.mean(scores2)
-                diff_std = np.sqrt(np.var(scores1, ddof=1)/len(scores1) + np.var(scores2, ddof=1)/len(scores2))
-                t_critical = stats.t.ppf(1 - SIGNIFICANCE_LEVEL/2, len(scores1) + len(scores2) - 2)
-                ci_lower = diff_mean - t_critical * diff_std
-                ci_upper = diff_mean + t_critical * diff_std
-                
-                comparison_key = f"{model1}_vs_{model2}"
-                detailed_analysis['effect_sizes'][comparison_key] = {
-                    'cohens_d': cohens_d,
-                    'effect_size_interpretation': self._interpret_effect_size(abs(cohens_d))
-                }
-                
-                detailed_analysis['confidence_intervals'][comparison_key] = {
-                    'difference_mean': diff_mean,
-                    'ci_lower': ci_lower,
-                    'ci_upper': ci_upper,
-                    'contains_zero': ci_lower <= 0 <= ci_upper
-                }
-        
-        # Pairwise comparisons from statistical tests
-        for comparison, test_results in statistical_tests.items():
-            if '_vs_' in comparison:
-                detailed_analysis['pairwise_comparisons'][comparison] = test_results
-        
-        # Overall analysis
-        all_scores = [cv_results[model]['accuracy']['test_scores'] for model in models]
-        
-        # ANOVA test
-        f_stat, p_value_anova = stats.f_oneway(*all_scores)
-        
-        # Friedman test (already done but include here)
-        friedman_result = statistical_tests.get('friedman_test', {})
-        
-        detailed_analysis['overall_analysis'] = {
-            'anova_test': {
-                'f_statistic': f_stat,
-                'p_value': p_value_anova,
-                'significant': p_value_anova < SIGNIFICANCE_LEVEL
-            },
-            'friedman_test': friedman_result,
-            'number_of_models': len(models),
-            'total_comparisons': len(models) * (len(models) - 1) // 2,
-            'significant_differences': sum(1 for comp_data in detailed_analysis['pairwise_comparisons'].values()
-                                         if isinstance(comp_data, dict) and 
-                                         comp_data.get('paired_ttest', {}).get('significant', False))
-        }
-        
-        self.logger.info("Detailed statistical analysis completed")
-        return detailed_analysis
-    
-    def _interpret_effect_size(self, effect_size: float) -> str:
-        """แปลความหมาย effect size (Cohen's d)"""
-        if effect_size < 0.2:
-            return "Negligible"
-        elif effect_size < 0.5:
-            return "Small"
-        elif effect_size < 0.8:
-            return "Medium"
-        else:
-            return "Large"
-    
-    def generate_recommendations(self, comparison: Dict, feature_impact: Dict, statistical_analysis: Dict) -> Dict:
-        """สร้างคำแนะนำและข้อสรุป"""
+    def generate_recommendations(self, comparison: Dict, feature_impact: Dict) -> Dict:
+        """สร้างคำแนะนำและข้อสรุป (เรียบง่าย)"""
         self.logger.info("Generating recommendations...")
         
         best_model = comparison['summary']['best_overall']
@@ -372,11 +261,11 @@ class ModelComparator:
                 'memory_considerations': "ไม่มีข้อจำกัดพิเศษ",
                 'retraining_frequency': "ทุก 6 เดือน หรือเมื่อข้อมูลเปลี่ยนแปลงมาก"
             },
-            'limitations_and_warnings': {
-                'dataset_size': f"ข้อมูลขนาด {2000} records อาจไม่เพียงพอสำหรับการใช้งานจริง",
-                'synthetic_data': "ข้อมูลที่ใช้เป็น synthetic data อาจไม่สะท้อนความซับซ้อนของข้อมูลจริง",
-                'generalization': "ผลลัพธ์อาจไม่สามารถ generalize ไปยังประชากรอื่นได้",
-                'feature_stability': "ควรตรวจสอบความเสถียรของ features ในข้อมูลจริง"
+            'key_findings': {
+                'feature_selection_impact': f"Feature selection ช่วยปรับปรุง accuracy {feature_impact['improvement']['accuracy_improvement_percent']:.2f}% และลด features {feature_impact['improvement']['feature_reduction_percent']:.1f}%",
+                'best_performing_model': f"{best_model} ให้ประสิทธิภาพดีที่สุดด้วย test accuracy {comparison[best_model]['performance_metrics']['test_accuracy']:.4f}",
+                'feature_groups_importance': self._analyze_feature_groups(feature_impact['feature_group_analysis']),
+                'model_comparison_summary': f"ทดสอบ {len(comparison)-1} โมเดล ด้วย {CV_FOLDS}-fold cross-validation"
             },
             'next_steps': {
                 'immediate': [
@@ -392,16 +281,6 @@ class ModelComparator:
             }
         }
         
-        # สรุปข้อค้นพบสำคัญ
-        key_findings = {
-            'feature_selection_impact': f"Feature selection ช่วยปรับปรุง accuracy {feature_impact['improvement']['accuracy_improvement_percent']:.2f}% และลด features {feature_impact['improvement']['feature_reduction_percent']:.1f}%",
-            'best_performing_model': f"{best_model} ให้ประสิทธิภาพดีที่สุดด้วย test accuracy {comparison[best_model]['performance_metrics']['test_accuracy']:.4f}",
-            'statistical_significance': f"พบความแตกต่างอย่างมีนัยสำคัญใน {statistical_analysis['overall_analysis']['significant_differences']} จาก {statistical_analysis['overall_analysis']['total_comparisons']} การเปรียบเทียบ",
-            'feature_groups_importance': self._analyze_feature_groups(feature_impact['feature_group_analysis'])
-        }
-        
-        recommendations['key_findings'] = key_findings
-        
         self.logger.info("Recommendations generated")
         return recommendations
     
@@ -409,26 +288,24 @@ class ModelComparator:
         """วิเคราะห์ความสำคัญของกลุ่ม features"""
         core_pct = feature_group_analysis['core_features_percentage']
         demo_pct = feature_group_analysis['demographic_features_percentage']
-        life_pct = feature_group_analysis['lifestyle_features_percentage']
         
         if core_pct > 80:
             return f"Core features มีความสำคัญสูงสุด ({core_pct:.1f}% ถูกเลือก)"
         elif demo_pct > 60:
             return f"Demographic features มีความสำคัญสูง ({demo_pct:.1f}% ถูกเลือก)"
         else:
-            return f"Features จากทุกกลุ่มมีความสำคัญ (Core: {core_pct:.1f}%, Demographic: {demo_pct:.1f}%, Lifestyle: {life_pct:.1f}%)"
+            return f"Features จากทั้งสองกลุ่มมีความสำคัญ (Core: {core_pct:.1f}%, Demographic: {demo_pct:.1f}%)"
     
     def create_final_report(self, results: Dict, feature_impact: Dict, 
-                          comparison: Dict, statistical_analysis: Dict, 
-                          recommendations: Dict) -> Dict:
-        """สร้างรายงานสุดท้าย"""
+                          comparison: Dict, recommendations: Dict) -> Dict:
+        """สร้างรายงานสุดท้าย (เรียบง่าย)"""
         self.logger.info("Creating final comprehensive report...")
         
         # สรุปข้อมูลหลัก
         dataset_summary = {
-            'original_features': len(CORE_FEATURES) + len(DEMOGRAPHIC_FEATURES) + len(LIFESTYLE_FEATURES),
+            'original_features': len(CORE_FEATURES) + len(DEMOGRAPHIC_FEATURES),
             'selected_features': feature_impact['final_selection_performance']['n_features'],
-            'total_samples': 2000,  # จาก config
+            'total_samples': 1789,  # จาก dataset
             'target_classes': 3,  # บัญชี, สารสนเทศ, อาหาร
             'preprocessing_method': NORMALIZATION_METHOD,
             'feature_selection_method': FEATURE_SELECTION_METHOD,
@@ -441,8 +318,7 @@ class ModelComparator:
             'best_accuracy': max([comparison[model]['performance_metrics']['test_accuracy'] 
                                 for model in comparison.keys() if model != 'summary']),
             'feature_selection_improvement': feature_impact['improvement']['accuracy_improvement_percent'],
-            'feature_reduction': feature_impact['improvement']['feature_reduction_percent'],
-            'statistical_significance_found': statistical_analysis['overall_analysis']['significant_differences'] > 0
+            'feature_reduction': feature_impact['improvement']['feature_reduction_percent']
         }
         
         # Performance summary table
@@ -468,14 +344,14 @@ class ModelComparator:
                     'feature_selection': FEATURE_SELECTION_METHOD,
                     'models_compared': len(comparison) - 1,  # -1 for 'summary' key
                     'cv_folds': CV_FOLDS,
-                    'random_state': RANDOM_STATE
+                    'random_state': RANDOM_STATE,
+                    'statistical_analysis': False  # แสดงว่าไม่ได้ใช้
                 }
             },
             'dataset_summary': dataset_summary,
             'main_results': main_results,
             'feature_selection_analysis': feature_impact,
             'model_comparison': comparison,
-            'statistical_analysis': statistical_analysis,
             'performance_summary': performance_summary,
             'recommendations': recommendations,
             'conclusions': {
@@ -490,11 +366,11 @@ class ModelComparator:
         return final_report
     
     def run_comprehensive_comparison(self) -> Dict:
-        """รันการเปรียบเทียบอย่างครอบคลุม (เอา decorator ออก)"""
+        """รันการเปรียบเทียบอย่างครอบคลุม (เรียบง่าย)"""
         self.logger.info("Starting comprehensive model comparison...")
         
         try:
-            tracker = ProgressTracker(7, "Model Comparison")
+            tracker = ProgressTracker(6, "Model Comparison")  # ลดจาก 7 เป็น 6
             
             # 1. โหลดผลลัพธ์ทั้งหมด
             results = self.load_all_results()
@@ -508,24 +384,18 @@ class ModelComparator:
             comparison = self.comprehensive_model_comparison(results)
             tracker.update("Comprehensive model comparison")
             
-            # 4. วิเคราะห์ทางสถิติละเอียด
-            statistical_analysis = self.statistical_analysis_detailed(results)
-            tracker.update("Detailed statistical analysis")
-            
-            # 5. สร้างคำแนะนำ
-            recommendations = self.generate_recommendations(comparison, feature_impact, statistical_analysis)
+            # 4. สร้างคำแนะนำ
+            recommendations = self.generate_recommendations(comparison, feature_impact)
             tracker.update("Generating recommendations")
             
-            # 6. สร้างรายงานสุดท้าย
-            final_report = self.create_final_report(results, feature_impact, comparison, 
-                                                  statistical_analysis, recommendations)
+            # 5. สร้างรายงานสุดท้าย
+            final_report = self.create_final_report(results, feature_impact, comparison, recommendations)
             tracker.update("Creating final report")
             
-            # 7. บันทึกผลลัพธ์
+            # 6. บันทึกผลลัพธ์
             save_json(final_report, get_output_path('comparison', 'final_report.json'))
             save_json(comparison, get_output_path('comparison', 'model_comparison.json'))
             save_json(feature_impact, get_output_path('comparison', 'feature_selection_impact.json'))
-            save_json(statistical_analysis, get_output_path('comparison', 'statistical_analysis.json'))
             save_json(recommendations, get_output_path('comparison', 'recommendations.json'))
             
             # สร้าง summary CSV
@@ -555,8 +425,8 @@ class ModelComparator:
                     'Best Accuracy': f"{comparison['summary']['best_accuracy']}",
                     'Feature Selection Improvement': f"{feature_impact['improvement']['accuracy_improvement_percent']:.2f}%",
                     'Feature Reduction': f"{feature_impact['improvement']['feature_reduction_percent']:.1f}%",
-                    'Statistical Significance': statistical_analysis['overall_analysis']['significant_differences'],
-                    'Models Compared': len(comparison) - 1
+                    'Models Compared': len(comparison) - 1,
+                    'Statistical Analysis': "Disabled (simplified)"
                 })
             
             self.logger.info("Comprehensive model comparison completed successfully")

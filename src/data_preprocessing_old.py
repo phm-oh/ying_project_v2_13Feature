@@ -23,7 +23,7 @@ warnings.filterwarnings('ignore')
 # แก้ imports เพื่อหลีกเลี่ยง circular import
 from .config import (
     TARGET_COLUMN, RANDOM_STATE, TEST_SIZE, VALIDATION_SIZE,
-    CORE_FEATURES, DEMOGRAPHIC_FEATURES, 
+    CORE_FEATURES, DEMOGRAPHIC_FEATURES, LIFESTYLE_FEATURES, VALIDATION_FEATURES,
     EXCLUDE_FEATURES, NORMALIZATION_METHOD, MISSING_VALUE_STRATEGY, CATEGORICAL_ENCODING,
     VERBOSE, get_output_path, DATA_PATH, PREPROCESSING_RESULT_DIR
 )
@@ -71,7 +71,14 @@ class DataPreprocessor:
                 'count': len([f for f in DEMOGRAPHIC_FEATURES if f in df.columns]),
                 'missing': [f for f in DEMOGRAPHIC_FEATURES if f not in df.columns]
             },
-            
+            'lifestyle_features': {
+                'count': len([f for f in LIFESTYLE_FEATURES if f in df.columns]),
+                'missing': [f for f in LIFESTYLE_FEATURES if f not in df.columns]
+            },
+            'validation_features': {
+                'count': len([f for f in VALIDATION_FEATURES if f in df.columns]),
+                'missing': [f for f in VALIDATION_FEATURES if f not in df.columns]
+            }
         }
         
         # ตรวจหา outliers

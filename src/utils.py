@@ -1,9 +1,9 @@
 # ไฟล์: utils.py
 # Path: src/utils.py
-# วัตถุประสงค์: Helper functions สำหรับทั้งโปรเจค (แก้แล้ว - แก้ circular import)
+# วัตถุประสงค์: Helper functions สำหรับทั้งโปรเจค (แก้แล้ว - แก้ feature mapping ลบ lifestyle)
 
 """
-utils.py - Helper functions สำหรับทั้งโปรเจค
+utils.py - Helper functions สำหรับทั้งโปรเจค (เรียบง่าย)
 """
 
 import os
@@ -275,31 +275,6 @@ def calculate_metrics(y_true: np.array, y_pred: np.array, y_prob: np.array = Non
     
     return metrics
 
-def statistical_significance_test(scores1: List[float], scores2: List[float], 
-                                test_type: str = 'paired_ttest') -> Dict:
-    """ทดสอบนัยสำคัญทางสถิติ"""
-    # Import here to avoid circular import
-    from .config import SIGNIFICANCE_LEVEL
-    
-    from scipy import stats
-    
-    if test_type == 'paired_ttest':
-        statistic, p_value = stats.ttest_rel(scores1, scores2)
-    elif test_type == 'wilcoxon':
-        statistic, p_value = stats.wilcoxon(scores1, scores2)
-    else:
-        raise ValueError(f"Unknown test type: {test_type}")
-    
-    result = {
-        'test_type': test_type,
-        'statistic': statistic,
-        'p_value': p_value,
-        'significant': p_value < SIGNIFICANCE_LEVEL,
-        'significance_level': SIGNIFICANCE_LEVEL
-    }
-    
-    return result
-
 # ==================== VISUALIZATION FUNCTIONS ====================
 def setup_plot_style():
     """ตั้งค่า style สำหรับ plot"""
@@ -450,7 +425,7 @@ def validate_data(df: pd.DataFrame) -> Dict:
     logger.info("Validating data...")
     
     # Import here to avoid circular import
-    from .config import TARGET_COLUMN, CORE_FEATURES, DEMOGRAPHIC_FEATURES, LIFESTYLE_FEATURES
+    from .config import TARGET_COLUMN, CORE_FEATURES, DEMOGRAPHIC_FEATURES
     
     issues = {
         'missing_target': False,
@@ -467,7 +442,7 @@ def validate_data(df: pd.DataFrame) -> Dict:
         logger.error(f"Target column '{TARGET_COLUMN}' not found")
     
     # ตรวจสอบ features ที่จำเป็น
-    required_features = CORE_FEATURES + DEMOGRAPHIC_FEATURES + LIFESTYLE_FEATURES
+    required_features = CORE_FEATURES + DEMOGRAPHIC_FEATURES
     for feature in required_features:
         if feature not in df.columns:
             issues['missing_features'].append(feature)
@@ -575,10 +550,8 @@ def get_display_labels(thai_labels=None):
     
     return [thai_to_english.get(label, label) for label in thai_labels]
 
-
-
 def get_english_feature_names(thai_features=None):
-    """แปลงชื่อ features ภาษาไทยเป็นภาษาอังกฤษ"""
+    """แปลงชื่อ features ภาษาไทยเป็นภาษาอังกฤษ (แก้แล้ว - ลบ lifestyle features)"""
     
     feature_mapping = {
         # คะแนนวิชา
@@ -598,19 +571,14 @@ def get_english_feature_names(thai_features=None):
         'ความสนใจด้านเทคโนโลยี': 'Interest in Technology', 
         'ความสนใจด้านการทำอาหาร': 'Interest in Cooking',
         
-        # ข้อมูลส่วนตัว
+        # ข้อมูลส่วนตัว (เหลือแค่ 2 ตัว)
         'อายุ': 'Age',
-        'เพศ': 'Gender',
-        'รายได้ครอบครัว': 'Family Income',
-        'การศึกษาของผู้ปกครอง': 'Parent Education',
-        'จำนวนพี่น้อง': 'Number of Siblings',
+        'เพศ': 'Gender'
         
-        # ไลฟ์สไตล์
-        'ชั่วโมงการนอน': 'Sleep Hours',
-        'ความถี่การออกกำลังกาย': 'Exercise Frequency',
-        'ชั่วโมงใช้โซเชียลมีเดีย': 'Social Media Hours',
-        'ชอบอ่านหนังสือ': 'Like Reading',
-        'ประเภทเพลงที่ชอบ': 'Music Preference'
+        # ลบ lifestyle features ออกทั้งหมด:
+        # - 'ชั่วโมงการนอน', 'ความถี่การออกกำลังกาย', 'ชั่วโมงใช้โซเชียลมีเดีย'
+        # - 'ชอบอ่านหนังสือ', 'ประเภทเพลงที่ชอบ' 
+        # - 'รายได้ครอบครัว', 'การศึกษาของผู้ปกครอง', 'จำนวนพี่น้อง'
     }
     
     if thai_features is None:
@@ -621,19 +589,16 @@ def get_english_feature_names(thai_features=None):
     else:
         return feature_mapping.get(thai_features, thai_features)
 
-
-
-
 # ==================== EXPORTS ====================
 __all__ = [
     'setup_logging', 'logger',
     'load_data', 'save_data', 'save_json', 'load_json',
     'save_model', 'load_model',
     'analyze_data', 'detect_outliers',
-    'calculate_metrics', 'statistical_significance_test',
+    'calculate_metrics',
     'setup_plot_style', 'save_plot', 'plot_confusion_matrix', 
     'plot_feature_importance', 'plot_model_comparison',
     'ProgressTracker', 'validate_data',
     'create_experiment_id', 'get_memory_usage', 'print_summary',
-    'PipelineError', 'handle_pipeline_error' ,'get_display_labels','get_english_feature_names'
+    'PipelineError', 'handle_pipeline_error', 'get_display_labels', 'get_english_feature_names'
 ]
