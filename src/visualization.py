@@ -1,6 +1,6 @@
 # ไฟล์: visualization.py
 # Path: src/visualization.py
-# วัตถุประสงค์: สร้างกราฟและการแสดงผลต่างๆ สำหรับการวิเคราะห์ (แก้แล้ว)
+# วัตถุประสงค์: สร้างกราฟและการแสดงผลต่างๆ สำหรับการวิเคราะห์ (แก้แล้ว - Fixed Feature Names & Errors)
 
 """
 visualization.py - การสร้างกราฟและการแสดงผลสำหรับการวิเคราะห์
@@ -118,8 +118,14 @@ class Visualizer:
             self.logger.warning("No feature scores available")
             return None
         
+        # แปลงชื่อ features เป็นภาษาอังกฤษ
+        feature_scores_english = feature_scores.copy()
+        feature_scores_english['feature'] = feature_scores_english['feature'].apply(
+            lambda x: get_english_feature_names(x)
+        )
+        
         # เรียงลำดับและเลือก top features
-        top_features = feature_scores.head(top_n)
+        top_features = feature_scores_english.head(top_n)
         
         # สร้างกราฟ
         fig, ax = plt.subplots(figsize=(12, 8))
@@ -293,75 +299,74 @@ class Visualizer:
         return fig
     
     def plot_statistical_significance(self, training_report: Dict) -> plt.Figure:
-      """สร้างกราฟแสดงการทดสอบนัยสำคัญทางสถิติ"""
-      self.logger.info("Creating statistical significance plot...")
-    
-      statistical_tests = training_report.get('statistical_significance', {})
-    
-      if not statistical_tests:
-        self.logger.warning("No statistical test results available")
-        return None
-    
-    # เตรียมข้อมูลสำหรับ heatmap
-      model_names = list(training_report['model_summary'].keys())
-      n_models = len(model_names)
-    
-      if n_models < 2:
-        self.logger.warning("Need at least 2 models for statistical comparison")
-        return None
-    
-       # สร้าง matrix สำหรับ p-values
-      p_value_matrix = np.ones((n_models, n_models))
-      significance_matrix = np.zeros((n_models, n_models))
-    
-      for comparison, tests in statistical_tests.items():
-        if comparison == 'friedman_test':
-            continue
-            
-        model1, model2 = comparison.split('_vs_')
-        try:
-            idx1 = model_names.index(model1)
-            idx2 = model_names.index(model2)
-            
-            # ใช้ p-value จาก paired t-test
-            if 'paired_ttest' in tests:
-                p_val = tests['paired_ttest']['p_value']
-                is_significant = tests['paired_ttest']['significant']
+        """สร้างกราฟแสดงการทดสอบนัยสำคัญทางสถิติ"""
+        self.logger.info("Creating statistical significance plot...")
+        
+        statistical_tests = training_report.get('statistical_significance', {})
+        
+        if not statistical_tests:
+            self.logger.warning("No statistical test results available")
+            return None
+        
+        # เตรียมข้อมูลสำหรับ heatmap
+        model_names = list(training_report['model_summary'].keys())
+        n_models = len(model_names)
+        
+        if n_models < 2:
+            self.logger.warning("Need at least 2 models for statistical comparison")
+            return None
+        
+        # สร้าง matrix สำหรับ p-values
+        p_value_matrix = np.ones((n_models, n_models))
+        significance_matrix = np.zeros((n_models, n_models))
+        
+        for comparison, tests in statistical_tests.items():
+            if comparison == 'friedman_test':
+                continue
                 
-                p_value_matrix[idx1, idx2] = p_val
-                p_value_matrix[idx2, idx1] = p_val
+            model1, model2 = comparison.split('_vs_')
+            try:
+                idx1 = model_names.index(model1)
+                idx2 = model_names.index(model2)
                 
-                if is_significant:
-                    significance_matrix[idx1, idx2] = 1
-                    significance_matrix[idx2, idx1] = 1
+                # ใช้ p-value จาก paired t-test
+                if 'paired_ttest' in tests:
+                    p_val = tests['paired_ttest']['p_value']
+                    is_significant = tests['paired_ttest']['significant']
                     
-        except ValueError:
-            continue
+                    p_value_matrix[idx1, idx2] = p_val
+                    p_value_matrix[idx2, idx1] = p_val
+                    
+                    if is_significant:
+                        significance_matrix[idx1, idx2] = 1
+                        significance_matrix[idx2, idx1] = 1
+                        
+            except ValueError:
+                continue
+        
+        # สร้างกราฟ
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
+        
+        # กราฟ 1: P-values heatmap
+        mask = p_value_matrix == 1  # ซ่อน diagonal
+        sns.heatmap(p_value_matrix, annot=True, fmt='.3f', cmap='RdYlBu_r',
+                   mask=mask, xticklabels=model_names, yticklabels=model_names,
+                   ax=ax1, cbar_kws={'label': 'P-value'})
+        ax1.set_title('Statistical Significance - P-values\n(Lower is more significant)', 
+                     fontsize=14, fontweight='bold')
+        
+        # กราฟ 2: Significance matrix
+        sns.heatmap(significance_matrix, annot=True, fmt='.0f', cmap='RdYlGn',
+                   xticklabels=model_names, yticklabels=model_names,
+                   ax=ax2, cbar_kws={'label': 'Significant (1) / Not Significant (0)'})
+        ax2.set_title(f'Statistical Significance Matrix\n(α = {SIGNIFICANCE_LEVEL})', 
+                     fontsize=14, fontweight='bold')
+        
+        plt.tight_layout()
+        save_plot(fig, 'statistical_significance.png', 'evaluation')
+        
+        return fig
     
-    # สร้างกราฟ
-      fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
-    
-    # กราฟ 1: P-values heatmap
-      mask = p_value_matrix == 1  # ซ่อน diagonal
-      sns.heatmap(p_value_matrix, annot=True, fmt='.3f', cmap='RdYlBu_r',  # <- เปลี่ยนจาก 'd' เป็น '.3f'
-               mask=mask, xticklabels=model_names, yticklabels=model_names,
-               ax=ax1, cbar_kws={'label': 'P-value'})
-      ax1.set_title('Statistical Significance - P-values\n(Lower is more significant)', 
-                 fontsize=14, fontweight='bold')
-    
-    # กราฟ 2: Significance matrix
-      sns.heatmap(significance_matrix, annot=True, fmt='.0f', cmap='RdYlGn',  # <- เปลี่ยนจาก 'd' เป็น '.0f'
-               xticklabels=model_names, yticklabels=model_names,
-               ax=ax2, cbar_kws={'label': 'Significant (1) / Not Significant (0)'})
-      ax2.set_title(f'Statistical Significance Matrix\n(α = {SIGNIFICANCE_LEVEL})', 
-                 fontsize=14, fontweight='bold')
-    
-      plt.tight_layout()
-      save_plot(fig, 'statistical_significance.png', 'evaluation')
-    
-      return fig
-   
-   
     def plot_training_time_analysis(self, performance_df: pd.DataFrame) -> plt.Figure:
         """สร้างกราฟวิเคราะห์เวลาการฝึกสอน"""
         self.logger.info("Creating training time analysis plot...")
@@ -479,11 +484,17 @@ class Visualizer:
                 ax3.text(bar.get_x() + bar.get_width()/2., height + 0.005,
                         f'{height:.3f}', ha='center', va='bottom', fontsize=10)
         
-        # 4. Feature Importance (ถ้ามี)
+        # 4. Feature Importance (ถ้ามี) - แก้ให้แสดงชื่อภาษาอังกฤษ
         if data['feature_scores'] is not None:
             ax4 = fig.add_subplot(gs[2, :2])
-            top_features = data['feature_scores'].head(8)
-            ax4.barh(top_features['feature'], top_features['importance'], alpha=0.8)
+            top_features = data['feature_scores'].head(8).copy()
+            
+            # แปลงชื่อ features เป็นภาษาอังกฤษ
+            top_features['feature_english'] = top_features['feature'].apply(
+                lambda x: get_english_feature_names(x)
+            )
+            
+            ax4.barh(top_features['feature_english'], top_features['importance'], alpha=0.8)
             ax4.set_title('Top Feature Importance', fontsize=14, fontweight='bold')
             ax4.set_xlabel('Importance Score')
             ax4.invert_yaxis()
@@ -509,14 +520,20 @@ class Visualizer:
         
         # 6. Configuration Summary
         ax6 = fig.add_subplot(gs[3, :])
+        
+        # แปลง selected features เป็นภาษาอังกฤษสำหรับแสดงผล
+        selected_features = data['selected_features']['selected_features']
+        selected_features_english = [get_english_feature_names(f) for f in selected_features[:5]]
+        
         config_text = f"""
         Configuration Summary:
-        • Dataset: {TARGET_COLUMN} classification with {len(data['selected_features']['selected_features'])} features
+        • Dataset: {TARGET_COLUMN} classification with {len(selected_features)} features
         • Feature Selection: {FEATURE_SELECTION_METHOD} selection method
         • Cross-Validation: {CV_FOLDS}-fold stratified CV
         • Models: {', '.join(models)}
         • Normalization: {NORMALIZATION_METHOD}
         • Random State: {RANDOM_STATE}
+        • Top Selected Features: {', '.join(selected_features_english)}...
         """
         
         ax6.text(0.05, 0.5, config_text, ha='left', va='center',
@@ -534,7 +551,7 @@ class Visualizer:
         return fig
     
     def create_all_visualizations(self) -> Dict:
-        """สร้างกราฟทั้งหมด (เอา decorator ออก)"""
+        """สร้างกราฟทั้งหมด"""
         self.logger.info("Creating all visualizations...")
         
         try:
@@ -572,8 +589,12 @@ class Visualizer:
             tracker.update("Confusion matrices")
             
             # 6. Statistical Significance
-            fig6 = self.plot_statistical_significance(data['training_report'])
-            visualizations['statistical_significance'] = fig6
+            try:
+                fig6 = self.plot_statistical_significance(data['training_report'])
+                visualizations['statistical_significance'] = fig6
+            except Exception as e:
+                self.logger.warning(f"Statistical significance plot failed: {str(e)}")
+                visualizations['statistical_significance'] = None
             tracker.update("Statistical significance")
             
             # 7. Training Time Analysis
@@ -594,7 +615,7 @@ class Visualizer:
                     'Feature Selection Plots': 2,
                     'Model Evaluation Plots': 4,
                     'Summary Plots': 2,
-                    'Output Directory': COMPARISON_RESULT_DIR
+                    'Output Directory': get_output_path('comparison', '')
                 })
             
             self.logger.info("All visualizations created successfully")
@@ -613,7 +634,6 @@ def main():
         
         print("✅ Visualization completed successfully!")
         print(f"📊 Plots created: {len([p for p in plots.values() if p is not None])}")
-        # print(f"📁 Plots saved to: {COMPARISON_RESULT_DIR}")
         print(f"📁 Output Directory: {get_output_path('comparison', '')}")
         
         return plots

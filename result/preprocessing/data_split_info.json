@@ -1,8 +1,8 @@
 {
-  "train_size": 1600,
-  "test_size": 400,
-  "train_percentage": 80.0,
-  "test_percentage": 20.0,
+  "train_size": 1431,
+  "test_size": 358,
+  "train_percentage": 79.98882057015092,
+  "test_percentage": 20.011179429849076,
   "features_used": [
     "คะแนนคณิตศาสตร์",
     "คะแนนคอมพิวเตอร์",
@@ -33,13 +33,13 @@
     "หากเลือกใหม่จะเลือกแผนกเดิมไหม"
   ],
   "target_distribution_train": {
-    "2": 673,
-    "1": 507,
-    "0": 420
+    "2": 547,
+    "1": 481,
+    "0": 403
   },
   "target_distribution_test": {
-    "2": 168,
-    "1": 127,
-    "0": 105
+    "2": 137,
+    "1": 120,
+    "0": 101
   }
 }

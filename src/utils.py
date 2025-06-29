@@ -577,6 +577,53 @@ def get_display_labels(thai_labels=None):
 
 
 
+def get_english_feature_names(thai_features=None):
+    """แปลงชื่อ features ภาษาไทยเป็นภาษาอังกฤษ"""
+    
+    feature_mapping = {
+        # คะแนนวิชา
+        'คะแนนคณิตศาสตร์': 'Math Score',
+        'คะแนนคอมพิวเตอร์': 'Computer Score', 
+        'คะแนนภาษาไทย': 'Thai Score',
+        'คะแนนวิทยาศาสตร์': 'Science Score',
+        'คะแนนศิลปะ': 'Art Score',
+        
+        # ทักษะ
+        'ทักษะการคิดเชิงตรรกะ': 'Logical Thinking',
+        'ทักษะความคิดสร้างสรรค์': 'Creative Thinking',
+        'ทักษะการแก้ปัญหา': 'Problem Solving',
+        
+        # ความสนใจ
+        'ความสนใจด้านตัวเลข': 'Interest in Numbers',
+        'ความสนใจด้านเทคโนโลยี': 'Interest in Technology', 
+        'ความสนใจด้านการทำอาหาร': 'Interest in Cooking',
+        
+        # ข้อมูลส่วนตัว
+        'อายุ': 'Age',
+        'เพศ': 'Gender',
+        'รายได้ครอบครัว': 'Family Income',
+        'การศึกษาของผู้ปกครอง': 'Parent Education',
+        'จำนวนพี่น้อง': 'Number of Siblings',
+        
+        # ไลฟ์สไตล์
+        'ชั่วโมงการนอน': 'Sleep Hours',
+        'ความถี่การออกกำลังกาย': 'Exercise Frequency',
+        'ชั่วโมงใช้โซเชียลมีเดีย': 'Social Media Hours',
+        'ชอบอ่านหนังสือ': 'Like Reading',
+        'ประเภทเพลงที่ชอบ': 'Music Preference'
+    }
+    
+    if thai_features is None:
+        return feature_mapping
+    
+    if isinstance(thai_features, list):
+        return [feature_mapping.get(feature, feature) for feature in thai_features]
+    else:
+        return feature_mapping.get(thai_features, thai_features)
+
+
+
+
 # ==================== EXPORTS ====================
 __all__ = [
     'setup_logging', 'logger',
@@ -588,5 +635,5 @@ __all__ = [
     'plot_feature_importance', 'plot_model_comparison',
     'ProgressTracker', 'validate_data',
     'create_experiment_id', 'get_memory_usage', 'print_summary',
-    'PipelineError', 'handle_pipeline_error' ,'get_display_labels'
+    'PipelineError', 'handle_pipeline_error' ,'get_display_labels','get_english_feature_names'
 ]
