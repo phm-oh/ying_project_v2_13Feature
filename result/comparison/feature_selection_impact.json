@@ -1,0 +1,48 @@
+{
+  "baseline_performance": {
+    "accuracy": 0.8793750000000001,
+    "std": 0.020549102778467013,
+    "n_features": 21
+  },
+  "best_method_performance": {
+    "method": "sequential",
+    "accuracy": 0.88375,
+    "std": 0.02019436802675438,
+    "n_features": 15
+  },
+  "final_selection_performance": {
+    "method": "forward",
+    "n_features": 15,
+    "selected_features": [
+      "คะแนนคณิตศาสตร์",
+      "คะแนนคอมพิวเตอร์",
+      "คะแนนภาษาไทย",
+      "คะแนนวิทยาศาสตร์",
+      "คะแนนศิลปะ",
+      "ทักษะการคิดเชิงตรรกะ",
+      "ทักษะความคิดสร้างสรรค์",
+      "ความสนใจด้านตัวเลข",
+      "ความสนใจด้านเทคโนโลยี",
+      "ความสนใจด้านการทำอาหาร",
+      "การศึกษาของผู้ปกครอง",
+      "ชั่วโมงการนอน",
+      "ความถี่การออกกำลังกาย",
+      "ชั่วโมงใช้โซเชียลมีเดีย",
+      "ชอบอ่านหนังสือ"
+    ]
+  },
+  "improvement": {
+    "accuracy_improvement": 0.004374999999999907,
+    "accuracy_improvement_percent": 0.49751243781093457,
+    "feature_reduction": 6,
+    "feature_reduction_percent": 28.57142857142857
+  },
+  "feature_group_analysis": {
+    "core_features_selected": 10,
+    "demographic_features_selected": 1,
+    "lifestyle_features_selected": 4,
+    "core_features_percentage": 90.9090909090909,
+    "demographic_features_percentage": 20.0,
+    "lifestyle_features_percentage": 80.0
+  }
+}

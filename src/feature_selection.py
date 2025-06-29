@@ -8,6 +8,7 @@ feature_selection.py - ขั้นตอนการคัดเลือก Fe
 
 import pandas as pd
 import numpy as np
+import logging 
 from sklearn.feature_selection import (
     SequentialFeatureSelector, RFE, RFECV,
     SelectKBest, chi2, mutual_info_classif, f_classif,

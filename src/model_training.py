@@ -8,6 +8,7 @@ model_training.py - ขั้นตอนการฝึกสอนโมเด
 
 import pandas as pd
 import numpy as np
+import logging
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
@@ -236,10 +237,11 @@ class ModelTrainer:
             target_mapping_path = get_output_path('preprocessing', 'target_mapping.json')
             target_mapping = load_json(target_mapping_path)
             # สร้าง reverse mapping
-            labels = [k for k, v in sorted(target_mapping.items(), key=lambda x: x[1])]
+            thai_labels = [k for k, v in sorted(target_mapping.items(), key=lambda x: x[1])]
+            labels = get_display_labels(thai_labels)
         except:
             # ใช้ labels จาก data
-            labels = sorted(y_test.unique())
+            labels = get_display_labels() 
         
         setup_plot_style()
         

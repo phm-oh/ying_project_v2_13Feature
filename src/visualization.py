@@ -8,6 +8,7 @@ visualization.py - การสร้างกราฟและการแส�
 
 import pandas as pd
 import numpy as np
+import logging
 import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib.patches import Rectangle
@@ -248,9 +249,10 @@ class Visualizer:
         try:
             target_mapping_path = get_output_path('preprocessing', 'target_mapping.json')
             target_mapping = load_json(target_mapping_path)
-            labels = [k for k, v in sorted(target_mapping.items(), key=lambda x: x[1])]
+            thai_labels = [k for k, v in sorted(target_mapping.items(), key=lambda x: x[1])]
+            labels = get_display_labels(thai_labels)
         except:
-            labels = ['บัญชี', 'สารสนเทศ', 'อาหาร']  # default labels
+            labels = get_display_labels()
         
         # สร้างกราฟ
         n_models = len(confusion_matrices)
@@ -291,74 +293,75 @@ class Visualizer:
         return fig
     
     def plot_statistical_significance(self, training_report: Dict) -> plt.Figure:
-        """สร้างกราฟแสดงการทดสอบนัยสำคัญทางสถิติ"""
-        self.logger.info("Creating statistical significance plot...")
-        
-        statistical_tests = training_report.get('statistical_significance', {})
-        
-        if not statistical_tests:
-            self.logger.warning("No statistical test results available")
-            return None
-        
-        # เตรียมข้อมูลสำหรับ heatmap
-        model_names = list(training_report['model_summary'].keys())
-        n_models = len(model_names)
-        
-        if n_models < 2:
-            self.logger.warning("Need at least 2 models for statistical comparison")
-            return None
-        
-        # สร้าง matrix สำหรับ p-values
-        p_value_matrix = np.ones((n_models, n_models))
-        significance_matrix = np.zeros((n_models, n_models))
-        
-        for comparison, tests in statistical_tests.items():
-            if comparison == 'friedman_test':
-                continue
-                
-            model1, model2 = comparison.split('_vs_')
-            try:
-                idx1 = model_names.index(model1)
-                idx2 = model_names.index(model2)
-                
-                # ใช้ p-value จาก paired t-test
-                if 'paired_ttest' in tests:
-                    p_val = tests['paired_ttest']['p_value']
-                    is_significant = tests['paired_ttest']['significant']
-                    
-                    p_value_matrix[idx1, idx2] = p_val
-                    p_value_matrix[idx2, idx1] = p_val
-                    
-                    if is_significant:
-                        significance_matrix[idx1, idx2] = 1
-                        significance_matrix[idx2, idx1] = 1
-                        
-            except ValueError:
-                continue
-        
-        # สร้างกราฟ
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
-        
-        # กราฟ 1: P-values heatmap
-        mask = p_value_matrix == 1  # ซ่อน diagonal
-        sns.heatmap(p_value_matrix, annot=True, fmt='.3f', cmap='RdYlBu_r',
-                   mask=mask, xticklabels=model_names, yticklabels=model_names,
-                   ax=ax1, cbar_kws={'label': 'P-value'})
-        ax1.set_title('Statistical Significance - P-values\n(Lower is more significant)', 
-                     fontsize=14, fontweight='bold')
-        
-        # กราฟ 2: Significance matrix
-        sns.heatmap(significance_matrix, annot=True, fmt='d', cmap='RdYlGn',
-                   xticklabels=model_names, yticklabels=model_names,
-                   ax=ax2, cbar_kws={'label': 'Significant (1) / Not Significant (0)'})
-        ax2.set_title(f'Statistical Significance Matrix\n(α = {SIGNIFICANCE_LEVEL})', 
-                     fontsize=14, fontweight='bold')
-        
-        plt.tight_layout()
-        save_plot(fig, 'statistical_significance.png', 'evaluation')
-        
-        return fig
+      """สร้างกราฟแสดงการทดสอบนัยสำคัญทางสถิติ"""
+      self.logger.info("Creating statistical significance plot...")
     
+      statistical_tests = training_report.get('statistical_significance', {})
+    
+      if not statistical_tests:
+        self.logger.warning("No statistical test results available")
+        return None
+    
+    # เตรียมข้อมูลสำหรับ heatmap
+      model_names = list(training_report['model_summary'].keys())
+      n_models = len(model_names)
+    
+      if n_models < 2:
+        self.logger.warning("Need at least 2 models for statistical comparison")
+        return None
+    
+       # สร้าง matrix สำหรับ p-values
+      p_value_matrix = np.ones((n_models, n_models))
+      significance_matrix = np.zeros((n_models, n_models))
+    
+      for comparison, tests in statistical_tests.items():
+        if comparison == 'friedman_test':
+            continue
+            
+        model1, model2 = comparison.split('_vs_')
+        try:
+            idx1 = model_names.index(model1)
+            idx2 = model_names.index(model2)
+            
+            # ใช้ p-value จาก paired t-test
+            if 'paired_ttest' in tests:
+                p_val = tests['paired_ttest']['p_value']
+                is_significant = tests['paired_ttest']['significant']
+                
+                p_value_matrix[idx1, idx2] = p_val
+                p_value_matrix[idx2, idx1] = p_val
+                
+                if is_significant:
+                    significance_matrix[idx1, idx2] = 1
+                    significance_matrix[idx2, idx1] = 1
+                    
+        except ValueError:
+            continue
+    
+    # สร้างกราฟ
+      fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
+    
+    # กราฟ 1: P-values heatmap
+      mask = p_value_matrix == 1  # ซ่อน diagonal
+      sns.heatmap(p_value_matrix, annot=True, fmt='.3f', cmap='RdYlBu_r',  # <- เปลี่ยนจาก 'd' เป็น '.3f'
+               mask=mask, xticklabels=model_names, yticklabels=model_names,
+               ax=ax1, cbar_kws={'label': 'P-value'})
+      ax1.set_title('Statistical Significance - P-values\n(Lower is more significant)', 
+                 fontsize=14, fontweight='bold')
+    
+    # กราฟ 2: Significance matrix
+      sns.heatmap(significance_matrix, annot=True, fmt='.0f', cmap='RdYlGn',  # <- เปลี่ยนจาก 'd' เป็น '.0f'
+               xticklabels=model_names, yticklabels=model_names,
+               ax=ax2, cbar_kws={'label': 'Significant (1) / Not Significant (0)'})
+      ax2.set_title(f'Statistical Significance Matrix\n(α = {SIGNIFICANCE_LEVEL})', 
+                 fontsize=14, fontweight='bold')
+    
+      plt.tight_layout()
+      save_plot(fig, 'statistical_significance.png', 'evaluation')
+    
+      return fig
+   
+   
     def plot_training_time_analysis(self, performance_df: pd.DataFrame) -> plt.Figure:
         """สร้างกราฟวิเคราะห์เวลาการฝึกสอน"""
         self.logger.info("Creating training time analysis plot...")
@@ -610,7 +613,8 @@ def main():
         
         print("✅ Visualization completed successfully!")
         print(f"📊 Plots created: {len([p for p in plots.values() if p is not None])}")
-        print(f"📁 Plots saved to: {COMPARISON_RESULT_DIR}")
+        # print(f"📁 Plots saved to: {COMPARISON_RESULT_DIR}")
+        print(f"📁 Output Directory: {get_output_path('comparison', '')}")
         
         return plots
         

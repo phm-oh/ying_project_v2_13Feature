@@ -8,6 +8,7 @@ model_comparison.py - การเปรียบเทียบโมเดล�
 
 import pandas as pd
 import numpy as np
+import logging
 from scipy import stats
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from typing import Dict, Tuple, Any, Optional, Union

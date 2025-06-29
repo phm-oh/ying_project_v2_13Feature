@@ -562,6 +562,21 @@ def handle_pipeline_error(func):
             raise PipelineError(f"Pipeline failed at {func.__name__}: {str(e)}")
     return wrapper
 
+def get_display_labels(thai_labels=None):
+    """แปลง labels ภาษาไทยเป็นภาษาอังกฤษสำหรับแสดงผล"""
+    thai_to_english = {
+        'บัญชี': 'ACC',
+        'สารสนเทศ': 'IT', 
+        'อาหาร': 'FOOD'
+    }
+    
+    if thai_labels is None:
+        return list(thai_to_english.values())
+    
+    return [thai_to_english.get(label, label) for label in thai_labels]
+
+
+
 # ==================== EXPORTS ====================
 __all__ = [
     'setup_logging', 'logger',
@@ -573,5 +588,5 @@ __all__ = [
     'plot_feature_importance', 'plot_model_comparison',
     'ProgressTracker', 'validate_data',
     'create_experiment_id', 'get_memory_usage', 'print_summary',
-    'PipelineError', 'handle_pipeline_error'
+    'PipelineError', 'handle_pipeline_error' ,'get_display_labels'
 ]

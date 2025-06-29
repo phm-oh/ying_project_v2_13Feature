@@ -158,3 +158,762 @@
 2025-06-28 15:26:05,826 - src.utils - ERROR - Step 2 failed: name 'logging' is not defined
 2025-06-28 15:26:05,826 - src.utils - ERROR - Pipeline failed: name 'logging' is not defined
 2025-06-28 15:26:05,826 - src.utils - ERROR - Pipeline failed: name 'logging' is not defined
+2025-06-29 10:31:17,586 - src.utils - INFO - Validating pipeline setup...
+2025-06-29 10:31:17,588 - src.utils - INFO - ✅ Data file found: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-29 10:31:17,588 - src.utils - INFO - ✅ Configuration validation passed
+2025-06-29 10:31:17,588 - src.utils - INFO - ✅ All required packages available
+2025-06-29 10:31:17,588 - src.utils - INFO - Pipeline validation completed successfully
+2025-06-29 10:31:17,588 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-06-29 10:31:17,588 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-06-29 10:31:17,588 - src.data_preprocessing - INFO - Loading raw data...
+2025-06-29 10:31:17,588 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-29 10:31:17,598 - src.utils - INFO - Data loaded successfully. Shape: (2000, 26)
+2025-06-29 10:31:17,598 - src.data_preprocessing - INFO - Raw data loaded: (2000, 26)
+2025-06-29 10:31:17,598 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.009993
+2025-06-29 10:31:17,598 - src.data_preprocessing - INFO - Analyzing raw data...
+2025-06-29 10:31:17,598 - src.utils - INFO - Analyzing data...
+2025-06-29 10:31:17,651 - src.utils - INFO - Data analysis completed
+2025-06-29 10:31:17,651 - src.utils - INFO - Detecting outliers using iqr method...
+2025-06-29 10:31:17,701 - src.utils - INFO - Outlier detection completed. Found outliers in 25 columns
+2025-06-29 10:31:17,701 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/raw_data_analysis.json
+2025-06-29 10:31:17,705 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:31:17,707 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.118445
+2025-06-29 10:31:17,707 - src.data_preprocessing - INFO - Cleaning data...
+2025-06-29 10:31:17,713 - src.data_preprocessing - INFO - Excluding features for ML: ['ชั้นปี', 'GPA', 'ความพึงพอใจในแผนก', 'หากเลือกใหม่จะเลือกแผนกเดิมไหม']
+2025-06-29 10:31:17,713 - src.utils - INFO - Step 3/6 (50.0%) - Cleaning data - Elapsed: 0:00:00.124906
+2025-06-29 10:31:17,713 - src.data_preprocessing - INFO - Handling missing values...
+2025-06-29 10:31:17,729 - src.data_preprocessing - INFO - Missing values after imputation: 0
+2025-06-29 10:31:17,729 - src.utils - INFO - Step 4/6 (66.7%) - Handling missing values - Elapsed: 0:00:00.140772
+2025-06-29 10:31:17,729 - src.data_preprocessing - INFO - Encoding categorical features...
+2025-06-29 10:31:17,731 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/target_mapping.json
+2025-06-29 10:31:17,732 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:31:17,732 - src.data_preprocessing - INFO - Encoded 0 categorical features
+2025-06-29 10:31:17,732 - src.utils - INFO - Step 5/6 (83.3%) - Encoding categorical features - Elapsed: 0:00:00.144104
+2025-06-29 10:31:17,732 - src.data_preprocessing - INFO - Normalizing features using standard...
+2025-06-29 10:31:17,772 - src.data_preprocessing - INFO - Normalized 25 numeric features
+2025-06-29 10:31:17,772 - src.utils - INFO - Step 6/6 (100.0%) - Normalizing features - Elapsed: 0:00:00.183834
+2025-06-29 10:31:17,772 - src.utils - INFO - Data Preprocessing completed in 0:00:00.183956
+2025-06-29 10:31:17,772 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/data_normalization.csv
+2025-06-29 10:31:17,864 - src.utils - INFO - Data saved successfully
+2025-06-29 10:31:17,864 - src.data_preprocessing - INFO - Creating preprocessing report...
+2025-06-29 10:31:17,864 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/normalization_report.json
+2025-06-29 10:31:17,865 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:31:17,866 - src.data_preprocessing - INFO - Splitting data into train/test sets...
+2025-06-29 10:31:17,867 - src.data_preprocessing - INFO - Excluded 4 features from ML
+2025-06-29 10:31:17,871 - src.data_preprocessing - INFO - Data split - Train: (1600, 21), Test: (400, 21)
+2025-06-29 10:31:17,873 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/data_split_info.json
+2025-06-29 10:31:17,873 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:31:17,874 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/train_data.csv
+2025-06-29 10:31:17,930 - src.utils - INFO - Data saved successfully
+2025-06-29 10:31:17,930 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/test_data.csv
+2025-06-29 10:31:17,944 - src.utils - INFO - Data saved successfully
+2025-06-29 10:31:17,944 - src.data_preprocessing - INFO - Data preprocessing completed successfully
+2025-06-29 10:31:17,945 - src.utils - ERROR - Step 2 failed: name 'logging' is not defined
+2025-06-29 10:31:17,945 - src.utils - ERROR - Pipeline failed: name 'logging' is not defined
+2025-06-29 10:31:17,945 - src.utils - ERROR - Pipeline failed: name 'logging' is not defined
+2025-06-29 10:38:33,655 - src.utils - INFO - Validating pipeline setup...
+2025-06-29 10:38:33,655 - src.utils - INFO - ✅ Data file found: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-29 10:38:33,655 - src.utils - INFO - ✅ Configuration validation passed
+2025-06-29 10:38:33,655 - src.utils - INFO - ✅ All required packages available
+2025-06-29 10:38:33,655 - src.utils - INFO - Pipeline validation completed successfully
+2025-06-29 10:38:33,655 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-06-29 10:38:33,655 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-06-29 10:38:33,656 - src.data_preprocessing - INFO - Loading raw data...
+2025-06-29 10:38:33,656 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-29 10:38:33,663 - src.utils - INFO - Data loaded successfully. Shape: (2000, 26)
+2025-06-29 10:38:33,664 - src.data_preprocessing - INFO - Raw data loaded: (2000, 26)
+2025-06-29 10:38:33,664 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.008217
+2025-06-29 10:38:33,664 - src.data_preprocessing - INFO - Analyzing raw data...
+2025-06-29 10:38:33,664 - src.utils - INFO - Analyzing data...
+2025-06-29 10:38:33,712 - src.utils - INFO - Data analysis completed
+2025-06-29 10:38:33,713 - src.utils - INFO - Detecting outliers using iqr method...
+2025-06-29 10:38:33,768 - src.utils - INFO - Outlier detection completed. Found outliers in 25 columns
+2025-06-29 10:38:33,769 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/raw_data_analysis.json
+2025-06-29 10:38:33,771 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:38:33,772 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.116754
+2025-06-29 10:38:33,772 - src.data_preprocessing - INFO - Cleaning data...
+2025-06-29 10:38:33,778 - src.data_preprocessing - INFO - Excluding features for ML: ['ชั้นปี', 'GPA', 'ความพึงพอใจในแผนก', 'หากเลือกใหม่จะเลือกแผนกเดิมไหม']
+2025-06-29 10:38:33,778 - src.utils - INFO - Step 3/6 (50.0%) - Cleaning data - Elapsed: 0:00:00.122464
+2025-06-29 10:38:33,778 - src.data_preprocessing - INFO - Handling missing values...
+2025-06-29 10:38:33,791 - src.data_preprocessing - INFO - Missing values after imputation: 0
+2025-06-29 10:38:33,792 - src.utils - INFO - Step 4/6 (66.7%) - Handling missing values - Elapsed: 0:00:00.136045
+2025-06-29 10:38:33,792 - src.data_preprocessing - INFO - Encoding categorical features...
+2025-06-29 10:38:33,794 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/target_mapping.json
+2025-06-29 10:38:33,796 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:38:33,796 - src.data_preprocessing - INFO - Encoded 0 categorical features
+2025-06-29 10:38:33,796 - src.utils - INFO - Step 5/6 (83.3%) - Encoding categorical features - Elapsed: 0:00:00.140694
+2025-06-29 10:38:33,796 - src.data_preprocessing - INFO - Normalizing features using standard...
+2025-06-29 10:38:33,822 - src.data_preprocessing - INFO - Normalized 25 numeric features
+2025-06-29 10:38:33,823 - src.utils - INFO - Step 6/6 (100.0%) - Normalizing features - Elapsed: 0:00:00.167093
+2025-06-29 10:38:33,823 - src.utils - INFO - Data Preprocessing completed in 0:00:00.167235
+2025-06-29 10:38:33,823 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/data_normalization.csv
+2025-06-29 10:38:33,916 - src.utils - INFO - Data saved successfully
+2025-06-29 10:38:33,916 - src.data_preprocessing - INFO - Creating preprocessing report...
+2025-06-29 10:38:33,916 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/normalization_report.json
+2025-06-29 10:38:33,918 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:38:33,918 - src.data_preprocessing - INFO - Splitting data into train/test sets...
+2025-06-29 10:38:33,919 - src.data_preprocessing - INFO - Excluded 4 features from ML
+2025-06-29 10:38:33,922 - src.data_preprocessing - INFO - Data split - Train: (1600, 21), Test: (400, 21)
+2025-06-29 10:38:33,924 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/data_split_info.json
+2025-06-29 10:38:33,925 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:38:33,926 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/train_data.csv
+2025-06-29 10:38:33,989 - src.utils - INFO - Data saved successfully
+2025-06-29 10:38:33,989 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/test_data.csv
+2025-06-29 10:38:34,008 - src.utils - INFO - Data saved successfully
+2025-06-29 10:38:34,008 - src.data_preprocessing - INFO - Data preprocessing completed successfully
+2025-06-29 10:38:34,009 - src.utils - ERROR - Step 2 failed: name 'logging' is not defined
+2025-06-29 10:38:34,009 - src.utils - ERROR - Pipeline failed: name 'logging' is not defined
+2025-06-29 10:38:34,009 - src.utils - ERROR - Pipeline failed: name 'logging' is not defined
+2025-06-29 10:38:57,728 - src.utils - INFO - Validating pipeline setup...
+2025-06-29 10:38:57,729 - src.utils - INFO - ✅ Data file found: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-29 10:38:57,729 - src.utils - INFO - ✅ Configuration validation passed
+2025-06-29 10:38:57,729 - src.utils - INFO - ✅ All required packages available
+2025-06-29 10:38:57,729 - src.utils - INFO - Pipeline validation completed successfully
+2025-06-29 10:38:57,729 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-06-29 10:38:57,730 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-06-29 10:38:57,730 - src.data_preprocessing - INFO - Loading raw data...
+2025-06-29 10:38:57,730 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-29 10:38:57,755 - src.utils - INFO - Data loaded successfully. Shape: (2000, 26)
+2025-06-29 10:38:57,755 - src.data_preprocessing - INFO - Raw data loaded: (2000, 26)
+2025-06-29 10:38:57,755 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.025493
+2025-06-29 10:38:57,755 - src.data_preprocessing - INFO - Analyzing raw data...
+2025-06-29 10:38:57,755 - src.utils - INFO - Analyzing data...
+2025-06-29 10:38:57,820 - src.utils - INFO - Data analysis completed
+2025-06-29 10:38:57,820 - src.utils - INFO - Detecting outliers using iqr method...
+2025-06-29 10:38:57,859 - src.utils - INFO - Outlier detection completed. Found outliers in 25 columns
+2025-06-29 10:38:57,860 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/raw_data_analysis.json
+2025-06-29 10:38:57,861 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:38:57,862 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.132067
+2025-06-29 10:38:57,862 - src.data_preprocessing - INFO - Cleaning data...
+2025-06-29 10:38:57,869 - src.data_preprocessing - INFO - Excluding features for ML: ['ชั้นปี', 'GPA', 'ความพึงพอใจในแผนก', 'หากเลือกใหม่จะเลือกแผนกเดิมไหม']
+2025-06-29 10:38:57,869 - src.utils - INFO - Step 3/6 (50.0%) - Cleaning data - Elapsed: 0:00:00.139813
+2025-06-29 10:38:57,870 - src.data_preprocessing - INFO - Handling missing values...
+2025-06-29 10:38:57,885 - src.data_preprocessing - INFO - Missing values after imputation: 0
+2025-06-29 10:38:57,885 - src.utils - INFO - Step 4/6 (66.7%) - Handling missing values - Elapsed: 0:00:00.155219
+2025-06-29 10:38:57,885 - src.data_preprocessing - INFO - Encoding categorical features...
+2025-06-29 10:38:57,887 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/target_mapping.json
+2025-06-29 10:38:57,888 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:38:57,888 - src.data_preprocessing - INFO - Encoded 0 categorical features
+2025-06-29 10:38:57,888 - src.utils - INFO - Step 5/6 (83.3%) - Encoding categorical features - Elapsed: 0:00:00.158147
+2025-06-29 10:38:57,888 - src.data_preprocessing - INFO - Normalizing features using standard...
+2025-06-29 10:38:57,909 - src.data_preprocessing - INFO - Normalized 25 numeric features
+2025-06-29 10:38:57,910 - src.utils - INFO - Step 6/6 (100.0%) - Normalizing features - Elapsed: 0:00:00.179888
+2025-06-29 10:38:57,910 - src.utils - INFO - Data Preprocessing completed in 0:00:00.179997
+2025-06-29 10:38:57,910 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/data_normalization.csv
+2025-06-29 10:38:57,985 - src.utils - INFO - Data saved successfully
+2025-06-29 10:38:57,986 - src.data_preprocessing - INFO - Creating preprocessing report...
+2025-06-29 10:38:57,986 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/normalization_report.json
+2025-06-29 10:38:57,987 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:38:57,987 - src.data_preprocessing - INFO - Splitting data into train/test sets...
+2025-06-29 10:38:57,989 - src.data_preprocessing - INFO - Excluded 4 features from ML
+2025-06-29 10:38:57,994 - src.data_preprocessing - INFO - Data split - Train: (1600, 21), Test: (400, 21)
+2025-06-29 10:38:57,996 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/data_split_info.json
+2025-06-29 10:38:57,997 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:38:57,998 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/train_data.csv
+2025-06-29 10:38:58,056 - src.utils - INFO - Data saved successfully
+2025-06-29 10:38:58,056 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/test_data.csv
+2025-06-29 10:38:58,074 - src.utils - INFO - Data saved successfully
+2025-06-29 10:38:58,075 - src.data_preprocessing - INFO - Data preprocessing completed successfully
+2025-06-29 10:38:58,075 - src.feature_selection - INFO - Starting feature selection pipeline...
+2025-06-29 10:38:58,075 - src.utils - INFO - Starting Feature Selection - 6 steps
+2025-06-29 10:38:58,075 - src.feature_selection - INFO - Loading normalized data...
+2025-06-29 10:38:58,076 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/train_data.csv
+2025-06-29 10:38:58,093 - src.utils - INFO - Data loaded successfully. Shape: (1600, 22)
+2025-06-29 10:38:58,094 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/test_data.csv
+2025-06-29 10:38:58,099 - src.utils - INFO - Data loaded successfully. Shape: (400, 22)
+2025-06-29 10:38:58,101 - src.feature_selection - INFO - Data loaded - Train: (1600, 21), Test: (400, 21)
+2025-06-29 10:38:58,101 - src.utils - INFO - Step 1/6 (16.7%) - Loading normalized data - Elapsed: 0:00:00.025470
+2025-06-29 10:38:58,101 - src.feature_selection - INFO - Comparing feature selection methods...
+2025-06-29 10:38:58,101 - src.feature_selection - INFO - Starting Sequential Feature Selection (forward)...
+2025-06-29 10:38:58,101 - src.feature_selection - ERROR - Feature selection failed: name 'FEATURE_SELECTION_SCORING' is not defined
+2025-06-29 10:38:58,101 - src.utils - ERROR - Step 2 failed: name 'FEATURE_SELECTION_SCORING' is not defined
+2025-06-29 10:38:58,101 - src.utils - ERROR - Pipeline failed: name 'FEATURE_SELECTION_SCORING' is not defined
+2025-06-29 10:38:58,102 - src.utils - ERROR - Pipeline failed: name 'FEATURE_SELECTION_SCORING' is not defined
+2025-06-29 10:43:09,203 - src.utils - INFO - Validating pipeline setup...
+2025-06-29 10:43:09,204 - src.utils - INFO - ✅ Data file found: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-29 10:43:09,204 - src.utils - INFO - ✅ Configuration validation passed
+2025-06-29 10:43:09,204 - src.utils - INFO - ✅ All required packages available
+2025-06-29 10:43:09,204 - src.utils - INFO - Pipeline validation completed successfully
+2025-06-29 10:43:09,204 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-06-29 10:43:09,205 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-06-29 10:43:09,205 - src.data_preprocessing - INFO - Loading raw data...
+2025-06-29 10:43:09,205 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/student_realistic_data.csv
+2025-06-29 10:43:09,225 - src.utils - INFO - Data loaded successfully. Shape: (2000, 26)
+2025-06-29 10:43:09,226 - src.data_preprocessing - INFO - Raw data loaded: (2000, 26)
+2025-06-29 10:43:09,226 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.021213
+2025-06-29 10:43:09,226 - src.data_preprocessing - INFO - Analyzing raw data...
+2025-06-29 10:43:09,226 - src.utils - INFO - Analyzing data...
+2025-06-29 10:43:09,287 - src.utils - INFO - Data analysis completed
+2025-06-29 10:43:09,287 - src.utils - INFO - Detecting outliers using iqr method...
+2025-06-29 10:43:09,335 - src.utils - INFO - Outlier detection completed. Found outliers in 25 columns
+2025-06-29 10:43:09,335 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/raw_data_analysis.json
+2025-06-29 10:43:09,337 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:43:09,338 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.133033
+2025-06-29 10:43:09,338 - src.data_preprocessing - INFO - Cleaning data...
+2025-06-29 10:43:09,346 - src.data_preprocessing - INFO - Excluding features for ML: ['ชั้นปี', 'GPA', 'ความพึงพอใจในแผนก', 'หากเลือกใหม่จะเลือกแผนกเดิมไหม']
+2025-06-29 10:43:09,347 - src.utils - INFO - Step 3/6 (50.0%) - Cleaning data - Elapsed: 0:00:00.142097
+2025-06-29 10:43:09,347 - src.data_preprocessing - INFO - Handling missing values...
+2025-06-29 10:43:09,356 - src.data_preprocessing - INFO - Missing values after imputation: 0
+2025-06-29 10:43:09,357 - src.utils - INFO - Step 4/6 (66.7%) - Handling missing values - Elapsed: 0:00:00.152102
+2025-06-29 10:43:09,357 - src.data_preprocessing - INFO - Encoding categorical features...
+2025-06-29 10:43:09,358 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/target_mapping.json
+2025-06-29 10:43:09,359 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:43:09,359 - src.data_preprocessing - INFO - Encoded 0 categorical features
+2025-06-29 10:43:09,359 - src.utils - INFO - Step 5/6 (83.3%) - Encoding categorical features - Elapsed: 0:00:00.154445
+2025-06-29 10:43:09,359 - src.data_preprocessing - INFO - Normalizing features using standard...
+2025-06-29 10:43:09,382 - src.data_preprocessing - INFO - Normalized 25 numeric features
+2025-06-29 10:43:09,382 - src.utils - INFO - Step 6/6 (100.0%) - Normalizing features - Elapsed: 0:00:00.177839
+2025-06-29 10:43:09,382 - src.utils - INFO - Data Preprocessing completed in 0:00:00.177939
+2025-06-29 10:43:09,383 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/data_normalization.csv
+2025-06-29 10:43:09,449 - src.utils - INFO - Data saved successfully
+2025-06-29 10:43:09,450 - src.data_preprocessing - INFO - Creating preprocessing report...
+2025-06-29 10:43:09,450 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/normalization_report.json
+2025-06-29 10:43:09,451 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:43:09,451 - src.data_preprocessing - INFO - Splitting data into train/test sets...
+2025-06-29 10:43:09,452 - src.data_preprocessing - INFO - Excluded 4 features from ML
+2025-06-29 10:43:09,457 - src.data_preprocessing - INFO - Data split - Train: (1600, 21), Test: (400, 21)
+2025-06-29 10:43:09,458 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/data_split_info.json
+2025-06-29 10:43:09,459 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:43:09,461 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/train_data.csv
+2025-06-29 10:43:09,506 - src.utils - INFO - Data saved successfully
+2025-06-29 10:43:09,506 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/test_data.csv
+2025-06-29 10:43:09,520 - src.utils - INFO - Data saved successfully
+2025-06-29 10:43:09,521 - src.data_preprocessing - INFO - Data preprocessing completed successfully
+2025-06-29 10:43:09,521 - src.feature_selection - INFO - Starting feature selection pipeline...
+2025-06-29 10:43:09,522 - src.utils - INFO - Starting Feature Selection - 6 steps
+2025-06-29 10:43:09,522 - src.feature_selection - INFO - Loading normalized data...
+2025-06-29 10:43:09,522 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/train_data.csv
+2025-06-29 10:43:09,534 - src.utils - INFO - Data loaded successfully. Shape: (1600, 22)
+2025-06-29 10:43:09,535 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/test_data.csv
+2025-06-29 10:43:09,540 - src.utils - INFO - Data loaded successfully. Shape: (400, 22)
+2025-06-29 10:43:09,542 - src.feature_selection - INFO - Data loaded - Train: (1600, 21), Test: (400, 21)
+2025-06-29 10:43:09,542 - src.utils - INFO - Step 1/6 (16.7%) - Loading normalized data - Elapsed: 0:00:00.020740
+2025-06-29 10:43:09,543 - src.feature_selection - INFO - Comparing feature selection methods...
+2025-06-29 10:43:09,543 - src.feature_selection - INFO - Starting Sequential Feature Selection (forward)...
+2025-06-29 10:43:09,543 - src.feature_selection - INFO - Fitting Sequential Feature Selector...
+2025-06-29 10:47:29,945 - src.feature_selection - INFO - Sequential FS completed - Selected 15 features
+2025-06-29 10:47:29,954 - src.feature_selection - INFO - Cross-validation score: 0.8838 (+/- 0.0404)
+2025-06-29 10:47:29,955 - src.feature_selection - INFO - Starting RFE Feature Selection...
+2025-06-29 10:47:52,404 - src.feature_selection - INFO - RFE-CV completed - Selected 14 features
+2025-06-29 10:47:52,404 - src.feature_selection - INFO - Starting Filter Feature Selection...
+2025-06-29 10:47:52,633 - src.feature_selection - INFO - Filter Feature Selection completed
+2025-06-29 10:47:52,633 - src.feature_selection - INFO - Starting Embedded Feature Selection...
+2025-06-29 10:47:53,759 - src.feature_selection - INFO - Embedded Feature Selection completed
+2025-06-29 10:47:55,874 - src.feature_selection - INFO - Feature selection comparison completed
+2025-06-29 10:47:55,875 - src.utils - INFO - Step 2/6 (33.3%) - Comparing feature selection methods - Elapsed: 0:04:46.353009
+2025-06-29 10:47:55,875 - src.utils - INFO - Step 3/6 (50.0%) - Selecting primary method - Elapsed: 0:04:46.353329
+2025-06-29 10:47:55,875 - src.feature_selection - INFO - Creating dataset with selected features...
+2025-06-29 10:47:55,886 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/train_data_selected.csv
+2025-06-29 10:47:55,960 - src.utils - INFO - Data saved successfully
+2025-06-29 10:47:55,960 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/test_data_selected.csv
+2025-06-29 10:47:55,977 - src.utils - INFO - Data saved successfully
+2025-06-29 10:47:55,979 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/data_selection.csv
+2025-06-29 10:47:56,048 - src.utils - INFO - Data saved successfully
+2025-06-29 10:47:56,048 - src.feature_selection - INFO - Selected dataset saved - Train: (1600, 16), Test: (400, 16)
+2025-06-29 10:47:56,050 - src.utils - INFO - Step 4/6 (66.7%) - Creating selected dataset - Elapsed: 0:04:46.527922
+2025-06-29 10:47:56,050 - src.feature_selection - INFO - Creating feature selection report...
+2025-06-29 10:47:56,050 - src.utils - INFO - Step 5/6 (83.3%) - Creating selection report - Elapsed: 0:04:46.528399
+2025-06-29 10:47:56,050 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_report.json
+2025-06-29 10:47:56,052 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:47:56,053 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selected_features.json
+2025-06-29 10:47:56,053 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:47:56,059 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selection_scores.csv
+2025-06-29 10:47:56,061 - src.utils - INFO - Data saved successfully
+2025-06-29 10:47:56,061 - src.utils - INFO - Step 6/6 (100.0%) - Saving results - Elapsed: 0:04:46.539345
+2025-06-29 10:47:56,061 - src.utils - INFO - Feature Selection completed in 0:04:46.539499
+2025-06-29 10:47:56,061 - src.feature_selection - INFO - Feature selection completed successfully
+2025-06-29 10:47:56,062 - src.model_training - INFO - Starting model training pipeline...
+2025-06-29 10:47:56,062 - src.utils - INFO - Starting Model Training - 8 steps
+2025-06-29 10:47:56,062 - src.model_training - INFO - Loading selected features data...
+2025-06-29 10:47:56,063 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/train_data_selected.csv
+2025-06-29 10:47:56,141 - src.utils - INFO - Data loaded successfully. Shape: (1600, 16)
+2025-06-29 10:47:56,142 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/test_data_selected.csv
+2025-06-29 10:47:56,247 - src.utils - INFO - Data loaded successfully. Shape: (400, 16)
+2025-06-29 10:47:56,252 - src.model_training - INFO - Data loaded - Train: (1600, 15), Test: (400, 15)
+2025-06-29 10:47:56,253 - src.model_training - INFO - Features: ['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ', 'ทักษะการคิดเชิงตรรกะ', 'ทักษะความคิดสร้างสรรค์', 'ความสนใจด้านตัวเลข', 'ความสนใจด้านเทคโนโลยี', 'ความสนใจด้านการทำอาหาร', 'การศึกษาของผู้ปกครอง', 'ชั่วโมงการนอน', 'ความถี่การออกกำลังกาย', 'ชั่วโมงใช้โซเชียลมีเดีย', 'ชอบอ่านหนังสือ']
+2025-06-29 10:47:56,254 - src.utils - INFO - Step 1/8 (12.5%) - Loading selected data - Elapsed: 0:00:00.191122
+2025-06-29 10:47:56,255 - src.model_training - INFO - Initializing models...
+2025-06-29 10:47:56,256 - src.model_training - INFO - Initialized 3 models: ['Random_Forest', 'Gradient_Boosting', 'Logistic_Regression']
+2025-06-29 10:47:56,257 - src.utils - INFO - Step 2/8 (25.0%) - Initializing models - Elapsed: 0:00:00.194351
+2025-06-29 10:47:56,257 - src.model_training - INFO - Starting 10-fold cross-validation...
+2025-06-29 10:47:56,257 - src.model_training - INFO - Cross-validating Random_Forest...
+2025-06-29 10:47:59,286 - src.model_training - INFO - Random_Forest CV completed - Accuracy: 0.8819 (+/- 0.0462)
+2025-06-29 10:47:59,287 - src.model_training - INFO - Cross-validating Gradient_Boosting...
+2025-06-29 10:48:19,535 - src.model_training - INFO - Gradient_Boosting CV completed - Accuracy: 0.8962 (+/- 0.0475)
+2025-06-29 10:48:19,535 - src.model_training - INFO - Cross-validating Logistic_Regression...
+2025-06-29 10:48:19,805 - src.model_training - INFO - Logistic_Regression CV completed - Accuracy: 0.9444 (+/- 0.0351)
+2025-06-29 10:48:19,805 - src.utils - INFO - Step 3/8 (37.5%) - Cross-validation evaluation - Elapsed: 0:00:23.742986
+2025-06-29 10:48:19,806 - src.model_training - INFO - Training final models...
+2025-06-29 10:48:19,806 - src.model_training - INFO - Training Random_Forest...
+2025-06-29 10:48:20,133 - src.utils - INFO - Saving model to: /Users/phanumetchoompun/Desktop/dataset_/models/random_forest.pickle
+2025-06-29 10:48:20,145 - src.utils - INFO - Model saved successfully
+2025-06-29 10:48:20,148 - src.model_training - INFO - Random_Forest training completed
+2025-06-29 10:48:20,148 - src.model_training - INFO - Training Gradient_Boosting...
+2025-06-29 10:48:24,739 - src.utils - INFO - Saving model to: /Users/phanumetchoompun/Desktop/dataset_/models/gradient_boosting.pickle
+2025-06-29 10:48:24,754 - src.utils - INFO - Model saved successfully
+2025-06-29 10:48:24,754 - src.model_training - INFO - Gradient_Boosting training completed
+2025-06-29 10:48:24,754 - src.model_training - INFO - Training Logistic_Regression...
+2025-06-29 10:48:24,779 - src.utils - INFO - Saving model to: /Users/phanumetchoompun/Desktop/dataset_/models/logistic_regression.pickle
+2025-06-29 10:48:24,779 - src.utils - INFO - Model saved successfully
+2025-06-29 10:48:24,780 - src.model_training - INFO - Logistic_Regression training completed
+2025-06-29 10:48:24,780 - src.utils - INFO - Step 4/8 (50.0%) - Training final models - Elapsed: 0:00:28.717434
+2025-06-29 10:48:24,780 - src.model_training - INFO - Evaluating models on test set...
+2025-06-29 10:48:24,780 - src.model_training - INFO - Evaluating Random_Forest on test set...
+2025-06-29 10:48:24,941 - src.model_training - INFO - Random_Forest test evaluation completed - Accuracy: 0.8775
+2025-06-29 10:48:24,942 - src.model_training - INFO - Evaluating Gradient_Boosting on test set...
+2025-06-29 10:48:24,994 - src.model_training - INFO - Gradient_Boosting test evaluation completed - Accuracy: 0.8975
+2025-06-29 10:48:24,994 - src.model_training - INFO - Evaluating Logistic_Regression on test set...
+2025-06-29 10:48:25,022 - src.model_training - INFO - Logistic_Regression test evaluation completed - Accuracy: 0.9300
+2025-06-29 10:48:25,022 - src.utils - INFO - Step 5/8 (62.5%) - Test set evaluation - Elapsed: 0:00:28.959909
+2025-06-29 10:48:25,022 - src.model_training - INFO - Creating confusion matrices...
+2025-06-29 10:48:25,023 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/target_mapping.json
+2025-06-29 10:48:25,024 - src.utils - INFO - JSON loaded successfully
+2025-06-29 10:48:26,661 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices.png
+2025-06-29 10:48:28,014 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices.png
+2025-06-29 10:48:28,015 - src.model_training - INFO - Confusion matrices created and saved
+2025-06-29 10:48:28,015 - src.utils - INFO - Step 6/8 (75.0%) - Creating confusion matrices - Elapsed: 0:00:31.952476
+2025-06-29 10:48:28,015 - src.model_training - INFO - Performing statistical significance testing...
+2025-06-29 10:48:28,555 - src.model_training - INFO - Statistical significance testing completed
+2025-06-29 10:48:28,555 - src.utils - INFO - Step 7/8 (87.5%) - Statistical significance testing - Elapsed: 0:00:32.492755
+2025-06-29 10:48:28,555 - src.model_training - INFO - Creating training report...
+2025-06-29 10:48:28,556 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/training_report.json
+2025-06-29 10:48:28,572 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:48:28,573 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cv_results.json
+2025-06-29 10:48:28,574 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:48:28,575 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/test_results.json
+2025-06-29 10:48:28,576 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:48:28,576 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/predictions.json
+2025-06-29 10:48:28,591 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:48:28,592 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance.csv
+2025-06-29 10:48:28,594 - src.utils - INFO - Data saved successfully
+2025-06-29 10:48:28,594 - src.utils - INFO - Step 8/8 (100.0%) - Saving results - Elapsed: 0:00:32.531498
+2025-06-29 10:48:28,594 - src.utils - INFO - Model Training completed in 0:00:32.531615
+2025-06-29 10:48:28,594 - src.model_training - INFO - Model training completed successfully
+2025-06-29 10:48:28,595 - src.model_comparison - INFO - Starting comprehensive model comparison...
+2025-06-29 10:48:28,595 - src.utils - INFO - Starting Model Comparison - 7 steps
+2025-06-29 10:48:28,595 - src.model_comparison - INFO - Loading all results for comparison...
+2025-06-29 10:48:28,595 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/normalization_report.json
+2025-06-29 10:48:28,596 - src.utils - INFO - JSON loaded successfully
+2025-06-29 10:48:28,596 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_report.json
+2025-06-29 10:48:28,597 - src.utils - INFO - JSON loaded successfully
+2025-06-29 10:48:28,597 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selected_features.json
+2025-06-29 10:48:28,598 - src.utils - INFO - JSON loaded successfully
+2025-06-29 10:48:28,599 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/training_report.json
+2025-06-29 10:48:28,604 - src.utils - INFO - JSON loaded successfully
+2025-06-29 10:48:28,604 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cv_results.json
+2025-06-29 10:48:28,605 - src.utils - INFO - JSON loaded successfully
+2025-06-29 10:48:28,605 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/test_results.json
+2025-06-29 10:48:28,605 - src.utils - INFO - JSON loaded successfully
+2025-06-29 10:48:28,606 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance.csv
+2025-06-29 10:48:28,608 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-06-29 10:48:28,609 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selection_scores.csv
+2025-06-29 10:48:28,613 - src.utils - INFO - Data loaded successfully. Shape: (21, 2)
+2025-06-29 10:48:28,613 - src.model_comparison - INFO - All results loaded successfully
+2025-06-29 10:48:28,613 - src.utils - INFO - Step 1/7 (14.3%) - Loading all results - Elapsed: 0:00:00.018518
+2025-06-29 10:48:28,613 - src.model_comparison - INFO - Analyzing feature selection impact...
+2025-06-29 10:48:28,613 - src.model_comparison - INFO - Feature selection impact analysis completed
+2025-06-29 10:48:28,614 - src.utils - INFO - Step 2/7 (28.6%) - Analyzing feature selection impact - Elapsed: 0:00:00.018845
+2025-06-29 10:48:28,614 - src.model_comparison - INFO - Performing comprehensive model comparison...
+2025-06-29 10:48:28,618 - src.model_comparison - INFO - Comprehensive model comparison completed
+2025-06-29 10:48:28,618 - src.utils - INFO - Step 3/7 (42.9%) - Comprehensive model comparison - Elapsed: 0:00:00.023075
+2025-06-29 10:48:28,618 - src.model_comparison - INFO - Performing detailed statistical analysis...
+2025-06-29 10:48:28,635 - src.model_comparison - INFO - Detailed statistical analysis completed
+2025-06-29 10:48:28,635 - src.utils - INFO - Step 4/7 (57.1%) - Detailed statistical analysis - Elapsed: 0:00:00.040372
+2025-06-29 10:48:28,635 - src.model_comparison - INFO - Generating recommendations...
+2025-06-29 10:48:28,635 - src.model_comparison - INFO - Recommendations generated
+2025-06-29 10:48:28,636 - src.utils - INFO - Step 5/7 (71.4%) - Generating recommendations - Elapsed: 0:00:00.040864
+2025-06-29 10:48:28,636 - src.model_comparison - INFO - Creating final comprehensive report...
+2025-06-29 10:48:28,636 - src.model_comparison - INFO - Final comprehensive report created
+2025-06-29 10:48:28,636 - src.utils - INFO - Step 6/7 (85.7%) - Creating final report - Elapsed: 0:00:00.041271
+2025-06-29 10:48:28,636 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/comparison/final_report.json
+2025-06-29 10:48:28,639 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:48:28,639 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/comparison/model_comparison.json
+2025-06-29 10:48:28,640 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:48:28,640 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/comparison/feature_selection_impact.json
+2025-06-29 10:48:28,640 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:48:28,641 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/comparison/statistical_analysis.json
+2025-06-29 10:48:28,642 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:48:28,642 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/comparison/recommendations.json
+2025-06-29 10:48:28,643 - src.utils - INFO - JSON saved successfully
+2025-06-29 10:48:28,644 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/comparison/model_comparison.csv
+2025-06-29 10:48:28,646 - src.utils - INFO - Data saved successfully
+2025-06-29 10:48:28,647 - src.utils - INFO - Step 7/7 (100.0%) - Saving results - Elapsed: 0:00:00.051961
+2025-06-29 10:48:28,647 - src.utils - INFO - Model Comparison completed in 0:00:00.052132
+2025-06-29 10:48:28,647 - src.model_comparison - INFO - Comprehensive model comparison completed successfully
+2025-06-29 10:48:28,651 - src.visualization - INFO - Creating all visualizations...
+2025-06-29 10:48:28,651 - src.utils - INFO - Starting Visualization - 8 steps
+2025-06-29 10:48:28,651 - src.visualization - INFO - Loading results data for visualization...
+2025-06-29 10:48:28,651 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_report.json
+2025-06-29 10:48:28,652 - src.utils - INFO - JSON loaded successfully
+2025-06-29 10:48:28,652 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selected_features.json
+2025-06-29 10:48:28,652 - src.utils - INFO - JSON loaded successfully
+2025-06-29 10:48:28,653 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/training_report.json
+2025-06-29 10:48:28,657 - src.utils - INFO - JSON loaded successfully
+2025-06-29 10:48:28,657 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cv_results.json
+2025-06-29 10:48:28,657 - src.utils - INFO - JSON loaded successfully
+2025-06-29 10:48:28,658 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/test_results.json
+2025-06-29 10:48:28,658 - src.utils - INFO - JSON loaded successfully
+2025-06-29 10:48:28,658 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance.csv
+2025-06-29 10:48:28,660 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-06-29 10:48:28,661 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selection_scores.csv
+2025-06-29 10:48:28,663 - src.utils - INFO - Data loaded successfully. Shape: (21, 2)
+2025-06-29 10:48:28,663 - src.visualization - INFO - Results data loaded successfully
+2025-06-29 10:48:28,663 - src.utils - INFO - Step 1/8 (12.5%) - Loading results data - Elapsed: 0:00:00.012378
+2025-06-29 10:48:28,664 - src.visualization - INFO - Creating feature selection comparison plot...
+2025-06-29 10:48:28,904 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_comparison.png
+2025-06-29 10:48:30,791 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_comparison.png
+2025-06-29 10:48:30,791 - src.utils - INFO - Step 2/8 (25.0%) - Feature selection comparison - Elapsed: 0:00:02.140575
+2025-06-29 10:48:30,792 - src.visualization - INFO - Creating feature importance plot...
+2025-06-29 10:48:31,030 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_importance.png
+2025-06-29 10:48:32,264 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_importance.png
+2025-06-29 10:48:32,265 - src.utils - INFO - Step 3/8 (37.5%) - Feature importance - Elapsed: 0:00:03.613781
+2025-06-29 10:48:32,265 - src.visualization - INFO - Creating model performance comparison plot...
+2025-06-29 10:48:32,782 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance_comparison.png
+2025-06-29 10:48:35,664 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance_comparison.png
+2025-06-29 10:48:35,665 - src.utils - INFO - Step 4/8 (50.0%) - Model performance comparison - Elapsed: 0:00:07.013734
+2025-06-29 10:48:35,665 - src.visualization - INFO - Creating cross-validation scores plot...
+2025-06-29 10:48:35,879 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cross_validation_scores.png
+2025-06-29 10:48:37,209 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cross_validation_scores.png
+2025-06-29 10:48:37,210 - src.utils - INFO - Step 5/8 (62.5%) - Cross-validation scores - Elapsed: 0:00:08.558736
+2025-06-29 10:48:37,210 - src.visualization - INFO - Creating enhanced confusion matrices...
+2025-06-29 10:48:37,210 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/target_mapping.json
+2025-06-29 10:48:37,211 - src.utils - INFO - JSON loaded successfully
+2025-06-29 10:48:39,150 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices_enhanced.png
+2025-06-29 10:48:41,918 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices_enhanced.png
+2025-06-29 10:48:41,919 - src.utils - INFO - Step 6/8 (75.0%) - Confusion matrices - Elapsed: 0:00:13.267765
+2025-06-29 10:48:41,919 - src.visualization - INFO - Creating statistical significance plot...
+2025-06-29 10:48:42,403 - src.visualization - ERROR - Visualization failed: Unknown format code 'd' for object of type 'float'
+2025-06-29 10:48:42,403 - src.utils - ERROR - Step 5 failed: Unknown format code 'd' for object of type 'float'
+2025-06-29 11:25:52,703 - src.visualization - INFO - Creating all visualizations...
+2025-06-29 11:25:52,704 - src.utils - INFO - Starting Visualization - 8 steps
+2025-06-29 11:25:52,704 - src.visualization - INFO - Loading results data for visualization...
+2025-06-29 11:25:52,704 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_report.json
+2025-06-29 11:25:52,706 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:25:52,706 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selected_features.json
+2025-06-29 11:25:52,707 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:25:52,708 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/training_report.json
+2025-06-29 11:25:52,725 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:25:52,725 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cv_results.json
+2025-06-29 11:25:52,727 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:25:52,728 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/test_results.json
+2025-06-29 11:25:52,729 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:25:52,730 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance.csv
+2025-06-29 11:25:52,739 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-06-29 11:25:52,740 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selection_scores.csv
+2025-06-29 11:25:52,745 - src.utils - INFO - Data loaded successfully. Shape: (21, 2)
+2025-06-29 11:25:52,745 - src.visualization - INFO - Results data loaded successfully
+2025-06-29 11:25:52,746 - src.utils - INFO - Step 1/8 (12.5%) - Loading results data - Elapsed: 0:00:00.041595
+2025-06-29 11:25:52,746 - src.visualization - INFO - Creating feature selection comparison plot...
+2025-06-29 11:25:53,250 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_comparison.png
+2025-06-29 11:25:54,478 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_comparison.png
+2025-06-29 11:25:54,478 - src.utils - INFO - Step 2/8 (25.0%) - Feature selection comparison - Elapsed: 0:00:01.774462
+2025-06-29 11:25:54,478 - src.visualization - INFO - Creating feature importance plot...
+2025-06-29 11:25:54,694 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_importance.png
+2025-06-29 11:25:55,798 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_importance.png
+2025-06-29 11:25:55,798 - src.utils - INFO - Step 3/8 (37.5%) - Feature importance - Elapsed: 0:00:03.094642
+2025-06-29 11:25:55,798 - src.visualization - INFO - Creating model performance comparison plot...
+2025-06-29 11:25:56,220 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance_comparison.png
+2025-06-29 11:25:59,053 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance_comparison.png
+2025-06-29 11:25:59,053 - src.utils - INFO - Step 4/8 (50.0%) - Model performance comparison - Elapsed: 0:00:06.349487
+2025-06-29 11:25:59,053 - src.visualization - INFO - Creating cross-validation scores plot...
+2025-06-29 11:25:59,217 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cross_validation_scores.png
+2025-06-29 11:26:00,525 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cross_validation_scores.png
+2025-06-29 11:26:00,525 - src.utils - INFO - Step 5/8 (62.5%) - Cross-validation scores - Elapsed: 0:00:07.821724
+2025-06-29 11:26:00,526 - src.visualization - INFO - Creating enhanced confusion matrices...
+2025-06-29 11:26:00,526 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/target_mapping.json
+2025-06-29 11:26:00,526 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:26:02,815 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices_enhanced.png
+2025-06-29 11:26:05,224 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices_enhanced.png
+2025-06-29 11:26:05,224 - src.utils - INFO - Step 6/8 (75.0%) - Confusion matrices - Elapsed: 0:00:12.520442
+2025-06-29 11:26:05,224 - src.visualization - INFO - Creating statistical significance plot...
+2025-06-29 11:26:05,610 - src.visualization - ERROR - Visualization failed: Unknown format code 'd' for object of type 'float'
+2025-06-29 11:26:05,610 - src.utils - ERROR - Step 5 failed: Unknown format code 'd' for object of type 'float'
+2025-06-29 11:33:48,896 - src.visualization - INFO - Creating all visualizations...
+2025-06-29 11:33:48,897 - src.utils - INFO - Starting Visualization - 8 steps
+2025-06-29 11:33:48,897 - src.visualization - INFO - Loading results data for visualization...
+2025-06-29 11:33:48,898 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_report.json
+2025-06-29 11:33:48,899 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:33:48,900 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selected_features.json
+2025-06-29 11:33:48,901 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:33:48,901 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/training_report.json
+2025-06-29 11:33:48,908 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:33:48,909 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cv_results.json
+2025-06-29 11:33:48,910 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:33:48,911 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/test_results.json
+2025-06-29 11:33:48,912 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:33:48,912 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance.csv
+2025-06-29 11:33:48,925 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-06-29 11:33:48,926 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selection_scores.csv
+2025-06-29 11:33:48,929 - src.utils - INFO - Data loaded successfully. Shape: (21, 2)
+2025-06-29 11:33:48,929 - src.visualization - INFO - Results data loaded successfully
+2025-06-29 11:33:48,929 - src.utils - INFO - Step 1/8 (12.5%) - Loading results data - Elapsed: 0:00:00.032570
+2025-06-29 11:33:48,930 - src.visualization - INFO - Creating feature selection comparison plot...
+2025-06-29 11:33:49,275 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_comparison.png
+2025-06-29 11:33:50,116 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_comparison.png
+2025-06-29 11:33:50,117 - src.utils - INFO - Step 2/8 (25.0%) - Feature selection comparison - Elapsed: 0:00:01.219724
+2025-06-29 11:33:50,117 - src.visualization - INFO - Creating feature importance plot...
+2025-06-29 11:33:50,237 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_importance.png
+2025-06-29 11:33:51,008 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_importance.png
+2025-06-29 11:33:51,008 - src.utils - INFO - Step 3/8 (37.5%) - Feature importance - Elapsed: 0:00:02.110956
+2025-06-29 11:33:51,008 - src.visualization - INFO - Creating model performance comparison plot...
+2025-06-29 11:33:51,333 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance_comparison.png
+2025-06-29 11:33:53,306 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance_comparison.png
+2025-06-29 11:33:53,306 - src.utils - INFO - Step 4/8 (50.0%) - Model performance comparison - Elapsed: 0:00:04.409632
+2025-06-29 11:33:53,307 - src.visualization - INFO - Creating cross-validation scores plot...
+2025-06-29 11:33:53,442 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cross_validation_scores.png
+2025-06-29 11:33:54,510 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cross_validation_scores.png
+2025-06-29 11:33:54,510 - src.utils - INFO - Step 5/8 (62.5%) - Cross-validation scores - Elapsed: 0:00:05.613523
+2025-06-29 11:33:54,510 - src.visualization - INFO - Creating enhanced confusion matrices...
+2025-06-29 11:33:54,511 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/target_mapping.json
+2025-06-29 11:33:54,511 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:33:55,971 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices_enhanced.png
+2025-06-29 11:33:57,916 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices_enhanced.png
+2025-06-29 11:33:57,916 - src.utils - INFO - Step 6/8 (75.0%) - Confusion matrices - Elapsed: 0:00:09.019346
+2025-06-29 11:33:57,916 - src.visualization - INFO - Creating statistical significance plot...
+2025-06-29 11:33:58,192 - src.visualization - ERROR - Visualization failed: Unknown format code 'd' for object of type 'float'
+2025-06-29 11:33:58,192 - src.utils - ERROR - Step 5 failed: Unknown format code 'd' for object of type 'float'
+2025-06-29 11:42:20,808 - src.model_training - INFO - Starting model training pipeline...
+2025-06-29 11:42:20,809 - src.utils - INFO - Starting Model Training - 8 steps
+2025-06-29 11:42:20,809 - src.model_training - INFO - Loading selected features data...
+2025-06-29 11:42:20,809 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/train_data_selected.csv
+2025-06-29 11:42:20,827 - src.utils - INFO - Data loaded successfully. Shape: (1600, 16)
+2025-06-29 11:42:20,828 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/test_data_selected.csv
+2025-06-29 11:42:20,833 - src.utils - INFO - Data loaded successfully. Shape: (400, 16)
+2025-06-29 11:42:20,847 - src.model_training - INFO - Data loaded - Train: (1600, 15), Test: (400, 15)
+2025-06-29 11:42:20,847 - src.model_training - INFO - Features: ['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ', 'ทักษะการคิดเชิงตรรกะ', 'ทักษะความคิดสร้างสรรค์', 'ความสนใจด้านตัวเลข', 'ความสนใจด้านเทคโนโลยี', 'ความสนใจด้านการทำอาหาร', 'การศึกษาของผู้ปกครอง', 'ชั่วโมงการนอน', 'ความถี่การออกกำลังกาย', 'ชั่วโมงใช้โซเชียลมีเดีย', 'ชอบอ่านหนังสือ']
+2025-06-29 11:42:20,847 - src.utils - INFO - Step 1/8 (12.5%) - Loading selected data - Elapsed: 0:00:00.038045
+2025-06-29 11:42:20,847 - src.model_training - INFO - Initializing models...
+2025-06-29 11:42:20,847 - src.model_training - INFO - Initialized 3 models: ['Random_Forest', 'Gradient_Boosting', 'Logistic_Regression']
+2025-06-29 11:42:20,847 - src.utils - INFO - Step 2/8 (25.0%) - Initializing models - Elapsed: 0:00:00.038448
+2025-06-29 11:42:20,848 - src.model_training - INFO - Starting 10-fold cross-validation...
+2025-06-29 11:42:20,848 - src.model_training - INFO - Cross-validating Random_Forest...
+2025-06-29 11:42:30,293 - src.model_training - INFO - Random_Forest CV completed - Accuracy: 0.8819 (+/- 0.0462)
+2025-06-29 11:42:30,294 - src.model_training - INFO - Cross-validating Gradient_Boosting...
+2025-06-29 11:42:46,557 - src.model_training - INFO - Gradient_Boosting CV completed - Accuracy: 0.8962 (+/- 0.0475)
+2025-06-29 11:42:46,558 - src.model_training - INFO - Cross-validating Logistic_Regression...
+2025-06-29 11:42:46,743 - src.model_training - INFO - Logistic_Regression CV completed - Accuracy: 0.9444 (+/- 0.0351)
+2025-06-29 11:42:46,744 - src.utils - INFO - Step 3/8 (37.5%) - Cross-validation evaluation - Elapsed: 0:00:25.934657
+2025-06-29 11:42:46,744 - src.model_training - INFO - Training final models...
+2025-06-29 11:42:46,744 - src.model_training - INFO - Training Random_Forest...
+2025-06-29 11:42:47,054 - src.utils - INFO - Saving model to: /Users/phanumetchoompun/Desktop/dataset_/models/random_forest.pickle
+2025-06-29 11:42:47,074 - src.utils - INFO - Model saved successfully
+2025-06-29 11:42:47,074 - src.model_training - INFO - Random_Forest training completed
+2025-06-29 11:42:47,075 - src.model_training - INFO - Training Gradient_Boosting...
+2025-06-29 11:42:51,302 - src.utils - INFO - Saving model to: /Users/phanumetchoompun/Desktop/dataset_/models/gradient_boosting.pickle
+2025-06-29 11:42:51,321 - src.utils - INFO - Model saved successfully
+2025-06-29 11:42:51,321 - src.model_training - INFO - Gradient_Boosting training completed
+2025-06-29 11:42:51,321 - src.model_training - INFO - Training Logistic_Regression...
+2025-06-29 11:42:51,344 - src.utils - INFO - Saving model to: /Users/phanumetchoompun/Desktop/dataset_/models/logistic_regression.pickle
+2025-06-29 11:42:51,346 - src.utils - INFO - Model saved successfully
+2025-06-29 11:42:51,346 - src.model_training - INFO - Logistic_Regression training completed
+2025-06-29 11:42:51,346 - src.utils - INFO - Step 4/8 (50.0%) - Training final models - Elapsed: 0:00:30.537192
+2025-06-29 11:42:51,346 - src.model_training - INFO - Evaluating models on test set...
+2025-06-29 11:42:51,346 - src.model_training - INFO - Evaluating Random_Forest on test set...
+2025-06-29 11:42:51,482 - src.model_training - INFO - Random_Forest test evaluation completed - Accuracy: 0.8775
+2025-06-29 11:42:51,482 - src.model_training - INFO - Evaluating Gradient_Boosting on test set...
+2025-06-29 11:42:51,527 - src.model_training - INFO - Gradient_Boosting test evaluation completed - Accuracy: 0.8975
+2025-06-29 11:42:51,528 - src.model_training - INFO - Evaluating Logistic_Regression on test set...
+2025-06-29 11:42:51,557 - src.model_training - INFO - Logistic_Regression test evaluation completed - Accuracy: 0.9300
+2025-06-29 11:42:51,557 - src.utils - INFO - Step 5/8 (62.5%) - Test set evaluation - Elapsed: 0:00:30.748289
+2025-06-29 11:42:51,557 - src.model_training - INFO - Creating confusion matrices...
+2025-06-29 11:42:51,558 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/target_mapping.json
+2025-06-29 11:42:51,558 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:42:52,436 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices.png
+2025-06-29 11:42:53,933 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices.png
+2025-06-29 11:42:53,933 - src.model_training - INFO - Confusion matrices created and saved
+2025-06-29 11:42:53,933 - src.utils - INFO - Step 6/8 (75.0%) - Creating confusion matrices - Elapsed: 0:00:33.124424
+2025-06-29 11:42:53,934 - src.model_training - INFO - Performing statistical significance testing...
+2025-06-29 11:42:54,394 - src.model_training - INFO - Statistical significance testing completed
+2025-06-29 11:42:54,394 - src.utils - INFO - Step 7/8 (87.5%) - Statistical significance testing - Elapsed: 0:00:33.585331
+2025-06-29 11:42:54,394 - src.model_training - INFO - Creating training report...
+2025-06-29 11:42:54,395 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/training_report.json
+2025-06-29 11:42:54,413 - src.utils - INFO - JSON saved successfully
+2025-06-29 11:42:54,413 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cv_results.json
+2025-06-29 11:42:54,415 - src.utils - INFO - JSON saved successfully
+2025-06-29 11:42:54,416 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/test_results.json
+2025-06-29 11:42:54,419 - src.utils - INFO - JSON saved successfully
+2025-06-29 11:42:54,420 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/predictions.json
+2025-06-29 11:42:54,436 - src.utils - INFO - JSON saved successfully
+2025-06-29 11:42:54,438 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance.csv
+2025-06-29 11:42:54,444 - src.utils - INFO - Data saved successfully
+2025-06-29 11:42:54,444 - src.utils - INFO - Step 8/8 (100.0%) - Saving results - Elapsed: 0:00:33.635326
+2025-06-29 11:42:54,444 - src.utils - INFO - Model Training completed in 0:00:33.635455
+2025-06-29 11:42:54,445 - src.model_training - INFO - Model training completed successfully
+2025-06-29 11:43:13,937 - src.visualization - INFO - Creating all visualizations...
+2025-06-29 11:43:13,937 - src.utils - INFO - Starting Visualization - 8 steps
+2025-06-29 11:43:13,937 - src.visualization - INFO - Loading results data for visualization...
+2025-06-29 11:43:13,937 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_report.json
+2025-06-29 11:43:13,939 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:43:13,939 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selected_features.json
+2025-06-29 11:43:13,940 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:43:13,940 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/training_report.json
+2025-06-29 11:43:13,947 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:43:13,948 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cv_results.json
+2025-06-29 11:43:13,949 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:43:13,951 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/test_results.json
+2025-06-29 11:43:13,951 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:43:13,952 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance.csv
+2025-06-29 11:43:13,958 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-06-29 11:43:13,959 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selection_scores.csv
+2025-06-29 11:43:13,961 - src.utils - INFO - Data loaded successfully. Shape: (21, 2)
+2025-06-29 11:43:13,961 - src.visualization - INFO - Results data loaded successfully
+2025-06-29 11:43:13,962 - src.utils - INFO - Step 1/8 (12.5%) - Loading results data - Elapsed: 0:00:00.024497
+2025-06-29 11:43:13,962 - src.visualization - INFO - Creating feature selection comparison plot...
+2025-06-29 11:43:14,280 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_comparison.png
+2025-06-29 11:43:15,241 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_comparison.png
+2025-06-29 11:43:15,241 - src.utils - INFO - Step 2/8 (25.0%) - Feature selection comparison - Elapsed: 0:00:01.304311
+2025-06-29 11:43:15,241 - src.visualization - INFO - Creating feature importance plot...
+2025-06-29 11:43:15,371 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_importance.png
+2025-06-29 11:43:16,202 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_importance.png
+2025-06-29 11:43:16,202 - src.utils - INFO - Step 3/8 (37.5%) - Feature importance - Elapsed: 0:00:02.264672
+2025-06-29 11:43:16,202 - src.visualization - INFO - Creating model performance comparison plot...
+2025-06-29 11:43:16,479 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance_comparison.png
+2025-06-29 11:43:18,642 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance_comparison.png
+2025-06-29 11:43:18,642 - src.utils - INFO - Step 4/8 (50.0%) - Model performance comparison - Elapsed: 0:00:04.704693
+2025-06-29 11:43:18,642 - src.visualization - INFO - Creating cross-validation scores plot...
+2025-06-29 11:43:18,774 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cross_validation_scores.png
+2025-06-29 11:43:19,911 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cross_validation_scores.png
+2025-06-29 11:43:19,911 - src.utils - INFO - Step 5/8 (62.5%) - Cross-validation scores - Elapsed: 0:00:05.974292
+2025-06-29 11:43:19,911 - src.visualization - INFO - Creating enhanced confusion matrices...
+2025-06-29 11:43:19,912 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/target_mapping.json
+2025-06-29 11:43:19,912 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:43:22,178 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices_enhanced.png
+2025-06-29 11:43:24,339 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices_enhanced.png
+2025-06-29 11:43:24,339 - src.utils - INFO - Step 6/8 (75.0%) - Confusion matrices - Elapsed: 0:00:10.402257
+2025-06-29 11:43:24,339 - src.visualization - INFO - Creating statistical significance plot...
+2025-06-29 11:43:24,689 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/statistical_significance.png
+2025-06-29 11:43:25,751 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/statistical_significance.png
+2025-06-29 11:43:25,752 - src.utils - INFO - Step 7/8 (87.5%) - Statistical significance - Elapsed: 0:00:11.814542
+2025-06-29 11:43:25,752 - src.visualization - INFO - Creating training time analysis plot...
+2025-06-29 11:43:25,906 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/training_time_analysis.png
+2025-06-29 11:43:27,053 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/training_time_analysis.png
+2025-06-29 11:43:27,053 - src.utils - INFO - Step 8/8 (100.0%) - Training time analysis - Elapsed: 0:00:13.116095
+2025-06-29 11:43:27,053 - src.visualization - INFO - Creating summary dashboard...
+2025-06-29 11:43:27,158 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/comparison/summary_dashboard.png
+2025-06-29 11:43:29,891 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/comparison/summary_dashboard.png
+2025-06-29 11:43:29,891 - src.utils - INFO - Step 9/8 (112.5%) - Summary dashboard - Elapsed: 0:00:15.954227
+2025-06-29 11:43:29,892 - src.utils - INFO - Visualization completed in 0:00:15.954452
+2025-06-29 11:43:29,892 - src.visualization - ERROR - Visualization failed: name 'COMPARISON_RESULT_DIR' is not defined
+2025-06-29 11:43:29,892 - src.utils - ERROR - Step 5 failed: name 'COMPARISON_RESULT_DIR' is not defined
+2025-06-29 11:52:24,495 - src.model_training - INFO - Starting model training pipeline...
+2025-06-29 11:52:24,497 - src.utils - INFO - Starting Model Training - 8 steps
+2025-06-29 11:52:24,497 - src.model_training - INFO - Loading selected features data...
+2025-06-29 11:52:24,498 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/train_data_selected.csv
+2025-06-29 11:52:24,529 - src.utils - INFO - Data loaded successfully. Shape: (1600, 16)
+2025-06-29 11:52:24,529 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/test_data_selected.csv
+2025-06-29 11:52:24,536 - src.utils - INFO - Data loaded successfully. Shape: (400, 16)
+2025-06-29 11:52:24,547 - src.model_training - INFO - Data loaded - Train: (1600, 15), Test: (400, 15)
+2025-06-29 11:52:24,547 - src.model_training - INFO - Features: ['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ', 'ทักษะการคิดเชิงตรรกะ', 'ทักษะความคิดสร้างสรรค์', 'ความสนใจด้านตัวเลข', 'ความสนใจด้านเทคโนโลยี', 'ความสนใจด้านการทำอาหาร', 'การศึกษาของผู้ปกครอง', 'ชั่วโมงการนอน', 'ความถี่การออกกำลังกาย', 'ชั่วโมงใช้โซเชียลมีเดีย', 'ชอบอ่านหนังสือ']
+2025-06-29 11:52:24,548 - src.utils - INFO - Step 1/8 (12.5%) - Loading selected data - Elapsed: 0:00:00.050703
+2025-06-29 11:52:24,548 - src.model_training - INFO - Initializing models...
+2025-06-29 11:52:24,548 - src.model_training - INFO - Initialized 3 models: ['Random_Forest', 'Gradient_Boosting', 'Logistic_Regression']
+2025-06-29 11:52:24,548 - src.utils - INFO - Step 2/8 (25.0%) - Initializing models - Elapsed: 0:00:00.051103
+2025-06-29 11:52:24,548 - src.model_training - INFO - Starting 10-fold cross-validation...
+2025-06-29 11:52:24,548 - src.model_training - INFO - Cross-validating Random_Forest...
+2025-06-29 11:52:31,063 - src.model_training - INFO - Random_Forest CV completed - Accuracy: 0.8819 (+/- 0.0462)
+2025-06-29 11:52:31,067 - src.model_training - INFO - Cross-validating Gradient_Boosting...
+2025-06-29 11:52:44,259 - src.model_training - INFO - Gradient_Boosting CV completed - Accuracy: 0.8962 (+/- 0.0475)
+2025-06-29 11:52:44,259 - src.model_training - INFO - Cross-validating Logistic_Regression...
+2025-06-29 11:52:44,430 - src.model_training - INFO - Logistic_Regression CV completed - Accuracy: 0.9444 (+/- 0.0351)
+2025-06-29 11:52:44,430 - src.utils - INFO - Step 3/8 (37.5%) - Cross-validation evaluation - Elapsed: 0:00:19.933221
+2025-06-29 11:52:44,430 - src.model_training - INFO - Training final models...
+2025-06-29 11:52:44,430 - src.model_training - INFO - Training Random_Forest...
+2025-06-29 11:52:44,685 - src.utils - INFO - Saving model to: /Users/phanumetchoompun/Desktop/dataset_/models/random_forest.pickle
+2025-06-29 11:52:44,700 - src.utils - INFO - Model saved successfully
+2025-06-29 11:52:44,700 - src.model_training - INFO - Random_Forest training completed
+2025-06-29 11:52:44,701 - src.model_training - INFO - Training Gradient_Boosting...
+2025-06-29 11:52:48,458 - src.utils - INFO - Saving model to: /Users/phanumetchoompun/Desktop/dataset_/models/gradient_boosting.pickle
+2025-06-29 11:52:48,476 - src.utils - INFO - Model saved successfully
+2025-06-29 11:52:48,477 - src.model_training - INFO - Gradient_Boosting training completed
+2025-06-29 11:52:48,477 - src.model_training - INFO - Training Logistic_Regression...
+2025-06-29 11:52:48,503 - src.utils - INFO - Saving model to: /Users/phanumetchoompun/Desktop/dataset_/models/logistic_regression.pickle
+2025-06-29 11:52:48,504 - src.utils - INFO - Model saved successfully
+2025-06-29 11:52:48,504 - src.model_training - INFO - Logistic_Regression training completed
+2025-06-29 11:52:48,504 - src.utils - INFO - Step 4/8 (50.0%) - Training final models - Elapsed: 0:00:24.007239
+2025-06-29 11:52:48,504 - src.model_training - INFO - Evaluating models on test set...
+2025-06-29 11:52:48,504 - src.model_training - INFO - Evaluating Random_Forest on test set...
+2025-06-29 11:52:48,642 - src.model_training - INFO - Random_Forest test evaluation completed - Accuracy: 0.8775
+2025-06-29 11:52:48,642 - src.model_training - INFO - Evaluating Gradient_Boosting on test set...
+2025-06-29 11:52:48,700 - src.model_training - INFO - Gradient_Boosting test evaluation completed - Accuracy: 0.8975
+2025-06-29 11:52:48,700 - src.model_training - INFO - Evaluating Logistic_Regression on test set...
+2025-06-29 11:52:48,726 - src.model_training - INFO - Logistic_Regression test evaluation completed - Accuracy: 0.9300
+2025-06-29 11:52:48,726 - src.utils - INFO - Step 5/8 (62.5%) - Test set evaluation - Elapsed: 0:00:24.229425
+2025-06-29 11:52:48,726 - src.model_training - INFO - Creating confusion matrices...
+2025-06-29 11:52:48,727 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/target_mapping.json
+2025-06-29 11:52:48,727 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:52:49,463 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices.png
+2025-06-29 11:52:50,457 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices.png
+2025-06-29 11:52:50,458 - src.model_training - INFO - Confusion matrices created and saved
+2025-06-29 11:52:50,458 - src.utils - INFO - Step 6/8 (75.0%) - Creating confusion matrices - Elapsed: 0:00:25.960717
+2025-06-29 11:52:50,458 - src.model_training - INFO - Performing statistical significance testing...
+2025-06-29 11:52:50,883 - src.model_training - INFO - Statistical significance testing completed
+2025-06-29 11:52:50,884 - src.utils - INFO - Step 7/8 (87.5%) - Statistical significance testing - Elapsed: 0:00:26.386550
+2025-06-29 11:52:50,884 - src.model_training - INFO - Creating training report...
+2025-06-29 11:52:50,884 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/training_report.json
+2025-06-29 11:52:50,899 - src.utils - INFO - JSON saved successfully
+2025-06-29 11:52:50,900 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cv_results.json
+2025-06-29 11:52:50,901 - src.utils - INFO - JSON saved successfully
+2025-06-29 11:52:50,902 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/test_results.json
+2025-06-29 11:52:50,905 - src.utils - INFO - JSON saved successfully
+2025-06-29 11:52:50,906 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/predictions.json
+2025-06-29 11:52:50,924 - src.utils - INFO - JSON saved successfully
+2025-06-29 11:52:50,926 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance.csv
+2025-06-29 11:52:50,934 - src.utils - INFO - Data saved successfully
+2025-06-29 11:52:50,934 - src.utils - INFO - Step 8/8 (100.0%) - Saving results - Elapsed: 0:00:26.436820
+2025-06-29 11:52:50,934 - src.utils - INFO - Model Training completed in 0:00:26.437428
+2025-06-29 11:52:50,935 - src.model_training - INFO - Model training completed successfully
+2025-06-29 11:53:01,477 - src.visualization - INFO - Creating all visualizations...
+2025-06-29 11:53:01,478 - src.utils - INFO - Starting Visualization - 8 steps
+2025-06-29 11:53:01,478 - src.visualization - INFO - Loading results data for visualization...
+2025-06-29 11:53:01,478 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_report.json
+2025-06-29 11:53:01,479 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:53:01,480 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selected_features.json
+2025-06-29 11:53:01,480 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:53:01,481 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/training_report.json
+2025-06-29 11:53:01,485 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:53:01,485 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cv_results.json
+2025-06-29 11:53:01,486 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:53:01,487 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/test_results.json
+2025-06-29 11:53:01,487 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:53:01,488 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance.csv
+2025-06-29 11:53:01,493 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-06-29 11:53:01,493 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/selection_scores.csv
+2025-06-29 11:53:01,496 - src.utils - INFO - Data loaded successfully. Shape: (21, 2)
+2025-06-29 11:53:01,496 - src.visualization - INFO - Results data loaded successfully
+2025-06-29 11:53:01,496 - src.utils - INFO - Step 1/8 (12.5%) - Loading results data - Elapsed: 0:00:00.018761
+2025-06-29 11:53:01,497 - src.visualization - INFO - Creating feature selection comparison plot...
+2025-06-29 11:53:01,808 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_comparison.png
+2025-06-29 11:53:02,713 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_selection_comparison.png
+2025-06-29 11:53:02,714 - src.utils - INFO - Step 2/8 (25.0%) - Feature selection comparison - Elapsed: 0:00:01.235873
+2025-06-29 11:53:02,714 - src.visualization - INFO - Creating feature importance plot...
+2025-06-29 11:53:02,847 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_importance.png
+2025-06-29 11:53:03,688 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/feature_selection/feature_importance.png
+2025-06-29 11:53:03,688 - src.utils - INFO - Step 3/8 (37.5%) - Feature importance - Elapsed: 0:00:02.210447
+2025-06-29 11:53:03,688 - src.visualization - INFO - Creating model performance comparison plot...
+2025-06-29 11:53:03,958 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance_comparison.png
+2025-06-29 11:53:06,152 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/model_performance_comparison.png
+2025-06-29 11:53:06,152 - src.utils - INFO - Step 4/8 (50.0%) - Model performance comparison - Elapsed: 0:00:04.674306
+2025-06-29 11:53:06,152 - src.visualization - INFO - Creating cross-validation scores plot...
+2025-06-29 11:53:06,282 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cross_validation_scores.png
+2025-06-29 11:53:07,339 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/cross_validation_scores.png
+2025-06-29 11:53:07,340 - src.utils - INFO - Step 5/8 (62.5%) - Cross-validation scores - Elapsed: 0:00:05.862028
+2025-06-29 11:53:07,340 - src.visualization - INFO - Creating enhanced confusion matrices...
+2025-06-29 11:53:07,340 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_/result/preprocessing/target_mapping.json
+2025-06-29 11:53:07,340 - src.utils - INFO - JSON loaded successfully
+2025-06-29 11:53:08,755 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices_enhanced.png
+2025-06-29 11:53:10,730 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/confusion_matrices_enhanced.png
+2025-06-29 11:53:10,730 - src.utils - INFO - Step 6/8 (75.0%) - Confusion matrices - Elapsed: 0:00:09.252080
+2025-06-29 11:53:10,730 - src.visualization - INFO - Creating statistical significance plot...
+2025-06-29 11:53:11,113 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/statistical_significance.png
+2025-06-29 11:53:12,127 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/statistical_significance.png
+2025-06-29 11:53:12,128 - src.utils - INFO - Step 7/8 (87.5%) - Statistical significance - Elapsed: 0:00:10.649912
+2025-06-29 11:53:12,128 - src.visualization - INFO - Creating training time analysis plot...
+2025-06-29 11:53:12,287 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/training_time_analysis.png
+2025-06-29 11:53:13,302 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/evaluation/training_time_analysis.png
+2025-06-29 11:53:13,302 - src.utils - INFO - Step 8/8 (100.0%) - Training time analysis - Elapsed: 0:00:11.824634
+2025-06-29 11:53:13,302 - src.visualization - INFO - Creating summary dashboard...
+2025-06-29 11:53:13,391 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_/result/comparison/summary_dashboard.png
+2025-06-29 11:53:15,855 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_/result/comparison/summary_dashboard.png
+2025-06-29 11:53:15,855 - src.utils - INFO - Step 9/8 (112.5%) - Summary dashboard - Elapsed: 0:00:14.377816
+2025-06-29 11:53:15,856 - src.utils - INFO - Visualization completed in 0:00:14.377931
+2025-06-29 11:53:15,856 - src.visualization - INFO - All visualizations created successfully

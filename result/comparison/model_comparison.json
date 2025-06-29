@@ -1,0 +1,129 @@
+{
+  "Random_Forest": {
+    "performance_metrics": {
+      "cv_accuracy_mean": 0.881875,
+      "cv_accuracy_std": 0.0231249999999999,
+      "cv_precision_mean": 0.885455131580839,
+      "cv_recall_mean": 0.8752200900260603,
+      "cv_f1_mean": 0.8785246145129755,
+      "test_accuracy": 0.8775,
+      "test_precision": 0.8799232919254658,
+      "test_recall": 0.8775,
+      "test_f1": 0.8774068125493071
+    },
+    "time_metrics": {
+      "training_time": 1.6324296474456788,
+      "prediction_time": 0.1199706315994262,
+      "total_time": 1.752400279045105
+    },
+    "stability_metrics": {
+      "cv_accuracy_cv": 0.026222537207654138,
+      "overfitting_indicator": 0.11722222222222223
+    },
+    "normalized_scores": {
+      "accuracy_score": 0.8775,
+      "stability_score": 0.9737774627923459,
+      "speed_score": 0.3633192481534451,
+      "precision_score": 0.8799232919254658
+    },
+    "overall_score": 0.7990967091175953,
+    "rank_by_accuracy": 3,
+    "rank_by_speed": 2,
+    "rank_by_stability": 2,
+    "rank_overall": 2
+  },
+  "Gradient_Boosting": {
+    "performance_metrics": {
+      "cv_accuracy_mean": 0.89625,
+      "cv_accuracy_std": 0.02375,
+      "cv_precision_mean": 0.8958783785599472,
+      "cv_recall_mean": 0.892927073316889,
+      "cv_f1_mean": 0.8935344133139124,
+      "test_accuracy": 0.8975,
+      "test_precision": 0.8997297204462601,
+      "test_recall": 0.8975,
+      "test_f1": 0.8976910307905811
+    },
+    "time_metrics": {
+      "training_time": 12.526392579078674,
+      "prediction_time": 0.0426565170288085,
+      "total_time": 12.569049096107483
+    },
+    "stability_metrics": {
+      "cv_accuracy_cv": 0.02649930264993028,
+      "overfitting_indicator": 0.10375000000000001
+    },
+    "normalized_scores": {
+      "accuracy_score": 0.8975,
+      "stability_score": 0.9735006973500697,
+      "speed_score": 0.07369713182678861,
+      "precision_score": 0.8997297204462601
+    },
+    "overall_score": 0.7520740587698141,
+    "rank_by_accuracy": 2,
+    "rank_by_speed": 3,
+    "rank_by_stability": 3,
+    "rank_overall": 3
+  },
+  "Logistic_Regression": {
+    "performance_metrics": {
+      "cv_accuracy_mean": 0.944375,
+      "cv_accuracy_std": 0.0175557148814851,
+      "cv_precision_mean": 0.9447776402597564,
+      "cv_recall_mean": 0.9429666374012292,
+      "cv_f1_mean": 0.9433185912669468,
+      "test_accuracy": 0.93,
+      "test_precision": 0.9301479020120502,
+      "test_recall": 0.93,
+      "test_f1": 0.9300014665446394
+    },
+    "time_metrics": {
+      "training_time": 0.0561566114425659,
+      "prediction_time": 0.0304708242416381,
+      "total_time": 0.086627435684204
+    },
+    "stability_metrics": {
+      "cv_accuracy_cv": 0.018589770887078933,
+      "overfitting_indicator": 0.007638888888888973
+    },
+    "normalized_scores": {
+      "accuracy_score": 0.93,
+      "stability_score": 0.9814102291129211,
+      "speed_score": 0.9202786227924953,
+      "precision_score": 0.9301479020120502
+    },
+    "overall_score": 0.9409304671385369,
+    "rank_by_accuracy": 1,
+    "rank_by_speed": 1,
+    "rank_by_stability": 1,
+    "rank_overall": 1
+  },
+  "summary": {
+    "best_accuracy": "Logistic_Regression",
+    "fastest_model": "Logistic_Regression",
+    "most_stable": "Logistic_Regression",
+    "best_overall": "Logistic_Regression",
+    "model_rankings": {
+      "by_accuracy": [
+        "Logistic_Regression",
+        "Gradient_Boosting",
+        "Random_Forest"
+      ],
+      "by_speed": [
+        "Logistic_Regression",
+        "Random_Forest",
+        "Gradient_Boosting"
+      ],
+      "by_stability": [
+        "Logistic_Regression",
+        "Random_Forest",
+        "Gradient_Boosting"
+      ],
+      "overall": [
+        "Logistic_Regression",
+        "Random_Forest",
+        "Gradient_Boosting"
+      ]
+    }
+  }
+}

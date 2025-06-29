@@ -1,0 +1,132 @@
+{
+  "descriptive_statistics": {
+    "Random_Forest": {
+      "mean": 0.881875,
+      "std": 0.023124999999999993,
+      "min": 0.84375,
+      "max": 0.9125,
+      "median": 0.8843749999999999,
+      "q25": 0.86875,
+      "q75": 0.9015625,
+      "iqr": 0.03281250000000002,
+      "skewness": -0.16204370915838837,
+      "kurtosis": -1.1401720556558368
+    },
+    "Gradient_Boosting": {
+      "mean": 0.89625,
+      "std": 0.02375000000000001,
+      "min": 0.85625,
+      "max": 0.9375,
+      "median": 0.89375,
+      "q25": 0.878125,
+      "q75": 0.9140625,
+      "iqr": 0.035937499999999956,
+      "skewness": 0.16051902609709828,
+      "kurtosis": -0.8599995395983746
+    },
+    "Logistic_Regression": {
+      "mean": 0.944375,
+      "std": 0.017555714881485166,
+      "min": 0.90625,
+      "max": 0.98125,
+      "median": 0.94375,
+      "q25": 0.9390625,
+      "q75": 0.9484374999999999,
+      "iqr": 0.009374999999999911,
+      "skewness": -0.07526282948801047,
+      "kurtosis": 1.1973475593594403
+    }
+  },
+  "effect_sizes": {
+    "Random_Forest_vs_Gradient_Boosting": {
+      "cohens_d": -0.5818073755581161,
+      "effect_size_interpretation": "Medium"
+    },
+    "Random_Forest_vs_Logistic_Regression": {
+      "cohens_d": -2.8880887337177894,
+      "effect_size_interpretation": "Large"
+    },
+    "Gradient_Boosting_vs_Logistic_Regression": {
+      "cohens_d": -2.186163384751373,
+      "effect_size_interpretation": "Large"
+    }
+  },
+  "confidence_intervals": {
+    "Random_Forest_vs_Gradient_Boosting": {
+      "difference_mean": -0.014375000000000027,
+      "ci_lower": -0.037589191667967495,
+      "ci_upper": 0.008839191667967441,
+      "contains_zero": "True"
+    },
+    "Random_Forest_vs_Logistic_Regression": {
+      "difference_mean": -0.0625,
+      "ci_lower": -0.0828326703684712,
+      "ci_upper": -0.042167329631528805,
+      "contains_zero": "False"
+    },
+    "Gradient_Boosting_vs_Logistic_Regression": {
+      "difference_mean": -0.04812499999999997,
+      "ci_lower": -0.06880797758663552,
+      "ci_upper": -0.027442022413364426,
+      "contains_zero": "False"
+    }
+  },
+  "pairwise_comparisons": {
+    "Random_Forest_vs_Gradient_Boosting": {
+      "paired_ttest": {
+        "statistic": -2.437995124014632,
+        "p_value": 0.03748771495157606,
+        "significant": "True"
+      },
+      "wilcoxon": {
+        "statistic": 5.5,
+        "p_value": 0.01953125,
+        "significant": "True"
+      }
+    },
+    "Random_Forest_vs_Logistic_Regression": {
+      "paired_ttest": {
+        "statistic": -6.396021490668314,
+        "p_value": 0.00012586003257094918,
+        "significant": "True"
+      },
+      "wilcoxon": {
+        "statistic": 0.0,
+        "p_value": 0.001953125,
+        "significant": "True"
+      }
+    },
+    "Gradient_Boosting_vs_Logistic_Regression": {
+      "paired_ttest": {
+        "statistic": -5.923076923076916,
+        "p_value": 0.0002226193207347072,
+        "significant": "True"
+      },
+      "wilcoxon": {
+        "statistic": 0.0,
+        "p_value": 0.001953125,
+        "significant": "True"
+      }
+    }
+  },
+  "overall_analysis": {
+    "anova_test": {
+      "f_statistic": 20.56107717934481,
+      "p_value": 3.7498834234771743e-06,
+      "significant": "True"
+    },
+    "friedman_test": {
+      "statistic": 18.200000000000017,
+      "p_value": 0.0001116658084901137,
+      "significant": "True",
+      "models_tested": [
+        "Random_Forest",
+        "Gradient_Boosting",
+        "Logistic_Regression"
+      ]
+    },
+    "number_of_models": 3,
+    "total_comparisons": 3,
+    "significant_differences": 3
+  }
+}

@@ -1,0 +1,435 @@
+{
+  "report_metadata": {
+    "generated_at": "2025-06-29T10:48:28.636284",
+    "pipeline_version": "v1.0",
+    "configuration": {
+      "normalization": "standard",
+      "feature_selection": "forward",
+      "models_compared": 3,
+      "cv_folds": 10,
+      "random_state": 42
+    }
+  },
+  "dataset_summary": {
+    "original_features": 21,
+    "selected_features": 15,
+    "total_samples": 2000,
+    "target_classes": 3,
+    "preprocessing_method": "standard",
+    "feature_selection_method": "forward",
+    "cv_folds": 10
+  },
+  "main_results": {
+    "best_model": "Logistic_Regression",
+    "best_accuracy": 0.93,
+    "feature_selection_improvement": 0.49751243781093457,
+    "feature_reduction": 28.57142857142857,
+    "statistical_significance_found": true
+  },
+  "feature_selection_analysis": {
+    "baseline_performance": {
+      "accuracy": 0.8793750000000001,
+      "std": 0.020549102778467013,
+      "n_features": 21
+    },
+    "best_method_performance": {
+      "method": "sequential",
+      "accuracy": 0.88375,
+      "std": 0.02019436802675438,
+      "n_features": 15
+    },
+    "final_selection_performance": {
+      "method": "forward",
+      "n_features": 15,
+      "selected_features": [
+        "คะแนนคณิตศาสตร์",
+        "คะแนนคอมพิวเตอร์",
+        "คะแนนภาษาไทย",
+        "คะแนนวิทยาศาสตร์",
+        "คะแนนศิลปะ",
+        "ทักษะการคิดเชิงตรรกะ",
+        "ทักษะความคิดสร้างสรรค์",
+        "ความสนใจด้านตัวเลข",
+        "ความสนใจด้านเทคโนโลยี",
+        "ความสนใจด้านการทำอาหาร",
+        "การศึกษาของผู้ปกครอง",
+        "ชั่วโมงการนอน",
+        "ความถี่การออกกำลังกาย",
+        "ชั่วโมงใช้โซเชียลมีเดีย",
+        "ชอบอ่านหนังสือ"
+      ]
+    },
+    "improvement": {
+      "accuracy_improvement": 0.004374999999999907,
+      "accuracy_improvement_percent": 0.49751243781093457,
+      "feature_reduction": 6,
+      "feature_reduction_percent": 28.57142857142857
+    },
+    "feature_group_analysis": {
+      "core_features_selected": 10,
+      "demographic_features_selected": 1,
+      "lifestyle_features_selected": 4,
+      "core_features_percentage": 90.9090909090909,
+      "demographic_features_percentage": 20.0,
+      "lifestyle_features_percentage": 80.0
+    }
+  },
+  "model_comparison": {
+    "Random_Forest": {
+      "performance_metrics": {
+        "cv_accuracy_mean": 0.881875,
+        "cv_accuracy_std": 0.0231249999999999,
+        "cv_precision_mean": 0.885455131580839,
+        "cv_recall_mean": 0.8752200900260603,
+        "cv_f1_mean": 0.8785246145129755,
+        "test_accuracy": 0.8775,
+        "test_precision": 0.8799232919254658,
+        "test_recall": 0.8775,
+        "test_f1": 0.8774068125493071
+      },
+      "time_metrics": {
+        "training_time": 1.6324296474456788,
+        "prediction_time": 0.1199706315994262,
+        "total_time": 1.752400279045105
+      },
+      "stability_metrics": {
+        "cv_accuracy_cv": 0.026222537207654138,
+        "overfitting_indicator": 0.11722222222222223
+      },
+      "normalized_scores": {
+        "accuracy_score": 0.8775,
+        "stability_score": 0.9737774627923459,
+        "speed_score": 0.3633192481534451,
+        "precision_score": 0.8799232919254658
+      },
+      "overall_score": 0.7990967091175953,
+      "rank_by_accuracy": 3,
+      "rank_by_speed": 2,
+      "rank_by_stability": 2,
+      "rank_overall": 2
+    },
+    "Gradient_Boosting": {
+      "performance_metrics": {
+        "cv_accuracy_mean": 0.89625,
+        "cv_accuracy_std": 0.02375,
+        "cv_precision_mean": 0.8958783785599472,
+        "cv_recall_mean": 0.892927073316889,
+        "cv_f1_mean": 0.8935344133139124,
+        "test_accuracy": 0.8975,
+        "test_precision": 0.8997297204462601,
+        "test_recall": 0.8975,
+        "test_f1": 0.8976910307905811
+      },
+      "time_metrics": {
+        "training_time": 12.526392579078674,
+        "prediction_time": 0.0426565170288085,
+        "total_time": 12.569049096107483
+      },
+      "stability_metrics": {
+        "cv_accuracy_cv": 0.02649930264993028,
+        "overfitting_indicator": 0.10375000000000001
+      },
+      "normalized_scores": {
+        "accuracy_score": 0.8975,
+        "stability_score": 0.9735006973500697,
+        "speed_score": 0.07369713182678861,
+        "precision_score": 0.8997297204462601
+      },
+      "overall_score": 0.7520740587698141,
+      "rank_by_accuracy": 2,
+      "rank_by_speed": 3,
+      "rank_by_stability": 3,
+      "rank_overall": 3
+    },
+    "Logistic_Regression": {
+      "performance_metrics": {
+        "cv_accuracy_mean": 0.944375,
+        "cv_accuracy_std": 0.0175557148814851,
+        "cv_precision_mean": 0.9447776402597564,
+        "cv_recall_mean": 0.9429666374012292,
+        "cv_f1_mean": 0.9433185912669468,
+        "test_accuracy": 0.93,
+        "test_precision": 0.9301479020120502,
+        "test_recall": 0.93,
+        "test_f1": 0.9300014665446394
+      },
+      "time_metrics": {
+        "training_time": 0.0561566114425659,
+        "prediction_time": 0.0304708242416381,
+        "total_time": 0.086627435684204
+      },
+      "stability_metrics": {
+        "cv_accuracy_cv": 0.018589770887078933,
+        "overfitting_indicator": 0.007638888888888973
+      },
+      "normalized_scores": {
+        "accuracy_score": 0.93,
+        "stability_score": 0.9814102291129211,
+        "speed_score": 0.9202786227924953,
+        "precision_score": 0.9301479020120502
+      },
+      "overall_score": 0.9409304671385369,
+      "rank_by_accuracy": 1,
+      "rank_by_speed": 1,
+      "rank_by_stability": 1,
+      "rank_overall": 1
+    },
+    "summary": {
+      "best_accuracy": "Logistic_Regression",
+      "fastest_model": "Logistic_Regression",
+      "most_stable": "Logistic_Regression",
+      "best_overall": "Logistic_Regression",
+      "model_rankings": {
+        "by_accuracy": [
+          "Logistic_Regression",
+          "Gradient_Boosting",
+          "Random_Forest"
+        ],
+        "by_speed": [
+          "Logistic_Regression",
+          "Random_Forest",
+          "Gradient_Boosting"
+        ],
+        "by_stability": [
+          "Logistic_Regression",
+          "Random_Forest",
+          "Gradient_Boosting"
+        ],
+        "overall": [
+          "Logistic_Regression",
+          "Random_Forest",
+          "Gradient_Boosting"
+        ]
+      }
+    }
+  },
+  "statistical_analysis": {
+    "descriptive_statistics": {
+      "Random_Forest": {
+        "mean": 0.881875,
+        "std": 0.023124999999999993,
+        "min": 0.84375,
+        "max": 0.9125,
+        "median": 0.8843749999999999,
+        "q25": 0.86875,
+        "q75": 0.9015625,
+        "iqr": 0.03281250000000002,
+        "skewness": -0.16204370915838837,
+        "kurtosis": -1.1401720556558368
+      },
+      "Gradient_Boosting": {
+        "mean": 0.89625,
+        "std": 0.02375000000000001,
+        "min": 0.85625,
+        "max": 0.9375,
+        "median": 0.89375,
+        "q25": 0.878125,
+        "q75": 0.9140625,
+        "iqr": 0.035937499999999956,
+        "skewness": 0.16051902609709828,
+        "kurtosis": -0.8599995395983746
+      },
+      "Logistic_Regression": {
+        "mean": 0.944375,
+        "std": 0.017555714881485166,
+        "min": 0.90625,
+        "max": 0.98125,
+        "median": 0.94375,
+        "q25": 0.9390625,
+        "q75": 0.9484374999999999,
+        "iqr": 0.009374999999999911,
+        "skewness": -0.07526282948801047,
+        "kurtosis": 1.1973475593594403
+      }
+    },
+    "effect_sizes": {
+      "Random_Forest_vs_Gradient_Boosting": {
+        "cohens_d": -0.5818073755581161,
+        "effect_size_interpretation": "Medium"
+      },
+      "Random_Forest_vs_Logistic_Regression": {
+        "cohens_d": -2.8880887337177894,
+        "effect_size_interpretation": "Large"
+      },
+      "Gradient_Boosting_vs_Logistic_Regression": {
+        "cohens_d": -2.186163384751373,
+        "effect_size_interpretation": "Large"
+      }
+    },
+    "confidence_intervals": {
+      "Random_Forest_vs_Gradient_Boosting": {
+        "difference_mean": -0.014375000000000027,
+        "ci_lower": -0.037589191667967495,
+        "ci_upper": 0.008839191667967441,
+        "contains_zero": "True"
+      },
+      "Random_Forest_vs_Logistic_Regression": {
+        "difference_mean": -0.0625,
+        "ci_lower": -0.0828326703684712,
+        "ci_upper": -0.042167329631528805,
+        "contains_zero": "False"
+      },
+      "Gradient_Boosting_vs_Logistic_Regression": {
+        "difference_mean": -0.04812499999999997,
+        "ci_lower": -0.06880797758663552,
+        "ci_upper": -0.027442022413364426,
+        "contains_zero": "False"
+      }
+    },
+    "pairwise_comparisons": {
+      "Random_Forest_vs_Gradient_Boosting": {
+        "paired_ttest": {
+          "statistic": -2.437995124014632,
+          "p_value": 0.03748771495157606,
+          "significant": "True"
+        },
+        "wilcoxon": {
+          "statistic": 5.5,
+          "p_value": 0.01953125,
+          "significant": "True"
+        }
+      },
+      "Random_Forest_vs_Logistic_Regression": {
+        "paired_ttest": {
+          "statistic": -6.396021490668314,
+          "p_value": 0.00012586003257094918,
+          "significant": "True"
+        },
+        "wilcoxon": {
+          "statistic": 0.0,
+          "p_value": 0.001953125,
+          "significant": "True"
+        }
+      },
+      "Gradient_Boosting_vs_Logistic_Regression": {
+        "paired_ttest": {
+          "statistic": -5.923076923076916,
+          "p_value": 0.0002226193207347072,
+          "significant": "True"
+        },
+        "wilcoxon": {
+          "statistic": 0.0,
+          "p_value": 0.001953125,
+          "significant": "True"
+        }
+      }
+    },
+    "overall_analysis": {
+      "anova_test": {
+        "f_statistic": 20.56107717934481,
+        "p_value": 3.7498834234771743e-06,
+        "significant": "True"
+      },
+      "friedman_test": {
+        "statistic": 18.200000000000017,
+        "p_value": 0.0001116658084901137,
+        "significant": "True",
+        "models_tested": [
+          "Random_Forest",
+          "Gradient_Boosting",
+          "Logistic_Regression"
+        ]
+      },
+      "number_of_models": 3,
+      "total_comparisons": 3,
+      "significant_differences": 3
+    }
+  },
+  "performance_summary": {
+    "Random_Forest": {
+      "test_accuracy": 0.8775,
+      "cv_accuracy": 0.881875,
+      "precision": 0.8799232919254658,
+      "recall": 0.8775,
+      "f1_score": 0.8774068125493071,
+      "training_time": 1.6324296474456788,
+      "overall_rank": 2
+    },
+    "Gradient_Boosting": {
+      "test_accuracy": 0.8975,
+      "cv_accuracy": 0.89625,
+      "precision": 0.8997297204462601,
+      "recall": 0.8975,
+      "f1_score": 0.8976910307905811,
+      "training_time": 12.526392579078674,
+      "overall_rank": 3
+    },
+    "Logistic_Regression": {
+      "test_accuracy": 0.93,
+      "cv_accuracy": 0.944375,
+      "precision": 0.9301479020120502,
+      "recall": 0.93,
+      "f1_score": 0.9300014665446394,
+      "training_time": 0.0561566114425659,
+      "overall_rank": 1
+    }
+  },
+  "recommendations": {
+    "model_selection": {
+      "recommended_model": "Logistic_Regression",
+      "reason": "ได้คะแนนรวมสูงสุด (0.9409)",
+      "alternatives": {
+        "for_highest_accuracy": "Logistic_Regression",
+        "for_fastest_prediction": "Logistic_Regression"
+      }
+    },
+    "feature_selection": {
+      "effectiveness": 0.49751243781093457,
+      "feature_reduction": 28.57142857142857,
+      "recommended_features": [
+        "คะแนนคณิตศาสตร์",
+        "คะแนนคอมพิวเตอร์",
+        "คะแนนภาษาไทย",
+        "คะแนนวิทยาศาสตร์",
+        "คะแนนศิลปะ",
+        "ทักษะการคิดเชิงตรรกะ",
+        "ทักษะความคิดสร้างสรรค์",
+        "ความสนใจด้านตัวเลข",
+        "ความสนใจด้านเทคโนโลยี",
+        "ความสนใจด้านการทำอาหาร",
+        "การศึกษาของผู้ปกครอง",
+        "ชั่วโมงการนอน",
+        "ความถี่การออกกำลังกาย",
+        "ชั่วโมงใช้โซเชียลมีเดีย",
+        "ชอบอ่านหนังสือ"
+      ]
+    },
+    "deployment_considerations": {
+      "production_model": "Logistic_Regression",
+      "accuracy_expectation": 0.93,
+      "prediction_time": 0.0304708242416381,
+      "memory_considerations": "ไม่มีข้อจำกัดพิเศษ",
+      "retraining_frequency": "ทุก 6 เดือน หรือเมื่อข้อมูลเปลี่ยนแปลงมาก"
+    },
+    "limitations_and_warnings": {
+      "dataset_size": "ข้อมูลขนาด 2000 records อาจไม่เพียงพอสำหรับการใช้งานจริง",
+      "synthetic_data": "ข้อมูลที่ใช้เป็น synthetic data อาจไม่สะท้อนความซับซ้อนของข้อมูลจริง",
+      "generalization": "ผลลัพธ์อาจไม่สามารถ generalize ไปยังประชากรอื่นได้",
+      "feature_stability": "ควรตรวจสอบความเสถียรของ features ในข้อมูลจริง"
+    },
+    "next_steps": {
+      "immediate": [
+        "ทดสอบโมเดลกับข้อมูลจริง",
+        "สร้าง validation set แยกต่างหาก",
+        "ประเมินประสิทธิภาพในสภาพแวดล้อมจริง"
+      ],
+      "long_term": [
+        "เก็บข้อมูลเพิ่มเติมเพื่อปรับปรุงโมเดล",
+        "พัฒนา monitoring system สำหรับติดตามประสิทธิภาพ",
+        "ศึกษา interpretability ของโมเดล"
+      ]
+    },
+    "key_findings": {
+      "feature_selection_impact": "Feature selection ช่วยปรับปรุง accuracy 0.50% และลด features 28.6%",
+      "best_performing_model": "Logistic_Regression ให้ประสิทธิภาพดีที่สุดด้วย test accuracy 0.9300",
+      "statistical_significance": "พบความแตกต่างอย่างมีนัยสำคัญใน 3 จาก 3 การเปรียบเทียบ",
+      "feature_groups_importance": "Core features มีความสำคัญสูงสุด (90.9% ถูกเลือก)"
+    }
+  },
+  "conclusions": {
+    "primary_conclusion": "Logistic_Regression เป็นโมเดลที่ดีที่สุดสำหรับการแนะนำแผนกเรียน",
+    "feature_selection_conclusion": "Feature selection ช่วยปรับปรุงประสิทธิภาพ 0.50%",
+    "practical_implications": "ระบบสามารถนำไปใช้เป็นเครื่องมือช่วยในการแนะแนวได้ แต่ควรใช้ร่วมกับการปรึกษาครูแนะแนว",
+    "limitations": "ผลลัพธ์ได้จากข้อมูล synthetic และอาจต้องปรับปรุงเมื่อใช้กับข้อมูลจริง"
+  }
+}
