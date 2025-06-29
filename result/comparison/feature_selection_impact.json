@@ -1,0 +1,36 @@
+{
+  "baseline_performance": {
+    "accuracy": 0.890321484071484,
+    "std": 0.02519337075495411,
+    "n_features": 13
+  },
+  "best_method_performance": {
+    "method": "sequential",
+    "accuracy": 0.8952068764568765,
+    "std": 0.0,
+    "n_features": 5
+  },
+  "final_selection_performance": {
+    "method": "sequential",
+    "n_features": 5,
+    "selected_features": [
+      "คะแนนคอมพิวเตอร์",
+      "คะแนนศิลปะ",
+      "คะแนนคณิตศาสตร์",
+      "คะแนนวิทยาศาสตร์",
+      "คะแนนภาษาไทย"
+    ]
+  },
+  "improvement": {
+    "accuracy_improvement": 0.004885392385392429,
+    "accuracy_improvement_percent": 0.5487222843428745,
+    "feature_reduction": 8,
+    "feature_reduction_percent": 61.53846153846154
+  },
+  "feature_group_analysis": {
+    "core_features_selected": 5,
+    "demographic_features_selected": 0,
+    "core_features_percentage": 45.45454545454545,
+    "demographic_features_percentage": 0.0
+  }
+}
