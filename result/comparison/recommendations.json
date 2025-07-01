@@ -1,33 +1,33 @@
 {
   "model_selection": {
     "recommended_model": "Logistic_Regression",
-    "reason": "ได้คะแนนรวมสูงสุด (0.9509)",
+    "reason": "ได้คะแนนรวมสูงสุด (0.9389)",
     "alternatives": {
       "for_highest_accuracy": "Logistic_Regression",
       "for_fastest_prediction": "Logistic_Regression"
     }
   },
   "feature_selection": {
-    "effectiveness": 0.5487222843428745,
+    "effectiveness": 0.4681985555227757,
     "feature_reduction": 61.53846153846154,
     "recommended_features": [
-      "คะแนนคอมพิวเตอร์",
-      "คะแนนศิลปะ",
       "คะแนนคณิตศาสตร์",
+      "คะแนนคอมพิวเตอร์",
+      "คะแนนภาษาไทย",
       "คะแนนวิทยาศาสตร์",
-      "คะแนนภาษาไทย"
+      "คะแนนศิลปะ"
     ]
   },
   "deployment_considerations": {
     "production_model": "Logistic_Regression",
-    "accuracy_expectation": 0.9413407821229052,
-    "prediction_time": 0.0179052591323852,
+    "accuracy_expectation": 0.9245810055865922,
+    "prediction_time": 0.0154437541961669,
     "memory_considerations": "ไม่มีข้อจำกัดพิเศษ",
     "retraining_frequency": "ทุก 6 เดือน หรือเมื่อข้อมูลเปลี่ยนแปลงมาก"
   },
   "key_findings": {
-    "feature_selection_impact": "Feature selection ช่วยปรับปรุง accuracy 0.55% และลด features 61.5%",
-    "best_performing_model": "Logistic_Regression ให้ประสิทธิภาพดีที่สุดด้วย test accuracy 0.9413",
+    "feature_selection_impact": "Feature selection ช่วยปรับปรุง accuracy 0.47% และลด features 61.5%",
+    "best_performing_model": "Logistic_Regression ให้ประสิทธิภาพดีที่สุดด้วย test accuracy 0.9246",
     "feature_groups_importance": "Features จากทั้งสองกลุ่มมีความสำคัญ (Core: 45.5%, Demographic: 0.0%)",
     "model_comparison_summary": "ทดสอบ 3 โมเดล ด้วย 10-fold cross-validation"
   },

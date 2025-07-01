@@ -1,22 +1,19 @@
 # ไฟล์: feature_selection.py
 # Path: src/feature_selection.py
-# วัตถุประสงค์: Step 2 - Feature Selection ด้วย Forward Selection (แก้แล้ว - เพิ่ม Smart Sequential)
+# วัตถุประสงค์: Step 2 - Feature Selection ด้วย RFECV vs Baseline (แก้ไขแล้ว)
 
 """
-feature_selection.py - ขั้นตอนการคัดเลือก Features ที่สำคัญ (เพิ่ม Smart Sequential)
+feature_selection.py - ขั้นตอนการคัดเลือก Features ที่สำคัญ (แก้ไขแล้ว - ใช้ RFECV เป็นหลัก)
 """
 
 import pandas as pd
 import numpy as np
 import logging 
 from sklearn.feature_selection import (
-    SequentialFeatureSelector, RFE, RFECV,
-    SelectKBest, chi2, mutual_info_classif, f_classif,
-    SelectFromModel
+    RFECV, RFE
 )
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LassoCV, LogisticRegression
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_score, StratifiedKFold
 from sklearn.metrics import accuracy_score
 from typing import Dict, Tuple, Any, Optional, Union, List
 from datetime import datetime
@@ -28,7 +25,7 @@ from .config import *
 from .utils import *
 
 class FeatureSelector:
-    """คลาสสำหรับการคัดเลือก Features (เพิ่ม Smart Sequential)"""
+    """คลาสสำหรับการคัดเลือก Features (แก้ไขแล้ว - ใช้ RFECV เป็นหลัก)"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -61,84 +58,11 @@ class FeatureSelector:
         self.logger.info(f"Data loaded - Train: {X_train.shape}, Test: {X_test.shape}")
         return X_train, X_test, y_train, y_test
     
-    def smart_sequential_selection(self, X_train: pd.DataFrame, y_train: pd.Series) -> Dict:
-        """ทำ Sequential Selection แบบ auto-stopping เมื่อ accuracy ไม่เพิ่ม"""
-        self.logger.info("Starting Smart Sequential Feature Selection...")
+    def rfecv_feature_selection(self, X_train: pd.DataFrame, y_train: pd.Series) -> Dict:
+        """ทำ RFECV Feature Selection (หลัก)"""
+        self.logger.info("Starting RFECV Feature Selection...")
         
-        estimator = RandomForestClassifier(
-            n_estimators=100, max_depth=8, random_state=RANDOM_STATE, n_jobs=-1
-        )
-        
-        selected_features = []
-        remaining_features = list(X_train.columns)
-        best_score = 0
-        patience = 3  # หยุดถ้า 3 รอบติดต่อกันไม่มีการปรับปรุง
-        no_improvement_count = 0
-        scores_history = []
-        
-        self.logger.info(f"Starting with {len(remaining_features)} features")
-        
-        while remaining_features and no_improvement_count < patience:
-            best_feature_this_round = None
-            best_score_this_round = best_score
-            
-            self.logger.info(f"Round {len(selected_features) + 1}: Testing {len(remaining_features)} features...")
-            
-            # ลองเพิ่มแต่ละ feature ที่เหลือ
-            for feature in remaining_features:
-                test_features = selected_features + [feature]
-                X_temp = X_train[test_features]
-                
-                # ทำ CV
-                cv_scores = cross_val_score(estimator, X_temp, y_train, 
-                                          cv=CV_FOLDS, scoring=FEATURE_SELECTION_SCORING)
-                score = cv_scores.mean()
-                
-                if score > best_score_this_round:
-                    best_score_this_round = score
-                    best_feature_this_round = feature
-            
-            # เช็คว่ามีการปรับปรุงหรือไม่
-            improvement = best_score_this_round - best_score
-            if best_feature_this_round and improvement > 0.001:  # threshold 0.1%
-                selected_features.append(best_feature_this_round)
-                remaining_features.remove(best_feature_this_round)
-                best_score = best_score_this_round
-                no_improvement_count = 0
-                scores_history.append(best_score)
-                self.logger.info(f"✅ Added '{best_feature_this_round}', Score: {best_score:.4f} (+{improvement:.4f})")
-            else:
-                no_improvement_count += 1
-                self.logger.info(f"❌ No significant improvement, Patience: {patience - no_improvement_count}/3")
-        
-        # เหตุผลที่หยุด
-        if no_improvement_count >= patience:
-            stop_reason = "patience_reached"
-            self.logger.info(f"🛑 Stopped: No improvement for {patience} consecutive rounds")
-        else:
-            stop_reason = "no_more_features"
-            self.logger.info(f"🛑 Stopped: No more features to test")
-        
-        self.selected_features = selected_features
-        
-        return {
-            'method': 'Smart_Sequential_Forward',
-            'n_features_selected': len(selected_features),
-            'selected_features': selected_features,
-            'final_score': best_score,
-            'scores_history': scores_history,
-            'stop_reason': stop_reason,
-            'total_rounds': len(scores_history),
-            'cv_scores': scores_history,  # สำหรับ compatibility
-            'mean_score': best_score,
-            'std_score': 0.0  # จะคำนวณในรอบสุดท้าย
-        }
-    
-    def sequential_feature_selection(self, X_train: pd.DataFrame, y_train: pd.Series) -> Dict:
-        """ทำ Sequential Feature Selection แบบธรรมดา"""
-        self.logger.info(f"Starting Sequential Feature Selection ({FEATURE_SELECTION_METHOD})...")
-        
-        # เลือก estimator สำหรับ feature selection
+        # สร้าง estimator สำหรับ RFECV
         estimator = RandomForestClassifier(
             n_estimators=100,
             max_depth=8,
@@ -148,187 +72,90 @@ class FeatureSelector:
             n_jobs=-1
         )
         
-        # ตั้งค่า direction
-        direction = 'forward' if FEATURE_SELECTION_METHOD == 'forward' else 'backward'
-        
-        # สร้าง selector
-        # หมายเหตุ: SequentialFeatureSelector ยังไม่มี auto-stopping
-        # แต่เราสามารถใช้ RFE-CV แทนได้ (มี auto feature selection)
-        self.selector = SequentialFeatureSelector(
+        # สร้าง RFECV
+        self.selector = RFECV(
             estimator=estimator,
-            n_features_to_select=N_FEATURES_TO_SELECT,
-            direction=direction,
+            min_features_to_select=MIN_FEATURES,  # ทดสอบจนถึง 1 feature
+            cv=StratifiedKFold(n_splits=CV_FOLDS, shuffle=True, random_state=RANDOM_STATE),
             scoring=FEATURE_SELECTION_SCORING,
-            cv=CV_FOLDS,
             n_jobs=CV_N_JOBS
         )
         
+        self.logger.info(f"RFECV will test from {len(X_train.columns)} down to {MIN_FEATURES} features...")
+        
         # ทำ feature selection
-        self.logger.info("Fitting Sequential Feature Selector...")
         X_selected = self.selector.fit_transform(X_train, y_train)
         
         # เก็บผลลัพธ์
         selected_mask = self.selector.get_support()
-        self.selected_features = X_train.columns[selected_mask].tolist()
-        
-        # คำนวณ scores
-        scores = cross_val_score(estimator, X_selected, y_train, 
-                               cv=CV_FOLDS, scoring=FEATURE_SELECTION_SCORING)
-        
-        # คำนวณ baseline (ใช้ features ทั้งหมด)
-        baseline_scores = cross_val_score(estimator, X_train, y_train,
-                                        cv=CV_FOLDS, scoring=FEATURE_SELECTION_SCORING)
-        
-        results = {
-            'method': f'Sequential_{direction}',
-            'n_features_selected': len(self.selected_features),
-            'selected_features': self.selected_features,
-            'cv_scores': scores.tolist(),
-            'mean_score': scores.mean(),
-            'std_score': scores.std(),
-            'baseline_score': baseline_scores.mean(),
-            'improvement': scores.mean() - baseline_scores.mean(),
-            'feature_mask': selected_mask.tolist()
-        }
-        
-        self.logger.info(f"Sequential FS completed - Selected {len(self.selected_features)} features")
-        self.logger.info(f"Cross-validation score: {scores.mean():.4f} (+/- {scores.std()*2:.4f})")
-        self.logger.info(f"Improvement over baseline: {results['improvement']:.4f}")
-        
-        return results
-    
-    def rfe_feature_selection(self, X_train: pd.DataFrame, y_train: pd.Series) -> Dict:
-        """ทำ Recursive Feature Elimination"""
-        self.logger.info("Starting RFE Feature Selection...")
-        
-        estimator = RandomForestClassifier(
-            n_estimators=100,
-            random_state=RANDOM_STATE,
-            n_jobs=-1
-        )
-        
-        # RFE with Cross-Validation
-        rfe_cv = RFECV(
-            estimator=estimator,
-            min_features_to_select=MIN_FEATURES,
-            cv=CV_FOLDS,
-            scoring=FEATURE_SELECTION_SCORING,
-            n_jobs=CV_N_JOBS
-        )
-        
-        X_selected = rfe_cv.fit_transform(X_train, y_train)
-        
-        # เก็บผลลัพธ์
-        selected_mask = rfe_cv.get_support()
         selected_features = X_train.columns[selected_mask].tolist()
         
+        # ข้อมูลละเอียด
+        n_features_tested = len(self.selector.cv_results_['mean_test_score'])
+        optimal_n_features = self.selector.n_features_
+        cv_scores = self.selector.cv_results_['mean_test_score']
+        cv_std = self.selector.cv_results_['std_test_score']
+        
+        # สร้าง detailed history
+        detailed_history = []
+        feature_range = range(len(X_train.columns), MIN_FEATURES - 1, -1)
+        
+        for i, n_features in enumerate(feature_range):
+            if i < len(cv_scores):
+                round_info = {
+                    'n_features': n_features,
+                    'cv_mean': cv_scores[i],
+                    'cv_std': cv_std[i],
+                    'is_optimal': n_features == optimal_n_features
+                }
+                detailed_history.append(round_info)
+        
+        # หาคะแนนสูงสุด
+        best_score_idx = np.argmax(cv_scores)
+        best_score = cv_scores[best_score_idx]
+        
         results = {
-            'method': 'RFE_CV',
+            'method': 'RFECV_Auto_Selection',
             'n_features_selected': len(selected_features),
             'selected_features': selected_features,
-            'optimal_n_features': rfe_cv.n_features_,
-            'cv_scores': rfe_cv.cv_results_['mean_test_score'].tolist(),
-            'feature_ranking': rfe_cv.ranking_.tolist(),
-            'feature_mask': selected_mask.tolist()
+            'optimal_n_features': optimal_n_features,
+            'cv_scores': cv_scores.tolist(),
+            'cv_std': cv_std.tolist(),
+            'mean_score': best_score,
+            'std_score': cv_std[best_score_idx],
+            'feature_ranking': self.selector.ranking_.tolist(),
+            'feature_mask': selected_mask.tolist(),
+            'detailed_history': detailed_history,  # เพิ่มข้อมูลละเอียด
+            'n_features_tested': n_features_tested,
+            'improvement': 0  # จะคำนวณเมื่อเปรียบเทียบกับ baseline
         }
         
-        self.logger.info(f"RFE-CV completed - Selected {len(selected_features)} features")
+        # เก็บ feature importance (จาก estimator ที่ fit แล้ว)
+        if hasattr(self.selector.estimator_, 'feature_importances_'):
+            feature_names = X_train.columns.tolist()
+            importance_dict = dict(zip(feature_names, self.selector.estimator_.feature_importances_))
+            results['feature_importance'] = importance_dict
         
-        return results
-    
-    def filter_feature_selection(self, X_train: pd.DataFrame, y_train: pd.Series) -> Dict:
-        """ทำ Filter-based Feature Selection"""
-        self.logger.info("Starting Filter Feature Selection...")
-        
-        results = {}
-        
-        # 1. Mutual Information
-        mi_selector = SelectKBest(mutual_info_classif, k=N_FEATURES_TO_SELECT)
-        X_mi = mi_selector.fit_transform(X_train, y_train)
-        mi_features = X_train.columns[mi_selector.get_support()].tolist()
-        mi_scores = mi_selector.scores_
-        
-        results['mutual_info'] = {
-            'method': 'Mutual_Information',
-            'selected_features': mi_features,
-            'feature_scores': dict(zip(X_train.columns, mi_scores))
-        }
-        
-        # 2. ANOVA F-test
-        f_selector = SelectKBest(f_classif, k=N_FEATURES_TO_SELECT)
-        X_f = f_selector.fit_transform(X_train, y_train)
-        f_features = X_train.columns[f_selector.get_support()].tolist()
-        f_scores = f_selector.scores_
-        
-        results['anova_f'] = {
-            'method': 'ANOVA_F_test',
-            'selected_features': f_features,
-            'feature_scores': dict(zip(X_train.columns, f_scores))
-        }
-        
-        self.logger.info("Filter Feature Selection completed")
-        
-        return results
-    
-    def embedded_feature_selection(self, X_train: pd.DataFrame, y_train: pd.Series) -> Dict:
-        """ทำ Embedded Feature Selection"""
-        self.logger.info("Starting Embedded Feature Selection...")
-        
-        results = {}
-        
-        # Random Forest Feature Importance
-        rf = RandomForestClassifier(n_estimators=100, random_state=RANDOM_STATE, n_jobs=-1)
-        rf.fit(X_train, y_train)
-        
-        # เลือก features ตาม importance threshold
-        rf_selector = SelectFromModel(rf, threshold='median')
-        X_rf = rf_selector.fit_transform(X_train, y_train)
-        rf_features = X_train.columns[rf_selector.get_support()].tolist()
-        
-        # Feature importance scores
-        feature_importance = dict(zip(X_train.columns, rf.feature_importances_))
-        
-        results['random_forest'] = {
-            'method': 'RF_Feature_Importance',
-            'selected_features': rf_features,
-            'feature_importance': feature_importance,
-            'n_features_selected': len(rf_features)
-        }
-        
-        self.logger.info("Embedded Feature Selection completed")
+        self.logger.info(f"RFECV completed - Selected {len(selected_features)} features")
+        self.logger.info(f"Optimal features: {optimal_n_features}, Best CV score: {best_score:.4f}")
+        self.logger.info(f"Selected features: {selected_features}")
         
         return results
     
     def compare_feature_selection_methods(self, X_train: pd.DataFrame, y_train: pd.Series) -> Dict:
-        """เปรียบเทียบวิธี Feature Selection ต่างๆ"""
-        self.logger.info("Comparing feature selection methods...")
+        """เปรียบเทียบ RFECV กับ Baseline (แก้ไขแล้ว)"""
+        self.logger.info("Comparing RFECV vs Baseline...")
         
         comparison_results = {}
         estimator = RandomForestClassifier(n_estimators=100, random_state=RANDOM_STATE, n_jobs=-1)
         
-        # เลือกวิธีตาม config
-        if FEATURE_SELECTION_METHOD == 'forward_smart':
-            # ใช้ smart sequential ที่หยุดเมื่อ accuracy ไม่เพิ่ม
-            main_results = self.smart_sequential_selection(X_train, y_train)
-        else:
-            # ใช้ sequential ปกติ
-            main_results = self.sequential_feature_selection(X_train, y_train)
+        # 1. RFECV Feature Selection (หลัก)
+        self.logger.info("Running RFECV...")
+        rfecv_results = self.rfecv_feature_selection(X_train, y_train)
+        comparison_results['rfecv'] = rfecv_results
         
-        comparison_results['sequential'] = main_results
-        
-        # 2. RFE-CV
-        rfe_results = self.rfe_feature_selection(X_train, y_train)
-        comparison_results['rfe_cv'] = rfe_results
-        
-        # 3. Filter methods
-        filter_results = self.filter_feature_selection(X_train, y_train)
-        comparison_results.update(filter_results)
-        
-        # 4. Embedded methods
-        embedded_results = self.embedded_feature_selection(X_train, y_train)
-        comparison_results.update(embedded_results)
-        
-        # 5. All features (baseline)
+        # 2. All features (baseline)
+        self.logger.info("Running Baseline (All Features)...")
         baseline_scores = cross_val_score(estimator, X_train, y_train, 
                                         cv=CV_FOLDS, scoring=FEATURE_SELECTION_SCORING)
         comparison_results['all_features'] = {
@@ -340,15 +167,21 @@ class FeatureSelector:
             'std_score': baseline_scores.std()
         }
         
-        # หาวิธีที่ดีที่สุด
-        best_method = None
-        best_score = 0
+        # คำนวณ improvement
+        baseline_score = baseline_scores.mean()
+        rfecv_score = rfecv_results['mean_score']
+        improvement = rfecv_score - baseline_score
         
-        for method, results in comparison_results.items():
-            if 'mean_score' in results:
-                if results['mean_score'] > best_score:
-                    best_score = results['mean_score']
-                    best_method = method
+        # อัพเดท improvement ใน RFECV results
+        comparison_results['rfecv']['improvement'] = improvement
+        
+        # หาวิธีที่ดีที่สุด (แก้บัค)
+        if rfecv_score > baseline_score:
+            best_method = 'rfecv'
+            best_score = rfecv_score
+        else:
+            best_method = 'all_features'
+            best_score = baseline_score
         
         comparison_results['best_method'] = {
             'name': best_method,
@@ -356,10 +189,13 @@ class FeatureSelector:
         }
         
         # ใช้ features จากวิธีที่ดีที่สุด
-        if best_method and best_method in comparison_results:
-            self.selected_features = comparison_results[best_method]['selected_features']
+        if best_method == 'rfecv':
+            self.selected_features = comparison_results['rfecv']['selected_features']
+        else:
+            self.selected_features = comparison_results['all_features']['selected_features']
         
-        self.logger.info(f"Feature selection comparison completed - Best: {best_method} ({best_score:.4f})")
+        self.logger.info(f"Comparison completed - Best: {best_method} ({best_score:.4f})")
+        self.logger.info(f"RFECV vs Baseline: {rfecv_score:.4f} vs {baseline_score:.4f} (Δ{improvement:+.4f})")
         
         return comparison_results
     
@@ -392,12 +228,12 @@ class FeatureSelector:
         return train_selected, test_selected
     
     def create_feature_selection_report(self, comparison_results: Dict) -> Dict:
-        """สร้างรายงานการคัดเลือก Features"""
+        """สร้างรายงานการคัดเลือก Features (แก้ไขแล้ว)"""
         self.logger.info("Creating feature selection report...")
         
         # หาวิธีที่ดีที่สุด
         best_method_info = comparison_results.get('best_method', {})
-        best_method_name = best_method_info.get('name', 'sequential')
+        best_method_name = best_method_info.get('name', 'rfecv')
         
         # ข้อมูลของ best method
         best_method_data = comparison_results.get(best_method_name, {})
@@ -405,11 +241,14 @@ class FeatureSelector:
         # สร้างรายงาน
         report = {
             'feature_selection_config': {
-                'method': FEATURE_SELECTION_METHOD,
-                'n_features_to_select': N_FEATURES_TO_SELECT,
+                'method': 'rfecv_vs_baseline',
+                'rfecv_enabled': True,
+                'baseline_comparison': True,
+                'min_features_tested': MIN_FEATURES,
+                'max_features_available': MAX_FEATURES,
                 'scoring_metric': FEATURE_SELECTION_SCORING,
                 'cv_folds': CV_FOLDS,
-                'smart_selection_enabled': FEATURE_SELECTION_METHOD == 'forward_smart'
+                'estimator': 'RandomForestClassifier'
             },
             'comparison_results': comparison_results,
             'best_method': {
@@ -432,32 +271,35 @@ class FeatureSelector:
             'timestamp': datetime.now().isoformat()
         }
         
-        # เพิ่มข้อมูลเฉพาะสำหรับ smart selection
-        if FEATURE_SELECTION_METHOD == 'forward_smart' and 'sequential' in comparison_results:
-            smart_data = comparison_results['sequential']
-            report['smart_selection_details'] = {
-                'stop_reason': smart_data.get('stop_reason', 'unknown'),
-                'total_rounds': smart_data.get('total_rounds', 0),
-                'scores_history': smart_data.get('scores_history', []),
-                'early_stopping_worked': smart_data.get('stop_reason') == 'patience_reached'
+        # เพิ่มข้อมูลเฉพาะสำหรับ RFECV
+        if 'rfecv' in comparison_results:
+            rfecv_data = comparison_results['rfecv']
+            report['rfecv_details'] = {
+                'optimal_n_features': rfecv_data.get('optimal_n_features', 0),
+                'n_features_tested': rfecv_data.get('n_features_tested', 0),
+                'cv_scores': rfecv_data.get('cv_scores', []),
+                'cv_std': rfecv_data.get('cv_std', []),
+                'detailed_history': rfecv_data.get('detailed_history', []),
+                'feature_ranking': rfecv_data.get('feature_ranking', []),
+                'improvement_over_baseline': rfecv_data.get('improvement', 0)
             }
         
         return report
     
     def run_feature_selection(self) -> Tuple[pd.DataFrame, Dict]:
-        """รันขั้นตอนการคัดเลือก Features ทั้งหมด"""
-        self.logger.info("Starting feature selection pipeline...")
+        """รันขั้นตอนการคัดเลือก Features ทั้งหมด (แก้ไขแล้ว)"""
+        self.logger.info("Starting RFECV feature selection pipeline...")
         
         try:
-            tracker = ProgressTracker(6, "Feature Selection")
+            tracker = ProgressTracker(5, "Feature Selection (RFECV)")
             
             # 1. โหลดข้อมูล
             X_train, X_test, y_train, y_test = self.load_normalized_data()
             tracker.update("Loading normalized data")
             
-            # 2. เปรียบเทียบวิธี Feature Selection
+            # 2. เปรียบเทียบ RFECV กับ Baseline
             comparison_results = self.compare_feature_selection_methods(X_train, y_train)
-            tracker.update("Comparing feature selection methods")
+            tracker.update("Comparing RFECV vs Baseline")
             
             # 3. สร้าง dataset ที่ใช้ features ที่เลือก
             train_selected, test_selected = self.create_selected_dataset(X_train, X_test, y_train, y_test)
@@ -472,14 +314,18 @@ class FeatureSelector:
             save_json({'selected_features': self.selected_features}, 
                      get_output_path('feature_selection', 'selected_features.json'))
             
-            # บันทึก feature scores (จาก RF importance)
-            if 'random_forest' in comparison_results:
-                feature_scores_df = pd.DataFrame([
-                    {'feature': feat, 'importance': score}
-                    for feat, score in comparison_results['random_forest']['feature_importance'].items()
-                ]).sort_values('importance', ascending=False)
+            # บันทึก feature importance (สำหรับ visualization)
+            if 'rfecv' in comparison_results:
+                rfecv_data = comparison_results['rfecv']
+                feature_importance = rfecv_data.get('feature_importance', {})
                 
-                save_data(feature_scores_df, get_output_path('feature_selection', 'selection_scores.csv'))
+                if feature_importance:
+                    feature_scores_df = pd.DataFrame([
+                        {'feature': feat, 'importance': score}
+                        for feat, score in feature_importance.items()
+                    ]).sort_values('importance', ascending=False)
+                    
+                    save_data(feature_scores_df, get_output_path('feature_selection', 'selection_scores.csv'))
             
             tracker.update("Saving results")
             tracker.finish()
@@ -488,25 +334,24 @@ class FeatureSelector:
             if VERBOSE:
                 best_method = report['best_method']
                 feature_analysis = report['feature_analysis']
-                method_details = ""
+                rfecv_details = report.get('rfecv_details', {})
                 
-                # เพิ่มรายละเอียดสำหรับ smart selection
-                if FEATURE_SELECTION_METHOD == 'forward_smart' and 'smart_selection_details' in report:
-                    smart_details = report['smart_selection_details']
-                    method_details = f" (Rounds: {smart_details['total_rounds']}, Stop: {smart_details['stop_reason']})"
-                
-                print_summary("Feature Selection Results", {
-                    'Method': f"{FEATURE_SELECTION_METHOD}{method_details}",
-                    'Best Method': best_method['name'],
+                comparison_summary = {
+                    'Method': 'RFECV vs Baseline',
+                    'Winner': best_method['name'],
                     'Accuracy': f"{best_method['accuracy']:.4f}",
                     'Improvement': f"{best_method['improvement']:.4f}",
                     'Features Selected': f"{best_method['n_features']}/{feature_analysis['total_features_available']}",
+                    'RFECV Optimal': rfecv_details.get('optimal_n_features', 0),
+                    'Features Tested': f"{MIN_FEATURES}-{feature_analysis['total_features_available']}",
                     'Core Features': f"{feature_analysis['core_features_selected']}/{len(CORE_FEATURES)}",
                     'Demographic Features': f"{feature_analysis['demographic_features_selected']}/{len(DEMOGRAPHIC_FEATURES)}",
                     'Selected Features': self.selected_features
-                })
+                }
+                
+                print_summary("Feature Selection Results (RFECV)", comparison_summary)
             
-            self.logger.info("Feature selection completed successfully")
+            self.logger.info("Feature selection completed successfully (RFECV)")
             
             return train_selected, report
             

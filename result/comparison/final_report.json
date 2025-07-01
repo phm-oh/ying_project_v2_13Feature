@@ -1,10 +1,10 @@
 {
   "report_metadata": {
-    "generated_at": "2025-06-29T21:53:06.961652",
-    "pipeline_version": "v2.2",
+    "generated_at": "2025-07-01T09:38:19.400395",
+    "pipeline_version": "v3.0",
     "configuration": {
       "normalization": "standard",
-      "feature_selection": "forward_smart",
+      "feature_selection": "rfe_cv",
       "models_compared": 3,
       "cv_folds": 10,
       "random_state": 42,
@@ -17,41 +17,41 @@
     "total_samples": 1789,
     "target_classes": 3,
     "preprocessing_method": "standard",
-    "feature_selection_method": "forward_smart",
+    "feature_selection_method": "rfe_cv",
     "cv_folds": 10
   },
   "main_results": {
     "best_model": "Logistic_Regression",
-    "best_accuracy": 0.9413407821229052,
-    "feature_selection_improvement": 0.5487222843428745,
+    "best_accuracy": 0.9245810055865922,
+    "feature_selection_improvement": 0.4681985555227757,
     "feature_reduction": 61.53846153846154
   },
   "feature_selection_analysis": {
     "baseline_performance": {
-      "accuracy": 0.890321484071484,
-      "std": 0.02519337075495411,
+      "accuracy": 0.8888986013986013,
+      "std": 0.020553857586000937,
       "n_features": 13
     },
     "best_method_performance": {
-      "method": "sequential",
-      "accuracy": 0.8952068764568765,
-      "std": 0.0,
+      "method": "rfecv",
+      "accuracy": 0.8930604118104117,
+      "std": 0.02035940411964878,
       "n_features": 5
     },
     "final_selection_performance": {
-      "method": "sequential",
+      "method": "rfecv",
       "n_features": 5,
       "selected_features": [
-        "คะแนนคอมพิวเตอร์",
-        "คะแนนศิลปะ",
         "คะแนนคณิตศาสตร์",
+        "คะแนนคอมพิวเตอร์",
+        "คะแนนภาษาไทย",
         "คะแนนวิทยาศาสตร์",
-        "คะแนนภาษาไทย"
+        "คะแนนศิลปะ"
       ]
     },
     "improvement": {
-      "accuracy_improvement": 0.004885392385392429,
-      "accuracy_improvement_percent": 0.5487222843428745,
+      "accuracy_improvement": 0.004161810411810407,
+      "accuracy_improvement_percent": 0.4681985555227757,
       "feature_reduction": 8,
       "feature_reduction_percent": 61.53846153846154
     },
@@ -65,107 +65,107 @@
   "model_comparison": {
     "Random_Forest": {
       "performance_metrics": {
-        "cv_accuracy_mean": 0.8937742812742812,
-        "cv_accuracy_std": 0.0171067076268347,
-        "cv_precision_mean": 0.905554359260036,
-        "cv_recall_mean": 0.8660853587033553,
-        "cv_f1_mean": 0.8818693237201334,
-        "test_accuracy": 0.8966480446927374,
-        "test_precision": 0.8984818913240701,
-        "test_recall": 0.8966480446927374,
-        "test_f1": 0.89415488372874
+        "cv_accuracy_mean": 0.8930604118104117,
+        "cv_accuracy_std": 0.0203594041196487,
+        "cv_precision_mean": 0.9006366637532152,
+        "cv_recall_mean": 0.8717502001152256,
+        "cv_f1_mean": 0.8831002385560304,
+        "test_accuracy": 0.888268156424581,
+        "test_precision": 0.8902636972092186,
+        "test_recall": 0.888268156424581,
+        "test_f1": 0.8858848346927207
       },
       "time_metrics": {
-        "training_time": 1.074734902381897,
-        "prediction_time": 0.1181172132492065,
-        "total_time": 1.1928521156311036
+        "training_time": 0.30663583278656,
+        "prediction_time": 0.0496055603027343,
+        "total_time": 0.35624139308929426
       },
       "stability_metrics": {
-        "cv_accuracy_cv": 0.01913985218107325,
-        "overfitting_indicator": 0.09519990878686535
+        "cv_accuracy_cv": 0.02279734254301588,
+        "overfitting_indicator": 0.0879162805793241
       },
       "normalized_scores": {
-        "accuracy_score": 0.8966480446927374,
-        "stability_score": 0.9808601478189267,
-        "speed_score": 0.45602710409507013,
-        "precision_score": 0.8984818913240701
+        "accuracy_score": 0.888268156424581,
+        "stability_score": 0.9772026574569841,
+        "speed_score": 0.7373318681287001,
+        "precision_score": 0.8902636972092186
       },
-      "overall_score": 0.847672401223025,
+      "overall_score": 0.8837139445043752,
       "rank_by_accuracy": 2,
       "rank_by_speed": 2,
-      "rank_by_stability": 1,
+      "rank_by_stability": 3,
       "rank_overall": 2
     },
     "Gradient_Boosting": {
       "performance_metrics": {
-        "cv_accuracy_mean": 0.8937791375291375,
-        "cv_accuracy_std": 0.0179178569584535,
-        "cv_precision_mean": 0.89603734485271,
-        "cv_recall_mean": 0.8764231532041379,
-        "cv_f1_mean": 0.8839116800261199,
-        "test_accuracy": 0.8854748603351955,
-        "test_precision": 0.8876259122323149,
-        "test_recall": 0.8854748603351955,
-        "test_f1": 0.8829129085652622
+        "cv_accuracy_mean": 0.9007478632478634,
+        "cv_accuracy_std": 0.018526542901413,
+        "cv_precision_mean": 0.8983507249610512,
+        "cv_recall_mean": 0.8871868489882072,
+        "cv_f1_mean": 0.8914140824756329,
+        "test_accuracy": 0.88268156424581,
+        "test_precision": 0.8828039874736486,
+        "test_recall": 0.88268156424581,
+        "test_f1": 0.8811432379939784
       },
       "time_metrics": {
-        "training_time": 5.141835618019104,
-        "prediction_time": 0.0326111078262329,
-        "total_time": 5.174446725845336
+        "training_time": 1.7759021520614624,
+        "prediction_time": 0.026528787612915,
+        "total_time": 1.8024309396743774
       },
       "stability_metrics": {
-        "cv_accuracy_cv": 0.02004729827101094,
-        "overfitting_indicator": 0.10622086247086249
+        "cv_accuracy_cv": 0.020567956536262085,
+        "overfitting_indicator": 0.09925213675213662
       },
       "normalized_scores": {
-        "accuracy_score": 0.8854748603351955,
-        "stability_score": 0.9799527017289891,
-        "speed_score": 0.1619578311064124,
-        "precision_score": 0.8876259122323149
+        "accuracy_score": 0.88268156424581,
+        "stability_score": 0.9794320434637379,
+        "speed_score": 0.3568330572728379,
+        "precision_score": 0.8828039874736486
       },
-      "overall_score": 0.7961655320142047,
+      "overall_score": 0.8231727475276256,
       "rank_by_accuracy": 3,
       "rank_by_speed": 3,
-      "rank_by_stability": 2,
+      "rank_by_stability": 1,
       "rank_overall": 3
     },
     "Logistic_Regression": {
       "performance_metrics": {
-        "cv_accuracy_mean": 0.933595571095571,
-        "cv_accuracy_std": 0.0206018815507778,
-        "cv_precision_mean": 0.932558063859252,
-        "cv_recall_mean": 0.9267770028092608,
-        "cv_f1_mean": 0.9285704257858408,
-        "test_accuracy": 0.9413407821229052,
-        "test_precision": 0.9412352118175948,
-        "test_recall": 0.9413407821229052,
-        "test_f1": 0.9410154172875814
+        "cv_accuracy_mean": 0.9328962703962704,
+        "cv_accuracy_std": 0.0203521208819226,
+        "cv_precision_mean": 0.9333242122505856,
+        "cv_recall_mean": 0.926098324130582,
+        "cv_f1_mean": 0.928683802204352,
+        "test_accuracy": 0.9245810055865922,
+        "test_precision": 0.9243767363962714,
+        "test_recall": 0.9245810055865922,
+        "test_f1": 0.9239748295020822
       },
       "time_metrics": {
-        "training_time": 0.0277790546417236,
-        "prediction_time": 0.0179052591323852,
-        "total_time": 0.045684313774108795
+        "training_time": 0.0382199048995971,
+        "prediction_time": 0.0154437541961669,
+        "total_time": 0.053663659095763996
       },
       "stability_metrics": {
-        "cv_accuracy_cv": 0.022067244306441566,
-        "overfitting_indicator": 0.0042099808404156835
+        "cv_accuracy_cv": 0.02181605986405924,
+        "overfitting_indicator": 0.004676362285057856
       },
       "normalized_scores": {
-        "accuracy_score": 0.9413407821229052,
-        "stability_score": 0.9779327556935584,
-        "speed_score": 0.9563115625123764,
-        "precision_score": 0.9412352118175948
+        "accuracy_score": 0.9245810055865922,
+        "stability_score": 0.9781839401359408,
+        "speed_score": 0.9490694600383037,
+        "precision_score": 0.9243767363962714
       },
-      "overall_score": 0.9508889583496599,
+      "overall_score": 0.9389442202856706,
       "rank_by_accuracy": 1,
       "rank_by_speed": 1,
-      "rank_by_stability": 3,
+      "rank_by_stability": 2,
       "rank_overall": 1
     },
     "summary": {
       "best_accuracy": "Logistic_Regression",
       "fastest_model": "Logistic_Regression",
-      "most_stable": "Random_Forest",
+      "most_stable": "Gradient_Boosting",
       "best_overall": "Logistic_Regression",
       "model_rankings": {
         "by_accuracy": [
@@ -179,9 +179,9 @@
           "Gradient_Boosting"
         ],
         "by_stability": [
-          "Random_Forest",
           "Gradient_Boosting",
-          "Logistic_Regression"
+          "Logistic_Regression",
+          "Random_Forest"
         ],
         "overall": [
           "Logistic_Regression",
@@ -193,63 +193,63 @@
   },
   "performance_summary": {
     "Random_Forest": {
-      "test_accuracy": 0.8966480446927374,
-      "cv_accuracy": 0.8937742812742812,
-      "precision": 0.8984818913240701,
-      "recall": 0.8966480446927374,
-      "f1_score": 0.89415488372874,
-      "training_time": 1.074734902381897,
+      "test_accuracy": 0.888268156424581,
+      "cv_accuracy": 0.8930604118104117,
+      "precision": 0.8902636972092186,
+      "recall": 0.888268156424581,
+      "f1_score": 0.8858848346927207,
+      "training_time": 0.30663583278656,
       "overall_rank": 2
     },
     "Gradient_Boosting": {
-      "test_accuracy": 0.8854748603351955,
-      "cv_accuracy": 0.8937791375291375,
-      "precision": 0.8876259122323149,
-      "recall": 0.8854748603351955,
-      "f1_score": 0.8829129085652622,
-      "training_time": 5.141835618019104,
+      "test_accuracy": 0.88268156424581,
+      "cv_accuracy": 0.9007478632478634,
+      "precision": 0.8828039874736486,
+      "recall": 0.88268156424581,
+      "f1_score": 0.8811432379939784,
+      "training_time": 1.7759021520614624,
       "overall_rank": 3
     },
     "Logistic_Regression": {
-      "test_accuracy": 0.9413407821229052,
-      "cv_accuracy": 0.933595571095571,
-      "precision": 0.9412352118175948,
-      "recall": 0.9413407821229052,
-      "f1_score": 0.9410154172875814,
-      "training_time": 0.0277790546417236,
+      "test_accuracy": 0.9245810055865922,
+      "cv_accuracy": 0.9328962703962704,
+      "precision": 0.9243767363962714,
+      "recall": 0.9245810055865922,
+      "f1_score": 0.9239748295020822,
+      "training_time": 0.0382199048995971,
       "overall_rank": 1
     }
   },
   "recommendations": {
     "model_selection": {
       "recommended_model": "Logistic_Regression",
-      "reason": "ได้คะแนนรวมสูงสุด (0.9509)",
+      "reason": "ได้คะแนนรวมสูงสุด (0.9389)",
       "alternatives": {
         "for_highest_accuracy": "Logistic_Regression",
         "for_fastest_prediction": "Logistic_Regression"
       }
     },
     "feature_selection": {
-      "effectiveness": 0.5487222843428745,
+      "effectiveness": 0.4681985555227757,
       "feature_reduction": 61.53846153846154,
       "recommended_features": [
-        "คะแนนคอมพิวเตอร์",
-        "คะแนนศิลปะ",
         "คะแนนคณิตศาสตร์",
+        "คะแนนคอมพิวเตอร์",
+        "คะแนนภาษาไทย",
         "คะแนนวิทยาศาสตร์",
-        "คะแนนภาษาไทย"
+        "คะแนนศิลปะ"
       ]
     },
     "deployment_considerations": {
       "production_model": "Logistic_Regression",
-      "accuracy_expectation": 0.9413407821229052,
-      "prediction_time": 0.0179052591323852,
+      "accuracy_expectation": 0.9245810055865922,
+      "prediction_time": 0.0154437541961669,
       "memory_considerations": "ไม่มีข้อจำกัดพิเศษ",
       "retraining_frequency": "ทุก 6 เดือน หรือเมื่อข้อมูลเปลี่ยนแปลงมาก"
     },
     "key_findings": {
-      "feature_selection_impact": "Feature selection ช่วยปรับปรุง accuracy 0.55% และลด features 61.5%",
-      "best_performing_model": "Logistic_Regression ให้ประสิทธิภาพดีที่สุดด้วย test accuracy 0.9413",
+      "feature_selection_impact": "Feature selection ช่วยปรับปรุง accuracy 0.47% และลด features 61.5%",
+      "best_performing_model": "Logistic_Regression ให้ประสิทธิภาพดีที่สุดด้วย test accuracy 0.9246",
       "feature_groups_importance": "Features จากทั้งสองกลุ่มมีความสำคัญ (Core: 45.5%, Demographic: 0.0%)",
       "model_comparison_summary": "ทดสอบ 3 โมเดล ด้วย 10-fold cross-validation"
     },
@@ -268,7 +268,7 @@
   },
   "conclusions": {
     "primary_conclusion": "Logistic_Regression เป็นโมเดลที่ดีที่สุดสำหรับการแนะนำแผนกเรียน",
-    "feature_selection_conclusion": "Feature selection ช่วยปรับปรุงประสิทธิภาพ 0.55%",
+    "feature_selection_conclusion": "Feature selection ช่วยปรับปรุงประสิทธิภาพ 0.47%",
     "practical_implications": "ระบบสามารถนำไปใช้เป็นเครื่องมือช่วยในการแนะแนวได้ แต่ควรใช้ร่วมกับการปรึกษาครูแนะแนว",
     "limitations": "ผลลัพธ์ได้จากข้อมูล synthetic และอาจต้องปรับปรุงเมื่อใช้กับข้อมูลจริง"
   }

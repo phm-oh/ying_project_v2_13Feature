@@ -5,9 +5,55 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
+def convert_score_to_exam_format(scores, min_score=30, max_score=100, exam_points=4, min_correct=8, max_correct=25):
+    """
+    แปลงคะแนนเดิม (30.0-100.0) ให้เป็นคะแนนจากข้อสอบ (32, 36, 40, ..., 100)
+    รักษาการกระจายและความสัมพันธ์เดิมไว้
+    """
+    # แปลงเป็น percentile (0-1)
+    percentiles = (scores - min_score) / (max_score - min_score)
+    
+    # แมปไปยังจำนวนข้อที่ทำถูก (8-25 ข้อ)
+    correct_answers = np.round(percentiles * (max_correct - min_correct) + min_correct).astype(int)
+    
+    # แปลงเป็นคะแนนขั้นสุดท้าย
+    exam_scores = correct_answers * exam_points
+    
+    return exam_scores
+
+def convert_skill_to_exam_format(skills, min_skill=3, max_skill=10, original_min=3, original_max=10):
+    """
+    แปลงทักษะ (3.0-10.0) ให้เป็นจำนวนเต็ม (3, 4, 5, ..., 10)
+    """
+    # แปลงเป็น percentile (0-1)
+    percentiles = (skills - original_min) / (original_max - original_min)
+    
+    # แมปไปยังคะแนนทักษะ (3-10)
+    skill_scores = np.round(percentiles * (max_skill - min_skill) + min_skill).astype(int)
+    
+    return skill_scores
+
+def convert_interest_to_exam_format(interests, original_min=1, original_max=10):
+    """
+    แปลงความสนใจ (1.0-10.0) ให้เป็นระดับ Likert Scale (1, 3, 7, 10)
+    """
+    # แปลงเป็น percentile (0-1)
+    percentiles = (interests - original_min) / (original_max - original_min)
+    
+    # แมปไปยังระดับ Likert
+    # 0-0.25 -> 1, 0.25-0.5 -> 3, 0.5-0.75 -> 7, 0.75-1.0 -> 10
+    likert_scores = np.zeros_like(interests, dtype=int)
+    likert_scores[percentiles <= 0.25] = 1
+    likert_scores[(percentiles > 0.25) & (percentiles <= 0.5)] = 3
+    likert_scores[(percentiles > 0.5) & (percentiles <= 0.75)] = 7
+    likert_scores[percentiles > 0.75] = 10
+    
+    return likert_scores
+
 def generate_simplified_student_dataset(n_samples=1789, base_accuracy=0.80, target_after_selection=0.87, seed=42):
     """
     สร้างชุดข้อมูลนักเรียนแบบเรียบง่าย - โฟกัสที่ academic performance
+    แล้วแปลงคะแนนให้สอดคล้องกับข้อสอบจริง (รักษาความสัมพันธ์เดิม)
     
     หลักการ: ข้อมูลการเลือกแผนกควรขึ้นอยู่กับ academic performance และ interests เป็นหลัก
     ลบ lifestyle factors และ validation features ออกเพื่อลดความซับซ้อน
@@ -16,31 +62,31 @@ def generate_simplified_student_dataset(n_samples=1789, base_accuracy=0.80, targ
     np.random.seed(seed)
     departments = ['บัญชี', 'สารสนเทศ', 'อาหาร']
     
-    # ========== CORE FEATURES (คะแนนจากแบบทดสอบ + ทักษะหลัก) ==========
-    # คะแนนวิชาหลัก (1-100)
+    # ========== CORE FEATURES (ใช้วิธีเดิม) ==========
+    # คะแนนวิชาหลัก (1-100) - ยังใช้วิธีเดิม
     math_score = np.round(np.random.uniform(30, 100, n_samples), 1)
     computer_score = np.round(np.random.uniform(30, 100, n_samples), 1)  
     language_score = np.round(np.random.uniform(30, 100, n_samples), 1)
     science_score = np.round(np.random.uniform(30, 100, n_samples), 1)
     art_score = np.round(np.random.uniform(30, 100, n_samples), 1)
     
-    # ทักษะหลัก (1-10 scale)
+    # ทักษะหลัก (1-10 scale) - ยังใช้วิธีเดิม
     logical_thinking = np.round(np.random.uniform(3, 10, n_samples), 1)
     creativity_skill = np.round(np.random.uniform(3, 10, n_samples), 1)
     problem_solving = np.round(np.random.uniform(3, 10, n_samples), 1)
     
-    # ความสนใจหลัก (1-10 scale)
+    # ความสนใจหลัก (1-10 scale) - ยังใช้วิธีเดิม
     interest_numbers = np.round(np.random.uniform(1, 10, n_samples), 1)
     interest_technology = np.round(np.random.uniform(1, 10, n_samples), 1)
     interest_cooking = np.round(np.random.uniform(1, 10, n_samples), 1)
     
-    # ========== DEMOGRAPHIC FEATURES (ข้อมูลทั่วไป - จำกัดเฉพาะที่จำเป็น) ==========
+    # ========== DEMOGRAPHIC FEATURES (ใช้วิธีเดิม) ==========
     np.random.seed(seed * 3 + 1000)  # ใช้ seed ต่างออกไป
     age = np.random.randint(16, 20, n_samples)
     gender = np.random.choice([0, 1], n_samples)  # 0: ชาย, 1: หญิง
     
-    # สร้าง DataFrame
-    data = {
+    # สร้าง DataFrame ด้วยข้อมูลเดิม
+    data_original = {
         # === CORE FEATURES ===
         'คะแนนคณิตศาสตร์': math_score,
         'คะแนนคอมพิวเตอร์': computer_score,
@@ -59,34 +105,34 @@ def generate_simplified_student_dataset(n_samples=1789, base_accuracy=0.80, targ
         'เพศ': gender
     }
     
-    df = pd.DataFrame(data)
+    df_original = pd.DataFrame(data_original)
     
-    # ========== สร้างคะแนนความเหมาะสม (ใช้เฉพาะ CORE FEATURES) ==========
+    # ========== สร้างคะแนนความเหมาะสมด้วยข้อมูลเดิม ==========
     
     # 1. แผนกบัญชี - เน้นคณิต + ตรรกะ + ตัวเลข
     accounting_score = (
-        2.0 * df['คะแนนคณิตศาสตร์'] +
-        1.8 * df['ทักษะการคิดเชิงตรรกะ'] +
-        1.5 * df['ความสนใจด้านตัวเลข'] +
-        0.8 * df['คะแนนภาษาไทย']
+        2.0 * df_original['คะแนนคณิตศาสตร์'] +
+        1.8 * df_original['ทักษะการคิดเชิงตรรกะ'] +
+        1.5 * df_original['ความสนใจด้านตัวเลข'] +
+        0.8 * df_original['คะแนนภาษาไทย']
     )
     
     # 2. แผนกสารสนเทศ - เน้นคอมพิวเตอร์ + เทคโนโลยี + แก้ปัญหา  
     it_score = (
-        2.0 * df['คะแนนคอมพิวเตอร์'] +
-        1.8 * df['ความสนใจด้านเทคโนโลยี'] +
-        1.5 * df['ทักษะการแก้ปัญหา'] +
-        1.2 * df['ทักษะการคิดเชิงตรรกะ'] +
-        0.8 * df['คะแนนวิทยาศาสตร์']
+        2.0 * df_original['คะแนนคอมพิวเตอร์'] +
+        1.8 * df_original['ความสนใจด้านเทคโนโลยี'] +
+        1.5 * df_original['ทักษะการแก้ปัญหา'] +
+        1.2 * df_original['ทักษะการคิดเชิงตรรกะ'] +
+        0.8 * df_original['คะแนนวิทยาศาสตร์']
     )
     
     # 3. แผนกอาหาร - เน้นความคิดสร้างสรรค์ + การทำอาหาร + ศิลปะ
     food_score = (
-        2.0 * df['ความสนใจด้านการทำอาหาร'] +
-        1.8 * df['ทักษะความคิดสร้างสรรค์'] +
-        1.5 * df['คะแนนศิลปะ'] +
-        1.0 * df['คะแนนวิทยาศาสตร์'] +
-        0.8 * df['คะแนนภาษาไทย']
+        2.0 * df_original['ความสนใจด้านการทำอาหาร'] +
+        1.8 * df_original['ทักษะความคิดสร้างสรรค์'] +
+        1.5 * df_original['คะแนนศิลปะ'] +
+        1.0 * df_original['คะแนนวิทยาศาสตร์'] +
+        0.8 * df_original['คะแนนภาษาไทย']
     )
     
     # เพิ่ม noise เพื่อความสมจริง
@@ -103,7 +149,50 @@ def generate_simplified_student_dataset(n_samples=1789, base_accuracy=0.80, targ
     })
     
     department = scores.idxmax(axis=1)
-    df['แผนก'] = department
+    
+    # ========== แปลงคะแนนให้สอดคล้องกับข้อสอบ ==========
+    
+    # แปลงคะแนนวิชา (30.0-100.0) -> (32, 36, 40, ..., 100)
+    math_exam = convert_score_to_exam_format(math_score)
+    computer_exam = convert_score_to_exam_format(computer_score)
+    language_exam = convert_score_to_exam_format(language_score)
+    science_exam = convert_score_to_exam_format(science_score)
+    art_exam = convert_score_to_exam_format(art_score)
+    
+    # แปลงทักษะ (3.0-10.0) -> (3, 4, 5, ..., 10)
+    logical_exam = convert_skill_to_exam_format(logical_thinking)
+    creativity_exam = convert_skill_to_exam_format(creativity_skill)
+    problem_exam = convert_skill_to_exam_format(problem_solving)
+    
+    # แปลงความสนใจ (1.0-10.0) -> (1, 3, 7, 10)
+    numbers_exam = convert_interest_to_exam_format(interest_numbers)
+    technology_exam = convert_interest_to_exam_format(interest_technology)
+    cooking_exam = convert_interest_to_exam_format(interest_cooking)
+    
+    # สร้าง DataFrame ขั้นสุดท้าย
+    data_final = {
+        # === CORE FEATURES (แปลงแล้ว) ===
+        'คะแนนคณิตศาสตร์': math_exam,
+        'คะแนนคอมพิวเตอร์': computer_exam,
+        'คะแนนภาษาไทย': language_exam,
+        'คะแนนวิทยาศาสตร์': science_exam,
+        'คะแนนศิลปะ': art_exam,
+        'ทักษะการคิดเชิงตรรกะ': logical_exam,
+        'ทักษะความคิดสร้างสรรค์': creativity_exam,
+        'ทักษะการแก้ปัญหา': problem_exam,
+        'ความสนใจด้านตัวเลข': numbers_exam,
+        'ความสนใจด้านเทคโนโลยี': technology_exam,
+        'ความสนใจด้านการทำอาหาร': cooking_exam,
+        
+        # === DEMOGRAPHIC FEATURES (เหมือนเดิม) ===
+        'อายุ': age,
+        'เพศ': gender,
+        
+        # === TARGET (เหมือนเดิม) ===
+        'แผนก': department
+    }
+    
+    df = pd.DataFrame(data_final)
     
     # ========== ทดสอบประสิทธิภาพ ==========
     
@@ -138,69 +227,38 @@ def generate_simplified_student_dataset(n_samples=1789, base_accuracy=0.80, targ
     accuracy_core = accuracy_score(y_test, y_pred_core)
     
     # แสดงผลลัพธ์
-    print(f"สร้างชุดข้อมูลนักเรียน {n_samples} คน (แบบเรียบง่าย)")
-    print(f"การแยกประเภทข้อมูล:")
-    print(f"• Core Features: {len(core_features)} features - คะแนน, ทักษะ, ความสนใจ")  
-    print(f"• Demographic Features: {len(demographic_features)} features - อายุ, เพศ")
-    print(f"จำนวนนักเรียนในแต่ละแผนก:")
+    print(f"สร้างชุดข้อมูลนักเรียน {n_samples} คน (แปลงให้สอดคล้องกับข้อสอบ)")
+    print(f"📝 ระบบคะแนนหลังการแปลง:")
+    print(f"   • วิชาหลัก: {sorted(df['คะแนนคณิตศาสตร์'].unique())}")
+    print(f"   • ทักษะ: {sorted(df['ทักษะการคิดเชิงตรรกะ'].unique())}")  
+    print(f"   • ความสนใจ: {sorted(df['ความสนใจด้านตัวเลข'].unique())}")
+    
+    print(f"\nจำนวนนักเรียนในแต่ละแผนก:")
     print(df['แผนก'].value_counts())
     
     print(f"\n📊 ผลการทดสอบ:")
     print(f"🔍 ใช้ Features ทั้งหมด ({len(X.columns)} features): {accuracy_all:.3f}")
     print(f"🎯 ใช้ Core Features เท่านั้น ({len(core_features)} features): {accuracy_core:.3f}")
-    print(f"✨ การปรับปรุง: {accuracy_core - accuracy_all:.3f}")
+    print(f"✨ ความแตกต่าง: {accuracy_core - accuracy_all:.3f}")
     
-    # แสดงความสำคัญของ features
-    feature_imp_all = None
-    feature_imp_core = None
+    # ตรวจสอบความสัมพันธ์
+    print(f"\n🔍 ตรวจสอบความสัมพันธ์หลังการแปลง:")
     
-    if hasattr(model_all, 'feature_importances_'):
-        # สร้างรายการประเภท features
-        feature_types = []
-        for feature in X.columns:
-            if feature in core_features:
-                feature_types.append('Core')
-            elif feature in demographic_features:
-                feature_types.append('Demographic')  
-            else:
-                feature_types.append('Additional')
-        
-        feature_imp_all = pd.DataFrame({
-            'Feature': X.columns,
-            'Importance': model_all.feature_importances_,
-            'Type': feature_types
-        }).sort_values('Importance', ascending=False)
-        
-        feature_imp_core = pd.DataFrame({
-            'Feature': core_features,
-            'Importance': model_core.feature_importances_
-        }).sort_values('Importance', ascending=False)
-        
-        print("\n🏆 Top 10 Most Important Features (Random Forest Analysis):")
-        print(feature_imp_all.head(10)[['Feature', 'Importance', 'Type']])
-        
-        print("\n🎯 Core Features Ranking:")
-        print(feature_imp_core.head(11))
-        
-        # ตรวจสอบว่า Demographic Features ยังติด Top 10 หรือไม่
-        top_10 = feature_imp_all.head(10)
-        demographic_in_top10 = top_10[top_10['Type'] == 'Demographic']
-        if len(demographic_in_top10) > 0:
-            print(f"\n📝 หมายเหตุ: พบ Demographic Features ใน Top 10:")
-            print(demographic_in_top10[['Feature', 'Importance']])
-        else:
-            print(f"\n✅ ผลลัพธ์ตามที่คาดหวัง: Core Features ครองตำแหน่งหลัก")
-        
-        # ตรวจสอบการกระจายของ target
-        print(f"\n🔍 การกระจายของแผนกเรียน:")
-        dept_dist = df['แผนก'].value_counts(normalize=True) * 100
-        for dept, pct in dept_dist.items():
-            print(f"   {dept}: {pct:.1f}%")
+    # คำนวณค่าเฉลี่ยตามแผนก
+    dept_stats = df.groupby('แผนก')[['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนศิลปะ', 
+                                     'ความสนใจด้านตัวเลข', 'ความสนใจด้านเทคโนโลยี', 'ความสนใจด้านการทำอาหาร']].mean()
     
-    return df, accuracy_all, accuracy_core, feature_imp_all, feature_imp_core, core_features, demographic_features
+    print("คะแนนเฉลี่ยแต่ละแผนก:")
+    for dept in departments:
+        stats = dept_stats.loc[dept]
+        print(f"   {dept}: คณิต={stats['คะแนนคณิตศาสตร์']:.1f}, คอม={stats['คะแนนคอมพิวเตอร์']:.1f}, ศิลปะ={stats['คะแนนศิลปะ']:.1f}")
+        print(f"           ตัวเลข={stats['ความสนใจด้านตัวเลข']:.1f}, เทคโนโลยี={stats['ความสนใจด้านเทคโนโลยี']:.1f}, ทำอาหาร={stats['ความสนใจด้านการทำอาหาร']:.1f}")
+    
+    return df, accuracy_all, accuracy_core, None, None, core_features, demographic_features
 
 if __name__ == "__main__":
-    print("=== สร้างชุดข้อมูลนักเรียนแบบเรียบง่าย ===")
+    print("=== สร้างชุดข้อมูลนักเรียนที่สอดคล้องกับข้อสอบ ===")
+    print("🔄 รักษาความสัมพันธ์และการกระจายเดิม แต่แปลงคะแนนให้ตรงกับข้อสอบ")
     
     df, acc_all, acc_core, feat_imp_all, feat_imp_core, core_feat, demo_feat = generate_simplified_student_dataset()
     
@@ -209,5 +267,5 @@ if __name__ == "__main__":
     print(f"\n💾 บันทึกไฟล์ student_realistic_data.csv เรียบร้อยแล้ว")
     print(f"📝 Total Features: {len(df.columns)-1}")
     print(f"📊 Total Rows: {len(df)}")
-    print(f"\n🎯 Dataset เรียบง่าย โฟกัสที่ academic performance")
-    print(f"✅ พร้อมใช้งานสำหรับ Machine Learning Pipeline")
+    print(f"\n🎯 คะแนนสอดคล้องกับข้อสอบ + รักษาความสัมพันธ์เดิม")
+    print(f"✅ พร้อมใช้งานสำหรับระบบทำนายแผนกการเรียน")

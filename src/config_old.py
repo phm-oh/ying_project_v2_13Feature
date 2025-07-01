@@ -1,9 +1,9 @@
 # ไฟล์: config.py
 # Path: src/config.py
-# วัตถุประสงค์: การตั้งค่าทั้งหมดของโปรเจค (แก้ไขแล้ว - ใช้ RFECV เป็นหลัก)
+# วัตถุประสงค์: การตั้งค่าทั้งหมดของโปรเจค (แก้แล้ว - เพิ่ม Smart Sequential Feature Selection)
 
 """
-config.py - การตั้งค่าทั้งหมดของโปรเจค (ปรับปรุงแล้ว - ใช้ RFECV)
+config.py - การตั้งค่าทั้งหมดของโปรเจค (ปรับปรุงแล้ว - เพิ่ม Smart Sequential)
 """
 
 import os
@@ -44,7 +44,7 @@ RANDOM_STATE = 42
 TEST_SIZE = 0.2
 VALIDATION_SIZE = 0.2
 
-# Feature groups
+# Feature groups (แก้แล้ว - ลบ lifestyle features)
 CORE_FEATURES = [
     'คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 
     'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ', 'ทักษะการคิดเชิงตรรกะ',
@@ -53,29 +53,31 @@ CORE_FEATURES = [
 ]
 
 DEMOGRAPHIC_FEATURES = [
-    'อายุ', 'เพศ'
+    'อายุ', 'เพศ'  # ลดลงเหลือแค่ 2 ตัวที่จำเป็น
 ]
 
-EXCLUDE_FEATURES = []
+# ลบ LIFESTYLE_FEATURES และ VALIDATION_FEATURES ออกทั้งหมด
+EXCLUDE_FEATURES = []  # ไม่มีการ exclude แล้ว
 
-# ==================== FEATURE SELECTION SETTINGS (แก้ไขแล้ว - ใช้ RFECV) ====================
+# ==================== FEATURE SELECTION SETTINGS (แก้แล้ว - เพิ่ม Smart Sequential) ====================
 FEATURE_SELECTION_METHODS = {
-    'rfe_cv': 'Recursive Feature Elimination with Cross-Validation (auto-select optimal features)',
-    'rfe': 'Recursive Feature Elimination with fixed number',
-    'forward': 'Sequential Feature Selection with forward direction',
-    'backward': 'Sequential Feature Selection with backward direction', 
+    'forward': 'SequentialFeatureSelector with forward direction',
+    'forward_smart': 'Smart Sequential with auto-stopping when accuracy stops improving',
+    'backward': 'SequentialFeatureSelector with backward direction', 
+    'rfe': 'Recursive Feature Elimination',
+    'rfe_cv': 'RFE with Cross Validation (auto-select features)',
     'univariate': 'Univariate Statistical Tests',
     'lasso': 'LASSO Regularization',
     'rf_importance': 'Random Forest Feature Importance'
 }
 
-# เลือกวิธี feature selection (แก้ไขแล้ว)
-FEATURE_SELECTION_METHOD = 'rfe_cv'  # ใช้ RFECV เป็นหลัก
+# เลือกวิธี feature selection (แก้เป็น smart version)
+FEATURE_SELECTION_METHOD = 'forward_smart'  # หยุดเมื่อ accuracy ไม่เพิ่มแล้ว
 
-# การตั้งค่า RFECV (แก้ไขแล้ว)
-MIN_FEATURES = 1  # ให้ RFECV ทดสอบจนถึง 1 feature แล้วหาค่า optimal เอง
-MAX_FEATURES = 13  # จำนวน features ทั้งหมด
-N_FEATURES_TO_SELECT = None  # ไม่กำหนด ให้ RFECV หาเอง
+# จำนวน features ที่ต้องการ (ใช้เป็น max limit สำหรับ smart method)
+N_FEATURES_TO_SELECT = 10  # ใช้เป็น upper bound
+MIN_FEATURES = 6
+MAX_FEATURES = 12
 
 # Scoring metric สำหรับ feature selection
 FEATURE_SELECTION_SCORING = 'accuracy'
@@ -134,19 +136,20 @@ AVAILABLE_MODELS = {
 # เลือกโมเดลที่ต้องการทดสอบ
 SELECTED_MODELS = ['random_forest', 'gradient_boosting', 'logistic_regression']
 
-# ==================== CROSS VALIDATION SETTINGS ====================
-CV_FOLDS = 10
+# ==================== CROSS VALIDATION SETTINGS (แก้แล้ว) ====================
+CV_FOLDS = 10  # เปลี่ยนจาก 15 เป็น 10
 CV_SCORING_METRICS = ['accuracy', 'precision_macro', 'recall_macro', 'f1_macro']
 CV_N_JOBS = -1
 
-# ==================== EVALUATION SETTINGS ====================
+# ==================== EVALUATION SETTINGS (ลดความซับซ้อน) ====================
 EVALUATION_METRICS = [
     'accuracy', 'precision', 'recall', 'f1_score', 
     'confusion_matrix', 'classification_report'
 ]
 
+# ลบ statistical tests ออก
 STATISTICAL_TESTS = {
-    'paired_ttest': False,
+    'paired_ttest': False,  # ปิดการใช้งาน
     'wilcoxon': False,
     'friedman': False
 }
@@ -169,8 +172,7 @@ PLOT_TYPES = [
     'confusion_matrix',
     'feature_importance', 
     'performance_comparison',
-    'cross_validation_scores',
-    'rfecv_analysis'  # เพิ่มกราฟ RFECV
+    'cross_validation_scores'
 ]
 
 # ==================== OUTPUT SETTINGS ====================
@@ -201,8 +203,8 @@ MEMORY_LIMIT = '4GB'
 CACHE_SIZE = 200
 
 # ==================== EXPERIMENT TRACKING ====================
-EXPERIMENT_NAME = "rfecv_feature_selection_department_recommendation"  # แก้ชื่อ
-EXPERIMENT_VERSION = "v3.0"  # อัพเดท version
+EXPERIMENT_NAME = "smart_feature_selection_department_recommendation"
+EXPERIMENT_VERSION = "v2.2"  # อัพเดท version
 TRACK_EXPERIMENTS = False
 
 # ==================== VALIDATION CHECKS ====================
@@ -223,12 +225,9 @@ def validate_config():
     if FEATURE_SELECTION_METHOD not in FEATURE_SELECTION_METHODS:
         errors.append(f"Unknown feature selection method: {FEATURE_SELECTION_METHOD}")
     
-    # ตรวจสอบ RFECV settings
-    if FEATURE_SELECTION_METHOD == 'rfe_cv':
-        if MIN_FEATURES < 1:
-            errors.append(f"MIN_FEATURES must be at least 1, got {MIN_FEATURES}")
-        if MAX_FEATURES < MIN_FEATURES:
-            errors.append(f"MAX_FEATURES ({MAX_FEATURES}) must be >= MIN_FEATURES ({MIN_FEATURES})")
+    # ตรวจสอบจำนวน features (สำหรับ smart method ใช้เป็น upper bound)
+    if N_FEATURES_TO_SELECT < MIN_FEATURES or N_FEATURES_TO_SELECT > MAX_FEATURES:
+        errors.append(f"N_FEATURES_TO_SELECT must be between {MIN_FEATURES} and {MAX_FEATURES}")
     
     if errors:
         raise ValueError("Configuration errors:\n" + "\n".join(errors))

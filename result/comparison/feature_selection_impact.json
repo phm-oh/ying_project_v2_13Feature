@@ -1,29 +1,29 @@
 {
   "baseline_performance": {
-    "accuracy": 0.890321484071484,
-    "std": 0.02519337075495411,
+    "accuracy": 0.8888986013986013,
+    "std": 0.020553857586000937,
     "n_features": 13
   },
   "best_method_performance": {
-    "method": "sequential",
-    "accuracy": 0.8952068764568765,
-    "std": 0.0,
+    "method": "rfecv",
+    "accuracy": 0.8930604118104117,
+    "std": 0.02035940411964878,
     "n_features": 5
   },
   "final_selection_performance": {
-    "method": "sequential",
+    "method": "rfecv",
     "n_features": 5,
     "selected_features": [
-      "คะแนนคอมพิวเตอร์",
-      "คะแนนศิลปะ",
       "คะแนนคณิตศาสตร์",
+      "คะแนนคอมพิวเตอร์",
+      "คะแนนภาษาไทย",
       "คะแนนวิทยาศาสตร์",
-      "คะแนนภาษาไทย"
+      "คะแนนศิลปะ"
     ]
   },
   "improvement": {
-    "accuracy_improvement": 0.004885392385392429,
-    "accuracy_improvement_percent": 0.5487222843428745,
+    "accuracy_improvement": 0.004161810411810407,
+    "accuracy_improvement_percent": 0.4681985555227757,
     "feature_reduction": 8,
     "feature_reduction_percent": 61.53846153846154
   },

@@ -1,266 +1,1169 @@
-2025-06-29 21:48:38,202 - src.utils - INFO - Validating pipeline setup...
-2025-06-29 21:48:38,203 - src.utils - INFO - ✅ Data file found: /Users/phanumetchoompun/Desktop/dataset_ V2/student_realistic_data.csv
-2025-06-29 21:48:38,203 - src.utils - INFO - ✅ Configuration validation passed
-2025-06-29 21:48:38,203 - src.utils - INFO - ✅ All required packages available
-2025-06-29 21:48:38,203 - src.utils - INFO - Pipeline validation completed successfully
-2025-06-29 21:48:38,204 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
-2025-06-29 21:48:38,204 - src.utils - INFO - Starting Data Preprocessing - 6 steps
-2025-06-29 21:48:38,204 - src.data_preprocessing - INFO - Loading raw data...
-2025-06-29 21:48:38,204 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_ V2/student_realistic_data.csv
-2025-06-29 21:48:38,218 - src.utils - INFO - Data loaded successfully. Shape: (1789, 14)
-2025-06-29 21:48:38,218 - src.data_preprocessing - INFO - Raw data loaded: (1789, 14)
-2025-06-29 21:48:38,219 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.014665
-2025-06-29 21:48:38,219 - src.data_preprocessing - INFO - Analyzing raw data...
-2025-06-29 21:48:38,219 - src.utils - INFO - Analyzing data...
-2025-06-29 21:48:38,266 - src.utils - INFO - Data analysis completed
-2025-06-29 21:48:38,267 - src.utils - INFO - Detecting outliers using iqr method...
-2025-06-29 21:48:38,290 - src.utils - INFO - Outlier detection completed. Found outliers in 13 columns
-2025-06-29 21:48:38,290 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/preprocessing/raw_data_analysis.json
-2025-06-29 21:48:38,292 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:48:38,293 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.088665
-2025-06-29 21:48:38,293 - src.data_preprocessing - INFO - Cleaning data...
-2025-06-29 21:48:38,299 - src.utils - INFO - Step 3/6 (50.0%) - Cleaning data - Elapsed: 0:00:00.094786
-2025-06-29 21:48:38,299 - src.data_preprocessing - INFO - Handling missing values...
-2025-06-29 21:48:38,311 - src.data_preprocessing - INFO - Missing values after imputation: 0
-2025-06-29 21:48:38,312 - src.utils - INFO - Step 4/6 (66.7%) - Handling missing values - Elapsed: 0:00:00.107678
-2025-06-29 21:48:38,312 - src.data_preprocessing - INFO - Encoding categorical features...
-2025-06-29 21:48:38,313 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/preprocessing/target_mapping.json
-2025-06-29 21:48:38,314 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:48:38,314 - src.data_preprocessing - INFO - Encoded 0 categorical features
-2025-06-29 21:48:38,314 - src.utils - INFO - Step 5/6 (83.3%) - Encoding categorical features - Elapsed: 0:00:00.110052
-2025-06-29 21:48:38,314 - src.data_preprocessing - INFO - Normalizing features using standard...
-2025-06-29 21:48:38,329 - src.data_preprocessing - INFO - Normalized 13 numeric features
-2025-06-29 21:48:38,329 - src.utils - INFO - Step 6/6 (100.0%) - Normalizing features - Elapsed: 0:00:00.125211
-2025-06-29 21:48:38,329 - src.utils - INFO - Data Preprocessing completed in 0:00:00.125334
-2025-06-29 21:48:38,329 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/preprocessing/data_normalization.csv
-2025-06-29 21:48:38,365 - src.utils - INFO - Data saved successfully
-2025-06-29 21:48:38,365 - src.data_preprocessing - INFO - Creating preprocessing report...
-2025-06-29 21:48:38,365 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/preprocessing/normalization_report.json
-2025-06-29 21:48:38,366 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:48:38,366 - src.data_preprocessing - INFO - Splitting data into train/test sets...
-2025-06-29 21:48:38,373 - src.data_preprocessing - INFO - Data split - Train: (1431, 13), Test: (358, 13)
-2025-06-29 21:48:38,374 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/preprocessing/data_split_info.json
-2025-06-29 21:48:38,374 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:48:38,376 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/preprocessing/train_data.csv
-2025-06-29 21:48:38,400 - src.utils - INFO - Data saved successfully
-2025-06-29 21:48:38,400 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/preprocessing/test_data.csv
-2025-06-29 21:48:38,408 - src.utils - INFO - Data saved successfully
-2025-06-29 21:48:38,408 - src.data_preprocessing - INFO - Data preprocessing completed successfully
-2025-06-29 21:48:38,409 - src.feature_selection - INFO - Starting feature selection pipeline...
-2025-06-29 21:48:38,409 - src.utils - INFO - Starting Feature Selection - 6 steps
-2025-06-29 21:48:38,409 - src.feature_selection - INFO - Loading normalized data...
-2025-06-29 21:48:38,409 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/preprocessing/train_data.csv
-2025-06-29 21:48:38,418 - src.utils - INFO - Data loaded successfully. Shape: (1431, 14)
-2025-06-29 21:48:38,418 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/preprocessing/test_data.csv
-2025-06-29 21:48:38,421 - src.utils - INFO - Data loaded successfully. Shape: (358, 14)
-2025-06-29 21:48:38,422 - src.feature_selection - INFO - Data loaded - Train: (1431, 13), Test: (358, 13)
-2025-06-29 21:48:38,422 - src.utils - INFO - Step 1/6 (16.7%) - Loading normalized data - Elapsed: 0:00:00.013453
-2025-06-29 21:48:38,422 - src.feature_selection - INFO - Comparing feature selection methods...
-2025-06-29 21:48:38,423 - src.feature_selection - INFO - Starting Smart Sequential Feature Selection...
-2025-06-29 21:48:38,423 - src.feature_selection - INFO - Starting with 13 features
-2025-06-29 21:48:38,423 - src.feature_selection - INFO - Round 1: Testing 13 features...
-2025-06-29 21:49:07,456 - src.feature_selection - INFO - ✅ Added 'คะแนนคอมพิวเตอร์', Score: 0.5905 (+0.5905)
-2025-06-29 21:49:07,456 - src.feature_selection - INFO - Round 2: Testing 12 features...
-2025-06-29 21:49:40,557 - src.feature_selection - INFO - ✅ Added 'คะแนนศิลปะ', Score: 0.7044 (+0.1139)
-2025-06-29 21:49:40,557 - src.feature_selection - INFO - Round 3: Testing 11 features...
-2025-06-29 21:50:12,253 - src.feature_selection - INFO - ✅ Added 'คะแนนคณิตศาสตร์', Score: 0.8016 (+0.0971)
-2025-06-29 21:50:12,253 - src.feature_selection - INFO - Round 4: Testing 10 features...
-2025-06-29 21:50:42,755 - src.feature_selection - INFO - ✅ Added 'คะแนนวิทยาศาสตร์', Score: 0.8519 (+0.0503)
-2025-06-29 21:50:42,755 - src.feature_selection - INFO - Round 5: Testing 9 features...
-2025-06-29 21:51:09,507 - src.feature_selection - INFO - ✅ Added 'คะแนนภาษาไทย', Score: 0.8952 (+0.0433)
-2025-06-29 21:51:09,507 - src.feature_selection - INFO - Round 6: Testing 8 features...
-2025-06-29 21:51:33,071 - src.feature_selection - INFO - ❌ No significant improvement, Patience: 2/3
-2025-06-29 21:51:33,071 - src.feature_selection - INFO - Round 6: Testing 8 features...
-2025-06-29 21:51:56,275 - src.feature_selection - INFO - ❌ No significant improvement, Patience: 1/3
-2025-06-29 21:51:56,275 - src.feature_selection - INFO - Round 6: Testing 8 features...
-2025-06-29 21:52:19,504 - src.feature_selection - INFO - ❌ No significant improvement, Patience: 0/3
-2025-06-29 21:52:19,504 - src.feature_selection - INFO - 🛑 Stopped: No improvement for 3 consecutive rounds
-2025-06-29 21:52:19,504 - src.feature_selection - INFO - Starting RFE Feature Selection...
-2025-06-29 21:52:47,061 - src.feature_selection - INFO - RFE-CV completed - Selected 6 features
-2025-06-29 21:52:47,062 - src.feature_selection - INFO - Starting Filter Feature Selection...
-2025-06-29 21:52:47,288 - src.feature_selection - INFO - Filter Feature Selection completed
-2025-06-29 21:52:47,289 - src.feature_selection - INFO - Starting Embedded Feature Selection...
-2025-06-29 21:52:48,039 - src.feature_selection - INFO - Embedded Feature Selection completed
-2025-06-29 21:52:51,173 - src.feature_selection - INFO - Feature selection comparison completed - Best: sequential (0.8952)
-2025-06-29 21:52:51,173 - src.utils - INFO - Step 2/6 (33.3%) - Comparing feature selection methods - Elapsed: 0:04:12.764323
-2025-06-29 21:52:51,173 - src.feature_selection - INFO - Creating dataset with selected features...
-2025-06-29 21:52:51,177 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/train_data_selected.csv
-2025-06-29 21:52:51,200 - src.utils - INFO - Data saved successfully
-2025-06-29 21:52:51,201 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/test_data_selected.csv
-2025-06-29 21:52:51,208 - src.utils - INFO - Data saved successfully
-2025-06-29 21:52:51,211 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/data_selection.csv
-2025-06-29 21:52:51,236 - src.utils - INFO - Data saved successfully
-2025-06-29 21:52:51,236 - src.feature_selection - INFO - Selected dataset saved - Train: (1431, 6), Test: (358, 6)
-2025-06-29 21:52:51,237 - src.utils - INFO - Step 3/6 (50.0%) - Creating selected dataset - Elapsed: 0:04:12.827812
-2025-06-29 21:52:51,237 - src.feature_selection - INFO - Creating feature selection report...
-2025-06-29 21:52:51,237 - src.utils - INFO - Step 4/6 (66.7%) - Creating feature selection report - Elapsed: 0:04:12.828178
-2025-06-29 21:52:51,237 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/feature_selection_report.json
-2025-06-29 21:52:51,238 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:52:51,239 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/selected_features.json
-2025-06-29 21:52:51,240 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:52:51,243 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/selection_scores.csv
-2025-06-29 21:52:51,245 - src.utils - INFO - Data saved successfully
-2025-06-29 21:52:51,246 - src.utils - INFO - Step 5/6 (83.3%) - Saving results - Elapsed: 0:04:12.836798
-2025-06-29 21:52:51,246 - src.utils - INFO - Feature Selection completed in 0:04:12.837132
-2025-06-29 21:52:51,247 - src.feature_selection - INFO - Feature selection completed successfully
-2025-06-29 21:52:51,248 - src.model_training - INFO - Starting model training pipeline...
-2025-06-29 21:52:51,248 - src.utils - INFO - Starting Model Training - 7 steps
-2025-06-29 21:52:51,248 - src.model_training - INFO - Loading selected features data...
-2025-06-29 21:52:51,248 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/train_data_selected.csv
-2025-06-29 21:52:51,255 - src.utils - INFO - Data loaded successfully. Shape: (1431, 6)
-2025-06-29 21:52:51,256 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/test_data_selected.csv
-2025-06-29 21:52:51,258 - src.utils - INFO - Data loaded successfully. Shape: (358, 6)
-2025-06-29 21:52:51,259 - src.model_training - INFO - Data loaded - Train: (1431, 5), Test: (358, 5)
-2025-06-29 21:52:51,260 - src.model_training - INFO - Features: ['คะแนนคอมพิวเตอร์', 'คะแนนศิลปะ', 'คะแนนคณิตศาสตร์', 'คะแนนวิทยาศาสตร์', 'คะแนนภาษาไทย']
-2025-06-29 21:52:51,260 - src.utils - INFO - Step 1/7 (14.3%) - Loading selected data - Elapsed: 0:00:00.012533
-2025-06-29 21:52:51,260 - src.model_training - INFO - Initializing models...
-2025-06-29 21:52:51,261 - src.model_training - INFO - Initialized 3 models: ['Random_Forest', 'Gradient_Boosting', 'Logistic_Regression']
-2025-06-29 21:52:51,262 - src.utils - INFO - Step 2/7 (28.6%) - Initializing models - Elapsed: 0:00:00.014029
-2025-06-29 21:52:51,262 - src.model_training - INFO - Starting 10-fold cross-validation...
-2025-06-29 21:52:51,263 - src.model_training - INFO - Cross-validating Random_Forest...
-2025-06-29 21:52:53,627 - src.model_training - INFO - Random_Forest CV completed - Accuracy: 0.8938 (+/- 0.0342)
-2025-06-29 21:52:53,627 - src.model_training - INFO - Cross-validating Gradient_Boosting...
-2025-06-29 21:53:01,999 - src.model_training - INFO - Gradient_Boosting CV completed - Accuracy: 0.8938 (+/- 0.0358)
-2025-06-29 21:53:02,001 - src.model_training - INFO - Cross-validating Logistic_Regression...
-2025-06-29 21:53:02,163 - src.model_training - INFO - Logistic_Regression CV completed - Accuracy: 0.9336 (+/- 0.0412)
-2025-06-29 21:53:02,164 - src.utils - INFO - Step 3/7 (42.9%) - Cross-validation evaluation - Elapsed: 0:00:10.915811
-2025-06-29 21:53:02,164 - src.model_training - INFO - Training final models...
-2025-06-29 21:53:02,164 - src.model_training - INFO - Training Random_Forest...
-2025-06-29 21:53:02,437 - src.utils - INFO - Saving model to: /Users/phanumetchoompun/Desktop/dataset_ V2/models/random_forest.pickle
-2025-06-29 21:53:02,446 - src.utils - INFO - Model saved successfully
-2025-06-29 21:53:02,446 - src.model_training - INFO - Random_Forest training completed
-2025-06-29 21:53:02,447 - src.model_training - INFO - Training Gradient_Boosting...
-2025-06-29 21:53:04,495 - src.utils - INFO - Saving model to: /Users/phanumetchoompun/Desktop/dataset_ V2/models/gradient_boosting.pickle
-2025-06-29 21:53:04,515 - src.utils - INFO - Model saved successfully
-2025-06-29 21:53:04,516 - src.model_training - INFO - Gradient_Boosting training completed
-2025-06-29 21:53:04,516 - src.model_training - INFO - Training Logistic_Regression...
-2025-06-29 21:53:04,544 - src.utils - INFO - Saving model to: /Users/phanumetchoompun/Desktop/dataset_ V2/models/logistic_regression.pickle
-2025-06-29 21:53:04,545 - src.utils - INFO - Model saved successfully
-2025-06-29 21:53:04,546 - src.model_training - INFO - Logistic_Regression training completed
-2025-06-29 21:53:04,546 - src.utils - INFO - Step 4/7 (57.1%) - Training final models - Elapsed: 0:00:13.298350
-2025-06-29 21:53:04,547 - src.model_training - INFO - Evaluating models on test set...
-2025-06-29 21:53:04,547 - src.model_training - INFO - Evaluating Random_Forest on test set...
-2025-06-29 21:53:04,715 - src.model_training - INFO - Random_Forest test evaluation completed - Accuracy: 0.8966
-2025-06-29 21:53:04,716 - src.model_training - INFO - Evaluating Gradient_Boosting on test set...
-2025-06-29 21:53:04,771 - src.model_training - INFO - Gradient_Boosting test evaluation completed - Accuracy: 0.8855
-2025-06-29 21:53:04,771 - src.model_training - INFO - Evaluating Logistic_Regression on test set...
-2025-06-29 21:53:04,798 - src.model_training - INFO - Logistic_Regression test evaluation completed - Accuracy: 0.9413
-2025-06-29 21:53:04,798 - src.utils - INFO - Step 5/7 (71.4%) - Test set evaluation - Elapsed: 0:00:13.550595
-2025-06-29 21:53:04,798 - src.model_training - INFO - Creating confusion matrices...
-2025-06-29 21:53:04,799 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/preprocessing/target_mapping.json
-2025-06-29 21:53:04,800 - src.utils - INFO - JSON loaded successfully
-2025-06-29 21:53:05,684 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/confusion_matrices.png
-2025-06-29 21:53:06,908 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/confusion_matrices.png
-2025-06-29 21:53:06,908 - src.model_training - INFO - Confusion matrices created and saved
-2025-06-29 21:53:06,908 - src.utils - INFO - Step 6/7 (85.7%) - Creating confusion matrices - Elapsed: 0:00:15.660531
-2025-06-29 21:53:06,908 - src.model_training - INFO - Creating training report...
-2025-06-29 21:53:06,909 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/training_report.json
-2025-06-29 21:53:06,922 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:53:06,922 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/cv_results.json
-2025-06-29 21:53:06,924 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:53:06,924 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/test_results.json
-2025-06-29 21:53:06,926 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:53:06,926 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/predictions.json
-2025-06-29 21:53:06,939 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:53:06,939 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/model_performance.csv
-2025-06-29 21:53:06,941 - src.utils - INFO - Data saved successfully
-2025-06-29 21:53:06,941 - src.utils - INFO - Step 7/7 (100.0%) - Saving results - Elapsed: 0:00:15.693342
-2025-06-29 21:53:06,941 - src.utils - INFO - Model Training completed in 0:00:15.693530
-2025-06-29 21:53:06,942 - src.model_training - INFO - Model training completed successfully
-2025-06-29 21:53:06,942 - src.model_comparison - INFO - Starting comprehensive model comparison...
-2025-06-29 21:53:06,942 - src.utils - INFO - Starting Model Comparison - 6 steps
-2025-06-29 21:53:06,942 - src.model_comparison - INFO - Loading all results for comparison...
-2025-06-29 21:53:06,942 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/preprocessing/normalization_report.json
-2025-06-29 21:53:06,943 - src.utils - INFO - JSON loaded successfully
-2025-06-29 21:53:06,943 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/feature_selection_report.json
-2025-06-29 21:53:06,944 - src.utils - INFO - JSON loaded successfully
-2025-06-29 21:53:06,944 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/selected_features.json
-2025-06-29 21:53:06,945 - src.utils - INFO - JSON loaded successfully
-2025-06-29 21:53:06,945 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/training_report.json
-2025-06-29 21:53:06,948 - src.utils - INFO - JSON loaded successfully
-2025-06-29 21:53:06,948 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/cv_results.json
-2025-06-29 21:53:06,949 - src.utils - INFO - JSON loaded successfully
-2025-06-29 21:53:06,949 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/test_results.json
-2025-06-29 21:53:06,949 - src.utils - INFO - JSON loaded successfully
-2025-06-29 21:53:06,950 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/model_performance.csv
-2025-06-29 21:53:06,953 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
-2025-06-29 21:53:06,953 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/selection_scores.csv
-2025-06-29 21:53:06,956 - src.utils - INFO - Data loaded successfully. Shape: (13, 2)
-2025-06-29 21:53:06,956 - src.model_comparison - INFO - All results loaded successfully
-2025-06-29 21:53:06,956 - src.utils - INFO - Step 1/6 (16.7%) - Loading all results - Elapsed: 0:00:00.013869
-2025-06-29 21:53:06,956 - src.model_comparison - INFO - Analyzing feature selection impact...
-2025-06-29 21:53:06,956 - src.model_comparison - INFO - Feature selection impact analysis completed
-2025-06-29 21:53:06,957 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing feature selection impact - Elapsed: 0:00:00.014436
-2025-06-29 21:53:06,957 - src.model_comparison - INFO - Performing comprehensive model comparison...
-2025-06-29 21:53:06,960 - src.model_comparison - INFO - Comprehensive model comparison completed
-2025-06-29 21:53:06,961 - src.utils - INFO - Step 3/6 (50.0%) - Comprehensive model comparison - Elapsed: 0:00:00.018495
-2025-06-29 21:53:06,961 - src.model_comparison - INFO - Generating recommendations...
-2025-06-29 21:53:06,961 - src.model_comparison - INFO - Recommendations generated
-2025-06-29 21:53:06,961 - src.utils - INFO - Step 4/6 (66.7%) - Generating recommendations - Elapsed: 0:00:00.018834
-2025-06-29 21:53:06,961 - src.model_comparison - INFO - Creating final comprehensive report...
-2025-06-29 21:53:06,961 - src.model_comparison - INFO - Final comprehensive report created
-2025-06-29 21:53:06,961 - src.utils - INFO - Step 5/6 (83.3%) - Creating final report - Elapsed: 0:00:00.019203
-2025-06-29 21:53:06,961 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/comparison/final_report.json
-2025-06-29 21:53:06,963 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:53:06,963 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/comparison/model_comparison.json
-2025-06-29 21:53:06,963 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:53:06,964 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/comparison/feature_selection_impact.json
-2025-06-29 21:53:06,964 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:53:06,964 - src.utils - INFO - Saving JSON to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/comparison/recommendations.json
-2025-06-29 21:53:06,965 - src.utils - INFO - JSON saved successfully
-2025-06-29 21:53:06,966 - src.utils - INFO - Saving data to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/comparison/model_comparison.csv
-2025-06-29 21:53:06,967 - src.utils - INFO - Data saved successfully
-2025-06-29 21:53:06,968 - src.utils - INFO - Step 6/6 (100.0%) - Saving results - Elapsed: 0:00:00.025592
-2025-06-29 21:53:06,968 - src.utils - INFO - Model Comparison completed in 0:00:00.025847
-2025-06-29 21:53:06,968 - src.model_comparison - INFO - Comprehensive model comparison completed successfully
-2025-06-29 21:53:06,971 - src.visualization - INFO - Creating all visualizations...
-2025-06-29 21:53:06,972 - src.utils - INFO - Starting Visualization - 7 steps
-2025-06-29 21:53:06,972 - src.visualization - INFO - Loading results data for visualization...
-2025-06-29 21:53:06,972 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/feature_selection_report.json
-2025-06-29 21:53:06,973 - src.utils - INFO - JSON loaded successfully
-2025-06-29 21:53:06,973 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/selected_features.json
-2025-06-29 21:53:06,974 - src.utils - INFO - JSON loaded successfully
-2025-06-29 21:53:06,974 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/training_report.json
-2025-06-29 21:53:06,978 - src.utils - INFO - JSON loaded successfully
-2025-06-29 21:53:06,978 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/cv_results.json
-2025-06-29 21:53:06,979 - src.utils - INFO - JSON loaded successfully
-2025-06-29 21:53:06,979 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/test_results.json
-2025-06-29 21:53:06,979 - src.utils - INFO - JSON loaded successfully
-2025-06-29 21:53:06,979 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/model_performance.csv
-2025-06-29 21:53:06,981 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
-2025-06-29 21:53:06,981 - src.utils - INFO - Loading data from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/selection_scores.csv
-2025-06-29 21:53:06,983 - src.utils - INFO - Data loaded successfully. Shape: (13, 2)
-2025-06-29 21:53:06,983 - src.visualization - INFO - Results data loaded successfully
-2025-06-29 21:53:06,983 - src.utils - INFO - Step 1/7 (14.3%) - Loading results data - Elapsed: 0:00:00.011517
-2025-06-29 21:53:06,983 - src.visualization - INFO - Creating feature selection comparison plot...
-2025-06-29 21:53:07,221 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/feature_selection_comparison.png
-2025-06-29 21:53:08,530 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/feature_selection_comparison.png
-2025-06-29 21:53:08,530 - src.utils - INFO - Step 2/7 (28.6%) - Feature selection comparison - Elapsed: 0:00:01.558638
-2025-06-29 21:53:08,530 - src.visualization - INFO - Creating feature importance plot...
-2025-06-29 21:53:08,686 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/feature_importance.png
-2025-06-29 21:53:09,670 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_ V2/result/feature_selection/feature_importance.png
-2025-06-29 21:53:09,671 - src.utils - INFO - Step 3/7 (42.9%) - Feature importance - Elapsed: 0:00:02.698966
-2025-06-29 21:53:09,671 - src.visualization - INFO - Creating model performance comparison plot...
-2025-06-29 21:53:10,529 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/model_performance_comparison.png
-2025-06-29 21:53:13,002 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/model_performance_comparison.png
-2025-06-29 21:53:13,003 - src.utils - INFO - Step 4/7 (57.1%) - Model performance comparison - Elapsed: 0:00:06.031084
-2025-06-29 21:53:13,003 - src.visualization - INFO - Creating cross-validation scores plot...
-2025-06-29 21:53:13,148 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/cross_validation_scores.png
-2025-06-29 21:53:14,244 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/cross_validation_scores.png
-2025-06-29 21:53:14,245 - src.utils - INFO - Step 5/7 (71.4%) - Cross-validation scores - Elapsed: 0:00:07.272872
-2025-06-29 21:53:14,245 - src.visualization - INFO - Creating enhanced confusion matrices...
-2025-06-29 21:53:14,245 - src.utils - INFO - Loading JSON from: /Users/phanumetchoompun/Desktop/dataset_ V2/result/preprocessing/target_mapping.json
-2025-06-29 21:53:14,245 - src.utils - INFO - JSON loaded successfully
-2025-06-29 21:53:15,786 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/confusion_matrices_enhanced.png
-2025-06-29 21:53:17,968 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/confusion_matrices_enhanced.png
-2025-06-29 21:53:17,969 - src.utils - INFO - Step 6/7 (85.7%) - Confusion matrices - Elapsed: 0:00:10.996840
-2025-06-29 21:53:17,969 - src.visualization - INFO - Creating training time analysis plot...
-2025-06-29 21:53:18,187 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/training_time_analysis.png
-2025-06-29 21:53:19,294 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_ V2/result/evaluation/training_time_analysis.png
-2025-06-29 21:53:19,294 - src.utils - INFO - Step 7/7 (100.0%) - Training time analysis - Elapsed: 0:00:12.322465
-2025-06-29 21:53:19,294 - src.visualization - INFO - Creating summary dashboard...
-2025-06-29 21:53:19,379 - src.utils - INFO - Saving plot to: /Users/phanumetchoompun/Desktop/dataset_ V2/result/comparison/summary_dashboard.png
-2025-06-29 21:53:22,151 - src.utils - INFO - Plot saved: /Users/phanumetchoompun/Desktop/dataset_ V2/result/comparison/summary_dashboard.png
-2025-06-29 21:53:22,151 - src.utils - INFO - Step 8/7 (114.3%) - Summary dashboard - Elapsed: 0:00:15.179434
-2025-06-29 21:53:22,151 - src.utils - INFO - Visualization completed in 0:00:15.179549
-2025-06-29 21:53:22,151 - src.visualization - INFO - All visualizations created successfully with correct titles
+2025-07-01 08:17:40,762 - src.utils - INFO - Validating pipeline setup...
+2025-07-01 08:17:40,762 - src.utils - INFO - ✅ Data file found: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\student_realistic_data.csv
+2025-07-01 08:17:40,763 - src.utils - INFO - ✅ Configuration validation passed
+2025-07-01 08:17:40,763 - src.utils - INFO - ✅ All required packages available
+2025-07-01 08:17:40,764 - src.utils - INFO - Pipeline validation completed successfully
+2025-07-01 08:17:40,764 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-07-01 08:17:40,765 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-07-01 08:17:40,765 - src.data_preprocessing - INFO - Loading raw data...
+2025-07-01 08:17:40,765 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\student_realistic_data.csv
+2025-07-01 08:17:40,772 - src.utils - INFO - Data loaded successfully. Shape: (1789, 14)
+2025-07-01 08:17:40,772 - src.data_preprocessing - INFO - Raw data loaded: (1789, 14)
+2025-07-01 08:17:40,772 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.007476
+2025-07-01 08:17:40,772 - src.data_preprocessing - INFO - Analyzing raw data...
+2025-07-01 08:17:40,772 - src.utils - INFO - Analyzing data...
+2025-07-01 08:17:40,799 - src.utils - INFO - Data analysis completed
+2025-07-01 08:17:40,800 - src.utils - INFO - Detecting outliers using iqr method...
+2025-07-01 08:17:40,821 - src.utils - INFO - Outlier detection completed. Found outliers in 13 columns
+2025-07-01 08:17:40,821 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\raw_data_analysis.json
+2025-07-01 08:17:40,823 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:17:40,825 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.060544
+2025-07-01 08:17:40,825 - src.data_preprocessing - INFO - Cleaning data...
+2025-07-01 08:17:40,829 - src.utils - INFO - Step 3/6 (50.0%) - Cleaning data - Elapsed: 0:00:00.063909
+2025-07-01 08:17:40,829 - src.data_preprocessing - INFO - Handling missing values...
+2025-07-01 08:17:40,838 - src.data_preprocessing - INFO - Missing values after imputation: 0
+2025-07-01 08:17:40,839 - src.utils - INFO - Step 4/6 (66.7%) - Handling missing values - Elapsed: 0:00:00.074053
+2025-07-01 08:17:40,839 - src.data_preprocessing - INFO - Encoding categorical features...
+2025-07-01 08:17:40,841 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\target_mapping.json
+2025-07-01 08:17:40,842 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:17:40,842 - src.data_preprocessing - INFO - Encoded 0 categorical features
+2025-07-01 08:17:40,842 - src.utils - INFO - Step 5/6 (83.3%) - Encoding categorical features - Elapsed: 0:00:00.077282
+2025-07-01 08:17:40,842 - src.data_preprocessing - INFO - Normalizing features using standard...
+2025-07-01 08:17:40,857 - src.data_preprocessing - INFO - Normalized 13 numeric features
+2025-07-01 08:17:40,857 - src.utils - INFO - Step 6/6 (100.0%) - Normalizing features - Elapsed: 0:00:00.092670
+2025-07-01 08:17:40,858 - src.utils - INFO - Data Preprocessing completed in 0:00:00.092902
+2025-07-01 08:17:40,858 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\data_normalization.csv
+2025-07-01 08:17:40,893 - src.utils - INFO - Data saved successfully
+2025-07-01 08:17:40,894 - src.data_preprocessing - INFO - Creating preprocessing report...
+2025-07-01 08:17:40,894 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\normalization_report.json
+2025-07-01 08:17:40,895 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:17:40,896 - src.data_preprocessing - INFO - Splitting data into train/test sets...
+2025-07-01 08:17:40,899 - src.data_preprocessing - INFO - Data split - Train: (1431, 13), Test: (358, 13)
+2025-07-01 08:17:40,901 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\data_split_info.json
+2025-07-01 08:17:40,902 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:17:40,904 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\train_data.csv
+2025-07-01 08:17:40,932 - src.utils - INFO - Data saved successfully
+2025-07-01 08:17:40,933 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\test_data.csv
+2025-07-01 08:17:40,941 - src.utils - INFO - Data saved successfully
+2025-07-01 08:17:40,943 - src.data_preprocessing - INFO - Data preprocessing completed successfully
+2025-07-01 08:17:40,944 - src.feature_selection - INFO - Starting RFECV feature selection pipeline...
+2025-07-01 08:17:40,944 - src.utils - INFO - Starting Feature Selection (RFECV) - 5 steps
+2025-07-01 08:17:40,944 - src.feature_selection - INFO - Loading normalized data...
+2025-07-01 08:17:40,944 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\train_data.csv
+2025-07-01 08:17:40,968 - src.utils - INFO - Data loaded successfully. Shape: (1431, 14)
+2025-07-01 08:17:40,969 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\test_data.csv
+2025-07-01 08:17:40,986 - src.utils - INFO - Data loaded successfully. Shape: (358, 14)
+2025-07-01 08:17:40,987 - src.feature_selection - INFO - Data loaded - Train: (1431, 13), Test: (358, 13)
+2025-07-01 08:17:40,987 - src.utils - INFO - Step 1/5 (20.0%) - Loading normalized data - Elapsed: 0:00:00.043272
+2025-07-01 08:17:40,987 - src.feature_selection - INFO - Comparing RFECV vs Baseline...
+2025-07-01 08:17:40,988 - src.feature_selection - INFO - Running RFECV...
+2025-07-01 08:17:40,988 - src.feature_selection - INFO - Starting RFECV Feature Selection...
+2025-07-01 08:17:40,988 - src.feature_selection - INFO - RFECV will test from 13 down to 1 features...
+2025-07-01 08:17:52,777 - src.feature_selection - INFO - RFECV completed - Selected 5 features
+2025-07-01 08:17:52,778 - src.feature_selection - INFO - Optimal features: 5, Best CV score: 0.8931
+2025-07-01 08:17:52,778 - src.feature_selection - INFO - Selected features: ['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ']
+2025-07-01 08:17:52,778 - src.feature_selection - INFO - Running Baseline (All Features)...
+2025-07-01 08:17:55,114 - src.feature_selection - INFO - Comparison completed - Best: rfecv (0.8931)
+2025-07-01 08:17:55,114 - src.feature_selection - INFO - RFECV vs Baseline: 0.8931 vs 0.8889 (Δ+0.0042)
+2025-07-01 08:17:55,115 - src.utils - INFO - Step 2/5 (40.0%) - Comparing RFECV vs Baseline - Elapsed: 0:00:14.170660
+2025-07-01 08:17:55,115 - src.feature_selection - INFO - Creating dataset with selected features...
+2025-07-01 08:17:55,117 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\train_data_selected.csv
+2025-07-01 08:17:55,129 - src.utils - INFO - Data saved successfully
+2025-07-01 08:17:55,130 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\test_data_selected.csv
+2025-07-01 08:17:55,134 - src.utils - INFO - Data saved successfully
+2025-07-01 08:17:55,135 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\data_selection.csv
+2025-07-01 08:17:55,152 - src.utils - INFO - Data saved successfully
+2025-07-01 08:17:55,152 - src.feature_selection - INFO - Selected dataset saved - Train: (1431, 6), Test: (358, 6)
+2025-07-01 08:17:55,153 - src.utils - INFO - Step 3/5 (60.0%) - Creating selected dataset - Elapsed: 0:00:14.208688
+2025-07-01 08:17:55,153 - src.feature_selection - INFO - Creating feature selection report...
+2025-07-01 08:17:55,153 - src.utils - INFO - Step 4/5 (80.0%) - Creating feature selection report - Elapsed: 0:00:14.209191
+2025-07-01 08:17:55,153 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 08:17:55,155 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:17:55,155 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 08:17:55,156 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:17:55,157 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 08:17:55,159 - src.utils - INFO - Data saved successfully
+2025-07-01 08:17:55,159 - src.utils - INFO - Step 5/5 (100.0%) - Saving results - Elapsed: 0:00:14.215110
+2025-07-01 08:17:55,159 - src.utils - INFO - Feature Selection (RFECV) completed in 0:00:14.215336
+2025-07-01 08:17:55,161 - src.feature_selection - INFO - Feature selection completed successfully (RFECV)
+2025-07-01 08:17:55,163 - src.model_training - INFO - Starting model training pipeline...
+2025-07-01 08:17:55,163 - src.utils - INFO - Starting Model Training - 7 steps
+2025-07-01 08:17:55,164 - src.model_training - INFO - Loading selected features data...
+2025-07-01 08:17:55,164 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\train_data_selected.csv
+2025-07-01 08:17:55,182 - src.utils - INFO - Data loaded successfully. Shape: (1431, 6)
+2025-07-01 08:17:55,183 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\test_data_selected.csv
+2025-07-01 08:17:55,198 - src.utils - INFO - Data loaded successfully. Shape: (358, 6)
+2025-07-01 08:17:55,199 - src.model_training - INFO - Data loaded - Train: (1431, 5), Test: (358, 5)
+2025-07-01 08:17:55,199 - src.model_training - INFO - Features: ['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ']
+2025-07-01 08:17:55,200 - src.utils - INFO - Step 1/7 (14.3%) - Loading selected data - Elapsed: 0:00:00.036297
+2025-07-01 08:17:55,200 - src.model_training - INFO - Initializing models...
+2025-07-01 08:17:55,200 - src.model_training - INFO - Initialized 3 models: ['Random_Forest', 'Gradient_Boosting', 'Logistic_Regression']
+2025-07-01 08:17:55,200 - src.utils - INFO - Step 2/7 (28.6%) - Initializing models - Elapsed: 0:00:00.037020
+2025-07-01 08:17:55,201 - src.model_training - INFO - Starting 10-fold cross-validation...
+2025-07-01 08:17:55,201 - src.model_training - INFO - Cross-validating Random_Forest...
+2025-07-01 08:17:57,520 - src.model_training - INFO - Random_Forest CV completed - Accuracy: 0.8931 (+/- 0.0407)
+2025-07-01 08:17:57,520 - src.model_training - INFO - Cross-validating Gradient_Boosting...
+2025-07-01 08:17:59,224 - src.model_training - INFO - Gradient_Boosting CV completed - Accuracy: 0.9007 (+/- 0.0371)
+2025-07-01 08:17:59,225 - src.model_training - INFO - Cross-validating Logistic_Regression...
+2025-07-01 08:17:59,337 - src.model_training - INFO - Logistic_Regression CV completed - Accuracy: 0.9329 (+/- 0.0407)
+2025-07-01 08:17:59,337 - src.utils - INFO - Step 3/7 (42.9%) - Cross-validation evaluation - Elapsed: 0:00:04.173893
+2025-07-01 08:17:59,338 - src.model_training - INFO - Training final models...
+2025-07-01 08:17:59,338 - src.model_training - INFO - Training Random_Forest...
+2025-07-01 08:17:59,540 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\random_forest.pickle
+2025-07-01 08:17:59,545 - src.utils - INFO - Model saved successfully
+2025-07-01 08:17:59,546 - src.model_training - INFO - Random_Forest training completed
+2025-07-01 08:17:59,546 - src.model_training - INFO - Training Gradient_Boosting...
+2025-07-01 08:18:00,726 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\gradient_boosting.pickle
+2025-07-01 08:18:00,736 - src.utils - INFO - Model saved successfully
+2025-07-01 08:18:00,736 - src.model_training - INFO - Gradient_Boosting training completed
+2025-07-01 08:18:00,736 - src.model_training - INFO - Training Logistic_Regression...
+2025-07-01 08:18:00,751 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\logistic_regression.pickle
+2025-07-01 08:18:00,752 - src.utils - INFO - Model saved successfully
+2025-07-01 08:18:00,752 - src.model_training - INFO - Logistic_Regression training completed
+2025-07-01 08:18:00,753 - src.utils - INFO - Step 4/7 (57.1%) - Training final models - Elapsed: 0:00:05.589273
+2025-07-01 08:18:00,753 - src.model_training - INFO - Evaluating models on test set...
+2025-07-01 08:18:00,753 - src.model_training - INFO - Evaluating Random_Forest on test set...
+2025-07-01 08:18:00,897 - src.model_training - INFO - Random_Forest test evaluation completed - Accuracy: 0.8883
+2025-07-01 08:18:00,897 - src.model_training - INFO - Evaluating Gradient_Boosting on test set...
+2025-07-01 08:18:00,930 - src.model_training - INFO - Gradient_Boosting test evaluation completed - Accuracy: 0.8827
+2025-07-01 08:18:00,930 - src.model_training - INFO - Evaluating Logistic_Regression on test set...
+2025-07-01 08:18:00,954 - src.model_training - INFO - Logistic_Regression test evaluation completed - Accuracy: 0.9246
+2025-07-01 08:18:00,954 - src.utils - INFO - Step 5/7 (71.4%) - Test set evaluation - Elapsed: 0:00:05.790839
+2025-07-01 08:18:00,954 - src.model_training - INFO - Creating confusion matrices...
+2025-07-01 08:18:00,955 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\target_mapping.json
+2025-07-01 08:18:00,963 - src.utils - INFO - JSON loaded successfully
+2025-07-01 08:18:02,650 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\confusion_matrices.png
+2025-07-01 08:18:03,142 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\confusion_matrices.png
+2025-07-01 08:18:03,143 - src.model_training - INFO - Confusion matrices created and saved
+2025-07-01 08:18:03,143 - src.utils - INFO - Step 6/7 (85.7%) - Creating confusion matrices - Elapsed: 0:00:07.979541
+2025-07-01 08:18:03,143 - src.model_training - INFO - Creating training report...
+2025-07-01 08:18:03,144 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 08:18:03,158 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:18:03,159 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 08:18:03,161 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:18:03,161 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 08:18:03,163 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:18:03,164 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\predictions.json
+2025-07-01 08:18:03,177 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:18:03,179 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 08:18:03,181 - src.utils - INFO - Data saved successfully
+2025-07-01 08:18:03,181 - src.utils - INFO - Step 7/7 (100.0%) - Saving results - Elapsed: 0:00:08.017808
+2025-07-01 08:18:03,182 - src.utils - INFO - Model Training completed in 0:00:08.018251
+2025-07-01 08:18:03,183 - src.model_training - INFO - Model training completed successfully
+2025-07-01 08:18:03,185 - src.model_comparison - INFO - Starting comprehensive model comparison...
+2025-07-01 08:18:03,185 - src.utils - INFO - Starting Model Comparison - 6 steps
+2025-07-01 08:18:03,185 - src.model_comparison - INFO - Loading all results for comparison...
+2025-07-01 08:18:03,186 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\normalization_report.json
+2025-07-01 08:18:03,271 - src.utils - INFO - JSON loaded successfully
+2025-07-01 08:18:03,271 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 08:18:03,282 - src.utils - INFO - JSON loaded successfully
+2025-07-01 08:18:03,283 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 08:18:03,291 - src.utils - INFO - JSON loaded successfully
+2025-07-01 08:18:03,292 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 08:18:03,310 - src.utils - INFO - JSON loaded successfully
+2025-07-01 08:18:03,311 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 08:18:03,322 - src.utils - INFO - JSON loaded successfully
+2025-07-01 08:18:03,323 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 08:18:03,333 - src.utils - INFO - JSON loaded successfully
+2025-07-01 08:18:03,334 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 08:18:03,350 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-07-01 08:18:03,350 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 08:18:03,365 - src.utils - INFO - Data loaded successfully. Shape: (5, 2)
+2025-07-01 08:18:03,366 - src.model_comparison - INFO - All results loaded successfully
+2025-07-01 08:18:03,366 - src.utils - INFO - Step 1/6 (16.7%) - Loading all results - Elapsed: 0:00:00.180903
+2025-07-01 08:18:03,366 - src.model_comparison - INFO - Analyzing feature selection impact...
+2025-07-01 08:18:03,366 - src.model_comparison - INFO - Feature selection impact analysis completed
+2025-07-01 08:18:03,367 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing feature selection impact - Elapsed: 0:00:00.181671
+2025-07-01 08:18:03,367 - src.model_comparison - INFO - Performing comprehensive model comparison...
+2025-07-01 08:18:03,368 - src.model_comparison - INFO - Comprehensive model comparison completed
+2025-07-01 08:18:03,369 - src.utils - INFO - Step 3/6 (50.0%) - Comprehensive model comparison - Elapsed: 0:00:00.183674
+2025-07-01 08:18:03,369 - src.model_comparison - INFO - Generating recommendations...
+2025-07-01 08:18:03,369 - src.model_comparison - INFO - Recommendations generated
+2025-07-01 08:18:03,369 - src.utils - INFO - Step 4/6 (66.7%) - Generating recommendations - Elapsed: 0:00:00.184240
+2025-07-01 08:18:03,369 - src.model_comparison - INFO - Creating final comprehensive report...
+2025-07-01 08:18:03,370 - src.model_comparison - INFO - Final comprehensive report created
+2025-07-01 08:18:03,370 - src.utils - INFO - Step 5/6 (83.3%) - Creating final report - Elapsed: 0:00:00.184778
+2025-07-01 08:18:03,370 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\final_report.json
+2025-07-01 08:18:03,372 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:18:03,372 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\model_comparison.json
+2025-07-01 08:18:03,373 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:18:03,374 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\feature_selection_impact.json
+2025-07-01 08:18:03,376 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:18:03,376 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\recommendations.json
+2025-07-01 08:18:03,377 - src.utils - INFO - JSON saved successfully
+2025-07-01 08:18:03,379 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\model_comparison.csv
+2025-07-01 08:18:03,380 - src.utils - INFO - Data saved successfully
+2025-07-01 08:18:03,381 - src.utils - INFO - Step 6/6 (100.0%) - Saving results - Elapsed: 0:00:00.195738
+2025-07-01 08:18:03,381 - src.utils - INFO - Model Comparison completed in 0:00:00.195936
+2025-07-01 08:18:03,382 - src.model_comparison - INFO - Comprehensive model comparison completed successfully
+2025-07-01 08:18:03,384 - src.visualization - INFO - Creating all visualizations with RFECV analysis...
+2025-07-01 08:18:03,384 - src.utils - INFO - Starting Visualization (RFECV) - 8 steps
+2025-07-01 08:18:03,385 - src.visualization - INFO - Loading results data for visualization...
+2025-07-01 08:18:03,385 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 08:18:03,386 - src.utils - INFO - JSON loaded successfully
+2025-07-01 08:18:03,386 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 08:18:03,386 - src.utils - INFO - JSON loaded successfully
+2025-07-01 08:18:03,387 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 08:18:03,390 - src.utils - INFO - JSON loaded successfully
+2025-07-01 08:18:03,391 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 08:18:03,391 - src.utils - INFO - JSON loaded successfully
+2025-07-01 08:18:03,392 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 08:18:03,392 - src.utils - INFO - JSON loaded successfully
+2025-07-01 08:18:03,392 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 08:18:03,394 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-07-01 08:18:03,394 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 08:18:03,396 - src.utils - INFO - Data loaded successfully. Shape: (5, 2)
+2025-07-01 08:18:03,396 - src.visualization - INFO - Results data loaded successfully
+2025-07-01 08:18:03,397 - src.utils - INFO - Step 1/8 (12.5%) - Loading results data - Elapsed: 0:00:00.012117
+2025-07-01 08:18:03,397 - src.visualization - INFO - Creating RFECV analysis visualization...
+2025-07-01 08:18:03,571 - src.visualization - ERROR - Visualization failed: '>' not supported between instances of 'str' and 'int'
+2025-07-01 08:18:03,572 - src.utils - ERROR - Step 5 failed: '>' not supported between instances of 'str' and 'int'
+2025-07-01 09:10:37,056 - src.utils - INFO - Validating pipeline setup...
+2025-07-01 09:10:37,057 - src.utils - INFO - ✅ Data file found: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\student_realistic_data.csv
+2025-07-01 09:10:37,057 - src.utils - INFO - ✅ Configuration validation passed
+2025-07-01 09:10:37,057 - src.utils - INFO - ✅ All required packages available
+2025-07-01 09:10:37,058 - src.utils - INFO - Pipeline validation completed successfully
+2025-07-01 09:10:37,058 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-07-01 09:10:37,058 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-07-01 09:10:37,059 - src.data_preprocessing - INFO - Loading raw data...
+2025-07-01 09:10:37,059 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\student_realistic_data.csv
+2025-07-01 09:10:37,065 - src.utils - INFO - Data loaded successfully. Shape: (1789, 14)
+2025-07-01 09:10:37,065 - src.data_preprocessing - INFO - Raw data loaded: (1789, 14)
+2025-07-01 09:10:37,065 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.006978
+2025-07-01 09:10:37,065 - src.data_preprocessing - INFO - Analyzing raw data...
+2025-07-01 09:10:37,066 - src.utils - INFO - Analyzing data...
+2025-07-01 09:10:37,092 - src.utils - INFO - Data analysis completed
+2025-07-01 09:10:37,092 - src.utils - INFO - Detecting outliers using iqr method...
+2025-07-01 09:10:37,114 - src.utils - INFO - Outlier detection completed. Found outliers in 13 columns
+2025-07-01 09:10:37,115 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\raw_data_analysis.json
+2025-07-01 09:10:37,117 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:37,119 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.060825
+2025-07-01 09:10:37,119 - src.data_preprocessing - INFO - Cleaning data...
+2025-07-01 09:10:37,122 - src.utils - INFO - Step 3/6 (50.0%) - Cleaning data - Elapsed: 0:00:00.063927
+2025-07-01 09:10:37,123 - src.data_preprocessing - INFO - Handling missing values...
+2025-07-01 09:10:37,132 - src.data_preprocessing - INFO - Missing values after imputation: 0
+2025-07-01 09:10:37,132 - src.utils - INFO - Step 4/6 (66.7%) - Handling missing values - Elapsed: 0:00:00.073852
+2025-07-01 09:10:37,132 - src.data_preprocessing - INFO - Encoding categorical features...
+2025-07-01 09:10:37,134 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\target_mapping.json
+2025-07-01 09:10:37,135 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:37,135 - src.data_preprocessing - INFO - Encoded 0 categorical features
+2025-07-01 09:10:37,136 - src.utils - INFO - Step 5/6 (83.3%) - Encoding categorical features - Elapsed: 0:00:00.077260
+2025-07-01 09:10:37,136 - src.data_preprocessing - INFO - Normalizing features using standard...
+2025-07-01 09:10:37,151 - src.data_preprocessing - INFO - Normalized 13 numeric features
+2025-07-01 09:10:37,151 - src.utils - INFO - Step 6/6 (100.0%) - Normalizing features - Elapsed: 0:00:00.092746
+2025-07-01 09:10:37,151 - src.utils - INFO - Data Preprocessing completed in 0:00:00.092965
+2025-07-01 09:10:37,152 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\data_normalization.csv
+2025-07-01 09:10:37,188 - src.utils - INFO - Data saved successfully
+2025-07-01 09:10:37,188 - src.data_preprocessing - INFO - Creating preprocessing report...
+2025-07-01 09:10:37,189 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\normalization_report.json
+2025-07-01 09:10:37,190 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:37,190 - src.data_preprocessing - INFO - Splitting data into train/test sets...
+2025-07-01 09:10:37,194 - src.data_preprocessing - INFO - Data split - Train: (1431, 13), Test: (358, 13)
+2025-07-01 09:10:37,195 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\data_split_info.json
+2025-07-01 09:10:37,196 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:37,198 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\train_data.csv
+2025-07-01 09:10:37,226 - src.utils - INFO - Data saved successfully
+2025-07-01 09:10:37,227 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\test_data.csv
+2025-07-01 09:10:37,242 - src.utils - INFO - Data saved successfully
+2025-07-01 09:10:37,243 - src.data_preprocessing - INFO - Data preprocessing completed successfully
+2025-07-01 09:10:37,244 - src.feature_selection - INFO - Starting RFECV feature selection pipeline...
+2025-07-01 09:10:37,244 - src.utils - INFO - Starting Feature Selection (RFECV) - 5 steps
+2025-07-01 09:10:37,244 - src.feature_selection - INFO - Loading normalized data...
+2025-07-01 09:10:37,245 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\train_data.csv
+2025-07-01 09:10:37,269 - src.utils - INFO - Data loaded successfully. Shape: (1431, 14)
+2025-07-01 09:10:37,269 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\test_data.csv
+2025-07-01 09:10:37,286 - src.utils - INFO - Data loaded successfully. Shape: (358, 14)
+2025-07-01 09:10:37,287 - src.feature_selection - INFO - Data loaded - Train: (1431, 13), Test: (358, 13)
+2025-07-01 09:10:37,287 - src.utils - INFO - Step 1/5 (20.0%) - Loading normalized data - Elapsed: 0:00:00.042836
+2025-07-01 09:10:37,287 - src.feature_selection - INFO - Comparing RFECV vs Baseline...
+2025-07-01 09:10:37,288 - src.feature_selection - INFO - Running RFECV...
+2025-07-01 09:10:37,288 - src.feature_selection - INFO - Starting RFECV Feature Selection...
+2025-07-01 09:10:37,288 - src.feature_selection - INFO - RFECV will test from 13 down to 1 features...
+2025-07-01 09:10:49,248 - src.feature_selection - INFO - RFECV completed - Selected 5 features
+2025-07-01 09:10:49,249 - src.feature_selection - INFO - Optimal features: 5, Best CV score: 0.8931
+2025-07-01 09:10:49,249 - src.feature_selection - INFO - Selected features: ['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ']
+2025-07-01 09:10:49,249 - src.feature_selection - INFO - Running Baseline (All Features)...
+2025-07-01 09:10:51,443 - src.feature_selection - INFO - Comparison completed - Best: rfecv (0.8931)
+2025-07-01 09:10:51,444 - src.feature_selection - INFO - RFECV vs Baseline: 0.8931 vs 0.8889 (Δ+0.0042)
+2025-07-01 09:10:51,444 - src.utils - INFO - Step 2/5 (40.0%) - Comparing RFECV vs Baseline - Elapsed: 0:00:14.199720
+2025-07-01 09:10:51,444 - src.feature_selection - INFO - Creating dataset with selected features...
+2025-07-01 09:10:51,446 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\train_data_selected.csv
+2025-07-01 09:10:51,459 - src.utils - INFO - Data saved successfully
+2025-07-01 09:10:51,460 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\test_data_selected.csv
+2025-07-01 09:10:51,464 - src.utils - INFO - Data saved successfully
+2025-07-01 09:10:51,465 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\data_selection.csv
+2025-07-01 09:10:51,480 - src.utils - INFO - Data saved successfully
+2025-07-01 09:10:51,480 - src.feature_selection - INFO - Selected dataset saved - Train: (1431, 6), Test: (358, 6)
+2025-07-01 09:10:51,480 - src.utils - INFO - Step 3/5 (60.0%) - Creating selected dataset - Elapsed: 0:00:14.236169
+2025-07-01 09:10:51,481 - src.feature_selection - INFO - Creating feature selection report...
+2025-07-01 09:10:51,481 - src.utils - INFO - Step 4/5 (80.0%) - Creating feature selection report - Elapsed: 0:00:14.236761
+2025-07-01 09:10:51,481 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:10:51,483 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:51,483 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 09:10:51,484 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:51,485 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 09:10:51,486 - src.utils - INFO - Data saved successfully
+2025-07-01 09:10:51,487 - src.utils - INFO - Step 5/5 (100.0%) - Saving results - Elapsed: 0:00:14.242354
+2025-07-01 09:10:51,487 - src.utils - INFO - Feature Selection (RFECV) completed in 0:00:14.242659
+2025-07-01 09:10:51,489 - src.feature_selection - INFO - Feature selection completed successfully (RFECV)
+2025-07-01 09:10:51,491 - src.model_training - INFO - Starting model training pipeline...
+2025-07-01 09:10:51,491 - src.utils - INFO - Starting Model Training - 7 steps
+2025-07-01 09:10:51,491 - src.model_training - INFO - Loading selected features data...
+2025-07-01 09:10:51,492 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\train_data_selected.csv
+2025-07-01 09:10:51,512 - src.utils - INFO - Data loaded successfully. Shape: (1431, 6)
+2025-07-01 09:10:51,513 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\test_data_selected.csv
+2025-07-01 09:10:51,529 - src.utils - INFO - Data loaded successfully. Shape: (358, 6)
+2025-07-01 09:10:51,530 - src.model_training - INFO - Data loaded - Train: (1431, 5), Test: (358, 5)
+2025-07-01 09:10:51,531 - src.model_training - INFO - Features: ['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ']
+2025-07-01 09:10:51,531 - src.utils - INFO - Step 1/7 (14.3%) - Loading selected data - Elapsed: 0:00:00.040002
+2025-07-01 09:10:51,531 - src.model_training - INFO - Initializing models...
+2025-07-01 09:10:51,531 - src.model_training - INFO - Initialized 3 models: ['Random_Forest', 'Gradient_Boosting', 'Logistic_Regression']
+2025-07-01 09:10:51,532 - src.utils - INFO - Step 2/7 (28.6%) - Initializing models - Elapsed: 0:00:00.040789
+2025-07-01 09:10:51,532 - src.model_training - INFO - Starting 10-fold cross-validation...
+2025-07-01 09:10:51,532 - src.model_training - INFO - Cross-validating Random_Forest...
+2025-07-01 09:10:53,610 - src.model_training - INFO - Random_Forest CV completed - Accuracy: 0.8931 (+/- 0.0407)
+2025-07-01 09:10:53,611 - src.model_training - INFO - Cross-validating Gradient_Boosting...
+2025-07-01 09:10:55,269 - src.model_training - INFO - Gradient_Boosting CV completed - Accuracy: 0.9007 (+/- 0.0371)
+2025-07-01 09:10:55,271 - src.model_training - INFO - Cross-validating Logistic_Regression...
+2025-07-01 09:10:55,414 - src.model_training - INFO - Logistic_Regression CV completed - Accuracy: 0.9329 (+/- 0.0407)
+2025-07-01 09:10:55,415 - src.utils - INFO - Step 3/7 (42.9%) - Cross-validation evaluation - Elapsed: 0:00:03.924047
+2025-07-01 09:10:55,415 - src.model_training - INFO - Training final models...
+2025-07-01 09:10:55,415 - src.model_training - INFO - Training Random_Forest...
+2025-07-01 09:10:55,595 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\random_forest.pickle
+2025-07-01 09:10:55,601 - src.utils - INFO - Model saved successfully
+2025-07-01 09:10:55,601 - src.model_training - INFO - Random_Forest training completed
+2025-07-01 09:10:55,602 - src.model_training - INFO - Training Gradient_Boosting...
+2025-07-01 09:10:56,750 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\gradient_boosting.pickle
+2025-07-01 09:10:56,760 - src.utils - INFO - Model saved successfully
+2025-07-01 09:10:56,760 - src.model_training - INFO - Gradient_Boosting training completed
+2025-07-01 09:10:56,761 - src.model_training - INFO - Training Logistic_Regression...
+2025-07-01 09:10:56,775 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\logistic_regression.pickle
+2025-07-01 09:10:56,776 - src.utils - INFO - Model saved successfully
+2025-07-01 09:10:56,777 - src.model_training - INFO - Logistic_Regression training completed
+2025-07-01 09:10:56,777 - src.utils - INFO - Step 4/7 (57.1%) - Training final models - Elapsed: 0:00:05.286170
+2025-07-01 09:10:56,777 - src.model_training - INFO - Evaluating models on test set...
+2025-07-01 09:10:56,778 - src.model_training - INFO - Evaluating Random_Forest on test set...
+2025-07-01 09:10:56,918 - src.model_training - INFO - Random_Forest test evaluation completed - Accuracy: 0.8883
+2025-07-01 09:10:56,918 - src.model_training - INFO - Evaluating Gradient_Boosting on test set...
+2025-07-01 09:10:56,950 - src.model_training - INFO - Gradient_Boosting test evaluation completed - Accuracy: 0.8827
+2025-07-01 09:10:56,951 - src.model_training - INFO - Evaluating Logistic_Regression on test set...
+2025-07-01 09:10:56,972 - src.model_training - INFO - Logistic_Regression test evaluation completed - Accuracy: 0.9246
+2025-07-01 09:10:56,972 - src.utils - INFO - Step 5/7 (71.4%) - Test set evaluation - Elapsed: 0:00:05.481230
+2025-07-01 09:10:56,972 - src.model_training - INFO - Creating confusion matrices...
+2025-07-01 09:10:56,973 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\target_mapping.json
+2025-07-01 09:10:56,975 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:10:57,909 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\confusion_matrices.png
+2025-07-01 09:10:58,374 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\confusion_matrices.png
+2025-07-01 09:10:58,374 - src.model_training - INFO - Confusion matrices created and saved
+2025-07-01 09:10:58,375 - src.utils - INFO - Step 6/7 (85.7%) - Creating confusion matrices - Elapsed: 0:00:06.883848
+2025-07-01 09:10:58,375 - src.model_training - INFO - Creating training report...
+2025-07-01 09:10:58,375 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 09:10:58,390 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:58,390 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 09:10:58,392 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:58,392 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 09:10:58,393 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:58,394 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\predictions.json
+2025-07-01 09:10:58,406 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:58,408 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 09:10:58,409 - src.utils - INFO - Data saved successfully
+2025-07-01 09:10:58,409 - src.utils - INFO - Step 7/7 (100.0%) - Saving results - Elapsed: 0:00:06.918667
+2025-07-01 09:10:58,410 - src.utils - INFO - Model Training completed in 0:00:06.918875
+2025-07-01 09:10:58,411 - src.model_training - INFO - Model training completed successfully
+2025-07-01 09:10:58,412 - src.model_comparison - INFO - Starting comprehensive model comparison...
+2025-07-01 09:10:58,412 - src.utils - INFO - Starting Model Comparison - 6 steps
+2025-07-01 09:10:58,412 - src.model_comparison - INFO - Loading all results for comparison...
+2025-07-01 09:10:58,413 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\normalization_report.json
+2025-07-01 09:10:58,498 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:10:58,498 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:10:58,508 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:10:58,509 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 09:10:58,510 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:10:58,510 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 09:10:58,530 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:10:58,531 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 09:10:58,543 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:10:58,543 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 09:10:58,545 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:10:58,545 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 09:10:58,559 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-07-01 09:10:58,560 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 09:10:58,562 - src.utils - INFO - Data loaded successfully. Shape: (5, 2)
+2025-07-01 09:10:58,562 - src.model_comparison - INFO - All results loaded successfully
+2025-07-01 09:10:58,562 - src.utils - INFO - Step 1/6 (16.7%) - Loading all results - Elapsed: 0:00:00.150333
+2025-07-01 09:10:58,563 - src.model_comparison - INFO - Analyzing feature selection impact...
+2025-07-01 09:10:58,563 - src.model_comparison - INFO - Feature selection impact analysis completed
+2025-07-01 09:10:58,563 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing feature selection impact - Elapsed: 0:00:00.151069
+2025-07-01 09:10:58,563 - src.model_comparison - INFO - Performing comprehensive model comparison...
+2025-07-01 09:10:58,565 - src.model_comparison - INFO - Comprehensive model comparison completed
+2025-07-01 09:10:58,565 - src.utils - INFO - Step 3/6 (50.0%) - Comprehensive model comparison - Elapsed: 0:00:00.153271
+2025-07-01 09:10:58,566 - src.model_comparison - INFO - Generating recommendations...
+2025-07-01 09:10:58,566 - src.model_comparison - INFO - Recommendations generated
+2025-07-01 09:10:58,566 - src.utils - INFO - Step 4/6 (66.7%) - Generating recommendations - Elapsed: 0:00:00.153989
+2025-07-01 09:10:58,566 - src.model_comparison - INFO - Creating final comprehensive report...
+2025-07-01 09:10:58,567 - src.model_comparison - INFO - Final comprehensive report created
+2025-07-01 09:10:58,567 - src.utils - INFO - Step 5/6 (83.3%) - Creating final report - Elapsed: 0:00:00.154665
+2025-07-01 09:10:58,567 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\final_report.json
+2025-07-01 09:10:58,569 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:58,569 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\model_comparison.json
+2025-07-01 09:10:58,570 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:58,570 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\feature_selection_impact.json
+2025-07-01 09:10:58,571 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:58,572 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\recommendations.json
+2025-07-01 09:10:58,573 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:10:58,574 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\model_comparison.csv
+2025-07-01 09:10:58,576 - src.utils - INFO - Data saved successfully
+2025-07-01 09:10:58,576 - src.utils - INFO - Step 6/6 (100.0%) - Saving results - Elapsed: 0:00:00.163822
+2025-07-01 09:10:58,576 - src.utils - INFO - Model Comparison completed in 0:00:00.164034
+2025-07-01 09:10:58,578 - src.model_comparison - INFO - Comprehensive model comparison completed successfully
+2025-07-01 09:10:58,580 - src.utils - ERROR - Step 5 failed: 'AcademicVisualizer' object has no attribute 'create_all_visualizations'
+2025-07-01 09:17:03,497 - src.utils - INFO - Validating pipeline setup...
+2025-07-01 09:17:03,498 - src.utils - INFO - ✅ Data file found: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\student_realistic_data.csv
+2025-07-01 09:17:03,498 - src.utils - INFO - ✅ Configuration validation passed
+2025-07-01 09:17:03,498 - src.utils - INFO - ✅ All required packages available
+2025-07-01 09:17:03,499 - src.utils - INFO - Pipeline validation completed successfully
+2025-07-01 09:17:03,499 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-07-01 09:17:03,499 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-07-01 09:17:03,500 - src.data_preprocessing - INFO - Loading raw data...
+2025-07-01 09:17:03,500 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\student_realistic_data.csv
+2025-07-01 09:17:03,506 - src.utils - INFO - Data loaded successfully. Shape: (1789, 14)
+2025-07-01 09:17:03,507 - src.data_preprocessing - INFO - Raw data loaded: (1789, 14)
+2025-07-01 09:17:03,507 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.007536
+2025-07-01 09:17:03,507 - src.data_preprocessing - INFO - Analyzing raw data...
+2025-07-01 09:17:03,507 - src.utils - INFO - Analyzing data...
+2025-07-01 09:17:03,533 - src.utils - INFO - Data analysis completed
+2025-07-01 09:17:03,533 - src.utils - INFO - Detecting outliers using iqr method...
+2025-07-01 09:17:03,556 - src.utils - INFO - Outlier detection completed. Found outliers in 13 columns
+2025-07-01 09:17:03,557 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\raw_data_analysis.json
+2025-07-01 09:17:03,559 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:03,561 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.061428
+2025-07-01 09:17:03,561 - src.data_preprocessing - INFO - Cleaning data...
+2025-07-01 09:17:03,564 - src.utils - INFO - Step 3/6 (50.0%) - Cleaning data - Elapsed: 0:00:00.064444
+2025-07-01 09:17:03,564 - src.data_preprocessing - INFO - Handling missing values...
+2025-07-01 09:17:03,573 - src.data_preprocessing - INFO - Missing values after imputation: 0
+2025-07-01 09:17:03,573 - src.utils - INFO - Step 4/6 (66.7%) - Handling missing values - Elapsed: 0:00:00.073948
+2025-07-01 09:17:03,573 - src.data_preprocessing - INFO - Encoding categorical features...
+2025-07-01 09:17:03,575 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\target_mapping.json
+2025-07-01 09:17:03,576 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:03,577 - src.data_preprocessing - INFO - Encoded 0 categorical features
+2025-07-01 09:17:03,577 - src.utils - INFO - Step 5/6 (83.3%) - Encoding categorical features - Elapsed: 0:00:00.077381
+2025-07-01 09:17:03,577 - src.data_preprocessing - INFO - Normalizing features using standard...
+2025-07-01 09:17:03,592 - src.data_preprocessing - INFO - Normalized 13 numeric features
+2025-07-01 09:17:03,592 - src.utils - INFO - Step 6/6 (100.0%) - Normalizing features - Elapsed: 0:00:00.092633
+2025-07-01 09:17:03,592 - src.utils - INFO - Data Preprocessing completed in 0:00:00.092859
+2025-07-01 09:17:03,593 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\data_normalization.csv
+2025-07-01 09:17:03,630 - src.utils - INFO - Data saved successfully
+2025-07-01 09:17:03,630 - src.data_preprocessing - INFO - Creating preprocessing report...
+2025-07-01 09:17:03,631 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\normalization_report.json
+2025-07-01 09:17:03,632 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:03,632 - src.data_preprocessing - INFO - Splitting data into train/test sets...
+2025-07-01 09:17:03,636 - src.data_preprocessing - INFO - Data split - Train: (1431, 13), Test: (358, 13)
+2025-07-01 09:17:03,637 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\data_split_info.json
+2025-07-01 09:17:03,637 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:03,639 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\train_data.csv
+2025-07-01 09:17:03,668 - src.utils - INFO - Data saved successfully
+2025-07-01 09:17:03,668 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\test_data.csv
+2025-07-01 09:17:03,677 - src.utils - INFO - Data saved successfully
+2025-07-01 09:17:03,678 - src.data_preprocessing - INFO - Data preprocessing completed successfully
+2025-07-01 09:17:03,679 - src.feature_selection - INFO - Starting RFECV feature selection pipeline...
+2025-07-01 09:17:03,679 - src.utils - INFO - Starting Feature Selection (RFECV) - 5 steps
+2025-07-01 09:17:03,680 - src.feature_selection - INFO - Loading normalized data...
+2025-07-01 09:17:03,680 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\train_data.csv
+2025-07-01 09:17:03,704 - src.utils - INFO - Data loaded successfully. Shape: (1431, 14)
+2025-07-01 09:17:03,704 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\test_data.csv
+2025-07-01 09:17:03,721 - src.utils - INFO - Data loaded successfully. Shape: (358, 14)
+2025-07-01 09:17:03,722 - src.feature_selection - INFO - Data loaded - Train: (1431, 13), Test: (358, 13)
+2025-07-01 09:17:03,722 - src.utils - INFO - Step 1/5 (20.0%) - Loading normalized data - Elapsed: 0:00:00.042818
+2025-07-01 09:17:03,722 - src.feature_selection - INFO - Comparing RFECV vs Baseline...
+2025-07-01 09:17:03,723 - src.feature_selection - INFO - Running RFECV...
+2025-07-01 09:17:03,723 - src.feature_selection - INFO - Starting RFECV Feature Selection...
+2025-07-01 09:17:03,723 - src.feature_selection - INFO - RFECV will test from 13 down to 1 features...
+2025-07-01 09:17:15,656 - src.feature_selection - INFO - RFECV completed - Selected 5 features
+2025-07-01 09:17:15,657 - src.feature_selection - INFO - Optimal features: 5, Best CV score: 0.8931
+2025-07-01 09:17:15,657 - src.feature_selection - INFO - Selected features: ['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ']
+2025-07-01 09:17:15,657 - src.feature_selection - INFO - Running Baseline (All Features)...
+2025-07-01 09:17:17,831 - src.feature_selection - INFO - Comparison completed - Best: rfecv (0.8931)
+2025-07-01 09:17:17,831 - src.feature_selection - INFO - RFECV vs Baseline: 0.8931 vs 0.8889 (Δ+0.0042)
+2025-07-01 09:17:17,831 - src.utils - INFO - Step 2/5 (40.0%) - Comparing RFECV vs Baseline - Elapsed: 0:00:14.151926
+2025-07-01 09:17:17,831 - src.feature_selection - INFO - Creating dataset with selected features...
+2025-07-01 09:17:17,834 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\train_data_selected.csv
+2025-07-01 09:17:17,846 - src.utils - INFO - Data saved successfully
+2025-07-01 09:17:17,846 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\test_data_selected.csv
+2025-07-01 09:17:17,850 - src.utils - INFO - Data saved successfully
+2025-07-01 09:17:17,851 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\data_selection.csv
+2025-07-01 09:17:17,866 - src.utils - INFO - Data saved successfully
+2025-07-01 09:17:17,867 - src.feature_selection - INFO - Selected dataset saved - Train: (1431, 6), Test: (358, 6)
+2025-07-01 09:17:17,867 - src.utils - INFO - Step 3/5 (60.0%) - Creating selected dataset - Elapsed: 0:00:14.187729
+2025-07-01 09:17:17,867 - src.feature_selection - INFO - Creating feature selection report...
+2025-07-01 09:17:17,868 - src.utils - INFO - Step 4/5 (80.0%) - Creating feature selection report - Elapsed: 0:00:14.188299
+2025-07-01 09:17:17,868 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:17:17,870 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:17,870 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 09:17:17,871 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:17,872 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 09:17:17,874 - src.utils - INFO - Data saved successfully
+2025-07-01 09:17:17,875 - src.utils - INFO - Step 5/5 (100.0%) - Saving results - Elapsed: 0:00:14.195258
+2025-07-01 09:17:17,875 - src.utils - INFO - Feature Selection (RFECV) completed in 0:00:14.195511
+2025-07-01 09:17:17,877 - src.feature_selection - INFO - Feature selection completed successfully (RFECV)
+2025-07-01 09:17:17,878 - src.model_training - INFO - Starting model training pipeline...
+2025-07-01 09:17:17,878 - src.utils - INFO - Starting Model Training - 7 steps
+2025-07-01 09:17:17,879 - src.model_training - INFO - Loading selected features data...
+2025-07-01 09:17:17,879 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\train_data_selected.csv
+2025-07-01 09:17:17,898 - src.utils - INFO - Data loaded successfully. Shape: (1431, 6)
+2025-07-01 09:17:17,899 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\test_data_selected.csv
+2025-07-01 09:17:17,914 - src.utils - INFO - Data loaded successfully. Shape: (358, 6)
+2025-07-01 09:17:17,915 - src.model_training - INFO - Data loaded - Train: (1431, 5), Test: (358, 5)
+2025-07-01 09:17:17,916 - src.model_training - INFO - Features: ['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ']
+2025-07-01 09:17:17,916 - src.utils - INFO - Step 1/7 (14.3%) - Loading selected data - Elapsed: 0:00:00.037446
+2025-07-01 09:17:17,916 - src.model_training - INFO - Initializing models...
+2025-07-01 09:17:17,916 - src.model_training - INFO - Initialized 3 models: ['Random_Forest', 'Gradient_Boosting', 'Logistic_Regression']
+2025-07-01 09:17:17,917 - src.utils - INFO - Step 2/7 (28.6%) - Initializing models - Elapsed: 0:00:00.038073
+2025-07-01 09:17:17,917 - src.model_training - INFO - Starting 10-fold cross-validation...
+2025-07-01 09:17:17,917 - src.model_training - INFO - Cross-validating Random_Forest...
+2025-07-01 09:17:19,973 - src.model_training - INFO - Random_Forest CV completed - Accuracy: 0.8931 (+/- 0.0407)
+2025-07-01 09:17:19,973 - src.model_training - INFO - Cross-validating Gradient_Boosting...
+2025-07-01 09:17:21,650 - src.model_training - INFO - Gradient_Boosting CV completed - Accuracy: 0.9007 (+/- 0.0371)
+2025-07-01 09:17:21,650 - src.model_training - INFO - Cross-validating Logistic_Regression...
+2025-07-01 09:17:21,759 - src.model_training - INFO - Logistic_Regression CV completed - Accuracy: 0.9329 (+/- 0.0407)
+2025-07-01 09:17:21,759 - src.utils - INFO - Step 3/7 (42.9%) - Cross-validation evaluation - Elapsed: 0:00:03.880861
+2025-07-01 09:17:21,760 - src.model_training - INFO - Training final models...
+2025-07-01 09:17:21,760 - src.model_training - INFO - Training Random_Forest...
+2025-07-01 09:17:21,947 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\random_forest.pickle
+2025-07-01 09:17:21,953 - src.utils - INFO - Model saved successfully
+2025-07-01 09:17:21,953 - src.model_training - INFO - Random_Forest training completed
+2025-07-01 09:17:21,953 - src.model_training - INFO - Training Gradient_Boosting...
+2025-07-01 09:17:23,079 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\gradient_boosting.pickle
+2025-07-01 09:17:23,088 - src.utils - INFO - Model saved successfully
+2025-07-01 09:17:23,089 - src.model_training - INFO - Gradient_Boosting training completed
+2025-07-01 09:17:23,089 - src.model_training - INFO - Training Logistic_Regression...
+2025-07-01 09:17:23,104 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\logistic_regression.pickle
+2025-07-01 09:17:23,106 - src.utils - INFO - Model saved successfully
+2025-07-01 09:17:23,106 - src.model_training - INFO - Logistic_Regression training completed
+2025-07-01 09:17:23,106 - src.utils - INFO - Step 4/7 (57.1%) - Training final models - Elapsed: 0:00:05.227678
+2025-07-01 09:17:23,107 - src.model_training - INFO - Evaluating models on test set...
+2025-07-01 09:17:23,107 - src.model_training - INFO - Evaluating Random_Forest on test set...
+2025-07-01 09:17:23,247 - src.model_training - INFO - Random_Forest test evaluation completed - Accuracy: 0.8883
+2025-07-01 09:17:23,247 - src.model_training - INFO - Evaluating Gradient_Boosting on test set...
+2025-07-01 09:17:23,279 - src.model_training - INFO - Gradient_Boosting test evaluation completed - Accuracy: 0.8827
+2025-07-01 09:17:23,279 - src.model_training - INFO - Evaluating Logistic_Regression on test set...
+2025-07-01 09:17:23,300 - src.model_training - INFO - Logistic_Regression test evaluation completed - Accuracy: 0.9246
+2025-07-01 09:17:23,300 - src.utils - INFO - Step 5/7 (71.4%) - Test set evaluation - Elapsed: 0:00:05.421576
+2025-07-01 09:17:23,300 - src.model_training - INFO - Creating confusion matrices...
+2025-07-01 09:17:23,301 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\target_mapping.json
+2025-07-01 09:17:23,302 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:17:24,195 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\confusion_matrices.png
+2025-07-01 09:17:24,653 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\confusion_matrices.png
+2025-07-01 09:17:24,653 - src.model_training - INFO - Confusion matrices created and saved
+2025-07-01 09:17:24,653 - src.utils - INFO - Step 6/7 (85.7%) - Creating confusion matrices - Elapsed: 0:00:06.774850
+2025-07-01 09:17:24,654 - src.model_training - INFO - Creating training report...
+2025-07-01 09:17:24,654 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 09:17:24,668 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:24,668 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 09:17:24,670 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:24,670 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 09:17:24,672 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:24,673 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\predictions.json
+2025-07-01 09:17:24,685 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:24,686 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 09:17:24,688 - src.utils - INFO - Data saved successfully
+2025-07-01 09:17:24,688 - src.utils - INFO - Step 7/7 (100.0%) - Saving results - Elapsed: 0:00:06.809349
+2025-07-01 09:17:24,688 - src.utils - INFO - Model Training completed in 0:00:06.809578
+2025-07-01 09:17:24,690 - src.model_training - INFO - Model training completed successfully
+2025-07-01 09:17:24,691 - src.model_comparison - INFO - Starting comprehensive model comparison...
+2025-07-01 09:17:24,691 - src.utils - INFO - Starting Model Comparison - 6 steps
+2025-07-01 09:17:24,692 - src.model_comparison - INFO - Loading all results for comparison...
+2025-07-01 09:17:24,692 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\normalization_report.json
+2025-07-01 09:17:24,776 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:17:24,777 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:17:24,788 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:17:24,788 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 09:17:24,789 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:17:24,790 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 09:17:24,809 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:17:24,809 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 09:17:24,821 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:17:24,821 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 09:17:24,824 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:17:24,824 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 09:17:24,840 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-07-01 09:17:24,841 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 09:17:24,844 - src.utils - INFO - Data loaded successfully. Shape: (5, 2)
+2025-07-01 09:17:24,844 - src.model_comparison - INFO - All results loaded successfully
+2025-07-01 09:17:24,844 - src.utils - INFO - Step 1/6 (16.7%) - Loading all results - Elapsed: 0:00:00.152715
+2025-07-01 09:17:24,844 - src.model_comparison - INFO - Analyzing feature selection impact...
+2025-07-01 09:17:24,844 - src.model_comparison - INFO - Feature selection impact analysis completed
+2025-07-01 09:17:24,845 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing feature selection impact - Elapsed: 0:00:00.153307
+2025-07-01 09:17:24,845 - src.model_comparison - INFO - Performing comprehensive model comparison...
+2025-07-01 09:17:24,846 - src.model_comparison - INFO - Comprehensive model comparison completed
+2025-07-01 09:17:24,847 - src.utils - INFO - Step 3/6 (50.0%) - Comprehensive model comparison - Elapsed: 0:00:00.155250
+2025-07-01 09:17:24,847 - src.model_comparison - INFO - Generating recommendations...
+2025-07-01 09:17:24,847 - src.model_comparison - INFO - Recommendations generated
+2025-07-01 09:17:24,847 - src.utils - INFO - Step 4/6 (66.7%) - Generating recommendations - Elapsed: 0:00:00.155811
+2025-07-01 09:17:24,847 - src.model_comparison - INFO - Creating final comprehensive report...
+2025-07-01 09:17:24,848 - src.model_comparison - INFO - Final comprehensive report created
+2025-07-01 09:17:24,848 - src.utils - INFO - Step 5/6 (83.3%) - Creating final report - Elapsed: 0:00:00.156602
+2025-07-01 09:17:24,848 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\final_report.json
+2025-07-01 09:17:24,850 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:24,850 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\model_comparison.json
+2025-07-01 09:17:24,851 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:24,852 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\feature_selection_impact.json
+2025-07-01 09:17:24,852 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:24,853 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\recommendations.json
+2025-07-01 09:17:24,853 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:17:24,855 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\model_comparison.csv
+2025-07-01 09:17:24,857 - src.utils - INFO - Data saved successfully
+2025-07-01 09:17:24,857 - src.utils - INFO - Step 6/6 (100.0%) - Saving results - Elapsed: 0:00:00.165697
+2025-07-01 09:17:24,857 - src.utils - INFO - Model Comparison completed in 0:00:00.166052
+2025-07-01 09:17:24,859 - src.model_comparison - INFO - Comprehensive model comparison completed successfully
+2025-07-01 09:17:24,861 - src.visualization - INFO - Creating all 15 academic publication charts...
+2025-07-01 09:17:24,861 - src.utils - INFO - Starting Academic Visualization Suite - 15 steps
+2025-07-01 09:17:24,861 - src.visualization - INFO - Loading results data for academic visualization...
+2025-07-01 09:17:24,862 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:17:24,862 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:17:24,863 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 09:17:24,863 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:17:24,863 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 09:17:24,867 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:17:24,867 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 09:17:24,868 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:17:24,868 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 09:17:24,869 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:17:24,869 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 09:17:24,871 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-07-01 09:17:24,871 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 09:17:24,873 - src.utils - INFO - Data loaded successfully. Shape: (5, 2)
+2025-07-01 09:17:24,873 - src.visualization - INFO - Results data loaded successfully
+2025-07-01 09:17:24,873 - src.utils - INFO - Step 1/15 (6.7%) - Loading results data - Elapsed: 0:00:00.011826
+2025-07-01 09:17:24,873 - src.visualization - INFO - Creating Chart 1: RFECV CV Scores Analysis...
+2025-07-01 09:17:24,999 - src.visualization - ERROR - Academic visualization failed: '>' not supported between instances of 'str' and 'int'
+2025-07-01 09:17:25,000 - src.utils - ERROR - Step 5 failed: '>' not supported between instances of 'str' and 'int'
+2025-07-01 09:18:52,066 - src.utils - INFO - Validating pipeline setup...
+2025-07-01 09:18:52,066 - src.utils - INFO - ✅ Data file found: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\student_realistic_data.csv
+2025-07-01 09:18:52,067 - src.utils - INFO - ✅ Configuration validation passed
+2025-07-01 09:18:52,067 - src.utils - INFO - ✅ All required packages available
+2025-07-01 09:18:52,067 - src.utils - INFO - Pipeline validation completed successfully
+2025-07-01 09:18:52,067 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-07-01 09:18:52,068 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-07-01 09:18:52,068 - src.data_preprocessing - INFO - Loading raw data...
+2025-07-01 09:18:52,068 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\student_realistic_data.csv
+2025-07-01 09:18:52,075 - src.utils - INFO - Data loaded successfully. Shape: (1789, 14)
+2025-07-01 09:18:52,075 - src.data_preprocessing - INFO - Raw data loaded: (1789, 14)
+2025-07-01 09:18:52,075 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.007427
+2025-07-01 09:18:52,075 - src.data_preprocessing - INFO - Analyzing raw data...
+2025-07-01 09:18:52,076 - src.utils - INFO - Analyzing data...
+2025-07-01 09:18:52,101 - src.utils - INFO - Data analysis completed
+2025-07-01 09:18:52,101 - src.utils - INFO - Detecting outliers using iqr method...
+2025-07-01 09:18:52,125 - src.utils - INFO - Outlier detection completed. Found outliers in 13 columns
+2025-07-01 09:18:52,126 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\raw_data_analysis.json
+2025-07-01 09:18:52,128 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:18:52,129 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.061794
+2025-07-01 09:18:52,130 - src.data_preprocessing - INFO - Cleaning data...
+2025-07-01 09:18:52,133 - src.utils - INFO - Step 3/6 (50.0%) - Cleaning data - Elapsed: 0:00:00.064885
+2025-07-01 09:18:52,133 - src.data_preprocessing - INFO - Handling missing values...
+2025-07-01 09:18:52,142 - src.data_preprocessing - INFO - Missing values after imputation: 0
+2025-07-01 09:18:52,142 - src.utils - INFO - Step 4/6 (66.7%) - Handling missing values - Elapsed: 0:00:00.074828
+2025-07-01 09:18:52,143 - src.data_preprocessing - INFO - Encoding categorical features...
+2025-07-01 09:18:52,144 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\target_mapping.json
+2025-07-01 09:18:52,145 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:18:52,146 - src.data_preprocessing - INFO - Encoded 0 categorical features
+2025-07-01 09:18:52,146 - src.utils - INFO - Step 5/6 (83.3%) - Encoding categorical features - Elapsed: 0:00:00.078117
+2025-07-01 09:18:52,146 - src.data_preprocessing - INFO - Normalizing features using standard...
+2025-07-01 09:18:52,161 - src.data_preprocessing - INFO - Normalized 13 numeric features
+2025-07-01 09:18:52,161 - src.utils - INFO - Step 6/6 (100.0%) - Normalizing features - Elapsed: 0:00:00.093870
+2025-07-01 09:18:52,162 - src.utils - INFO - Data Preprocessing completed in 0:00:00.094084
+2025-07-01 09:18:52,162 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\data_normalization.csv
+2025-07-01 09:18:52,200 - src.utils - INFO - Data saved successfully
+2025-07-01 09:18:52,200 - src.data_preprocessing - INFO - Creating preprocessing report...
+2025-07-01 09:18:52,200 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\normalization_report.json
+2025-07-01 09:18:52,202 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:18:52,202 - src.data_preprocessing - INFO - Splitting data into train/test sets...
+2025-07-01 09:18:52,206 - src.data_preprocessing - INFO - Data split - Train: (1431, 13), Test: (358, 13)
+2025-07-01 09:18:52,207 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\data_split_info.json
+2025-07-01 09:18:52,208 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:18:52,209 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\train_data.csv
+2025-07-01 09:18:52,238 - src.utils - INFO - Data saved successfully
+2025-07-01 09:18:52,239 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\test_data.csv
+2025-07-01 09:18:52,247 - src.utils - INFO - Data saved successfully
+2025-07-01 09:18:52,249 - src.data_preprocessing - INFO - Data preprocessing completed successfully
+2025-07-01 09:18:52,249 - src.feature_selection - INFO - Starting RFECV feature selection pipeline...
+2025-07-01 09:18:52,250 - src.utils - INFO - Starting Feature Selection (RFECV) - 5 steps
+2025-07-01 09:18:52,250 - src.feature_selection - INFO - Loading normalized data...
+2025-07-01 09:18:52,250 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\train_data.csv
+2025-07-01 09:18:52,274 - src.utils - INFO - Data loaded successfully. Shape: (1431, 14)
+2025-07-01 09:18:52,274 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\test_data.csv
+2025-07-01 09:18:52,291 - src.utils - INFO - Data loaded successfully. Shape: (358, 14)
+2025-07-01 09:18:52,292 - src.feature_selection - INFO - Data loaded - Train: (1431, 13), Test: (358, 13)
+2025-07-01 09:18:52,293 - src.utils - INFO - Step 1/5 (20.0%) - Loading normalized data - Elapsed: 0:00:00.042947
+2025-07-01 09:18:52,293 - src.feature_selection - INFO - Comparing RFECV vs Baseline...
+2025-07-01 09:18:52,293 - src.feature_selection - INFO - Running RFECV...
+2025-07-01 09:18:52,293 - src.feature_selection - INFO - Starting RFECV Feature Selection...
+2025-07-01 09:18:52,293 - src.feature_selection - INFO - RFECV will test from 13 down to 1 features...
+2025-07-01 09:19:04,425 - src.feature_selection - INFO - RFECV completed - Selected 5 features
+2025-07-01 09:19:04,425 - src.feature_selection - INFO - Optimal features: 5, Best CV score: 0.8931
+2025-07-01 09:19:04,425 - src.feature_selection - INFO - Selected features: ['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ']
+2025-07-01 09:19:04,426 - src.feature_selection - INFO - Running Baseline (All Features)...
+2025-07-01 09:19:06,624 - src.feature_selection - INFO - Comparison completed - Best: rfecv (0.8931)
+2025-07-01 09:19:06,624 - src.feature_selection - INFO - RFECV vs Baseline: 0.8931 vs 0.8889 (Δ+0.0042)
+2025-07-01 09:19:06,624 - src.utils - INFO - Step 2/5 (40.0%) - Comparing RFECV vs Baseline - Elapsed: 0:00:14.374480
+2025-07-01 09:19:06,624 - src.feature_selection - INFO - Creating dataset with selected features...
+2025-07-01 09:19:06,627 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\train_data_selected.csv
+2025-07-01 09:19:06,640 - src.utils - INFO - Data saved successfully
+2025-07-01 09:19:06,640 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\test_data_selected.csv
+2025-07-01 09:19:06,644 - src.utils - INFO - Data saved successfully
+2025-07-01 09:19:06,645 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\data_selection.csv
+2025-07-01 09:19:06,668 - src.utils - INFO - Data saved successfully
+2025-07-01 09:19:06,668 - src.feature_selection - INFO - Selected dataset saved - Train: (1431, 6), Test: (358, 6)
+2025-07-01 09:19:06,669 - src.utils - INFO - Step 3/5 (60.0%) - Creating selected dataset - Elapsed: 0:00:14.418770
+2025-07-01 09:19:06,669 - src.feature_selection - INFO - Creating feature selection report...
+2025-07-01 09:19:06,669 - src.utils - INFO - Step 4/5 (80.0%) - Creating feature selection report - Elapsed: 0:00:14.419460
+2025-07-01 09:19:06,670 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:19:06,672 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:19:06,672 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 09:19:06,673 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:19:06,674 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 09:19:06,675 - src.utils - INFO - Data saved successfully
+2025-07-01 09:19:06,675 - src.utils - INFO - Step 5/5 (100.0%) - Saving results - Elapsed: 0:00:14.425777
+2025-07-01 09:19:06,676 - src.utils - INFO - Feature Selection (RFECV) completed in 0:00:14.425989
+2025-07-01 09:19:06,677 - src.feature_selection - INFO - Feature selection completed successfully (RFECV)
+2025-07-01 09:19:06,679 - src.model_training - INFO - Starting model training pipeline...
+2025-07-01 09:19:06,679 - src.utils - INFO - Starting Model Training - 7 steps
+2025-07-01 09:19:06,679 - src.model_training - INFO - Loading selected features data...
+2025-07-01 09:19:06,680 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\train_data_selected.csv
+2025-07-01 09:19:06,699 - src.utils - INFO - Data loaded successfully. Shape: (1431, 6)
+2025-07-01 09:19:06,699 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\test_data_selected.csv
+2025-07-01 09:19:06,715 - src.utils - INFO - Data loaded successfully. Shape: (358, 6)
+2025-07-01 09:19:06,716 - src.model_training - INFO - Data loaded - Train: (1431, 5), Test: (358, 5)
+2025-07-01 09:19:06,716 - src.model_training - INFO - Features: ['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ']
+2025-07-01 09:19:06,716 - src.utils - INFO - Step 1/7 (14.3%) - Loading selected data - Elapsed: 0:00:00.037291
+2025-07-01 09:19:06,716 - src.model_training - INFO - Initializing models...
+2025-07-01 09:19:06,717 - src.model_training - INFO - Initialized 3 models: ['Random_Forest', 'Gradient_Boosting', 'Logistic_Regression']
+2025-07-01 09:19:06,717 - src.utils - INFO - Step 2/7 (28.6%) - Initializing models - Elapsed: 0:00:00.037915
+2025-07-01 09:19:06,717 - src.model_training - INFO - Starting 10-fold cross-validation...
+2025-07-01 09:19:06,718 - src.model_training - INFO - Cross-validating Random_Forest...
+2025-07-01 09:19:08,812 - src.model_training - INFO - Random_Forest CV completed - Accuracy: 0.8931 (+/- 0.0407)
+2025-07-01 09:19:08,812 - src.model_training - INFO - Cross-validating Gradient_Boosting...
+2025-07-01 09:19:10,492 - src.model_training - INFO - Gradient_Boosting CV completed - Accuracy: 0.9007 (+/- 0.0371)
+2025-07-01 09:19:10,492 - src.model_training - INFO - Cross-validating Logistic_Regression...
+2025-07-01 09:19:10,595 - src.model_training - INFO - Logistic_Regression CV completed - Accuracy: 0.9329 (+/- 0.0407)
+2025-07-01 09:19:10,596 - src.utils - INFO - Step 3/7 (42.9%) - Cross-validation evaluation - Elapsed: 0:00:03.916486
+2025-07-01 09:19:10,596 - src.model_training - INFO - Training final models...
+2025-07-01 09:19:10,596 - src.model_training - INFO - Training Random_Forest...
+2025-07-01 09:19:10,783 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\random_forest.pickle
+2025-07-01 09:19:10,788 - src.utils - INFO - Model saved successfully
+2025-07-01 09:19:10,789 - src.model_training - INFO - Random_Forest training completed
+2025-07-01 09:19:10,789 - src.model_training - INFO - Training Gradient_Boosting...
+2025-07-01 09:19:11,913 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\gradient_boosting.pickle
+2025-07-01 09:19:11,923 - src.utils - INFO - Model saved successfully
+2025-07-01 09:19:11,923 - src.model_training - INFO - Gradient_Boosting training completed
+2025-07-01 09:19:11,924 - src.model_training - INFO - Training Logistic_Regression...
+2025-07-01 09:19:11,938 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\logistic_regression.pickle
+2025-07-01 09:19:11,939 - src.utils - INFO - Model saved successfully
+2025-07-01 09:19:11,940 - src.model_training - INFO - Logistic_Regression training completed
+2025-07-01 09:19:11,940 - src.utils - INFO - Step 4/7 (57.1%) - Training final models - Elapsed: 0:00:05.260862
+2025-07-01 09:19:11,940 - src.model_training - INFO - Evaluating models on test set...
+2025-07-01 09:19:11,940 - src.model_training - INFO - Evaluating Random_Forest on test set...
+2025-07-01 09:19:12,082 - src.model_training - INFO - Random_Forest test evaluation completed - Accuracy: 0.8883
+2025-07-01 09:19:12,083 - src.model_training - INFO - Evaluating Gradient_Boosting on test set...
+2025-07-01 09:19:12,114 - src.model_training - INFO - Gradient_Boosting test evaluation completed - Accuracy: 0.8827
+2025-07-01 09:19:12,115 - src.model_training - INFO - Evaluating Logistic_Regression on test set...
+2025-07-01 09:19:12,135 - src.model_training - INFO - Logistic_Regression test evaluation completed - Accuracy: 0.9246
+2025-07-01 09:19:12,135 - src.utils - INFO - Step 5/7 (71.4%) - Test set evaluation - Elapsed: 0:00:05.456447
+2025-07-01 09:19:12,136 - src.model_training - INFO - Creating confusion matrices...
+2025-07-01 09:19:12,136 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\target_mapping.json
+2025-07-01 09:19:12,138 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:19:13,031 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\confusion_matrices.png
+2025-07-01 09:19:13,492 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\confusion_matrices.png
+2025-07-01 09:19:13,493 - src.model_training - INFO - Confusion matrices created and saved
+2025-07-01 09:19:13,493 - src.utils - INFO - Step 6/7 (85.7%) - Creating confusion matrices - Elapsed: 0:00:06.814030
+2025-07-01 09:19:13,493 - src.model_training - INFO - Creating training report...
+2025-07-01 09:19:13,494 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 09:19:13,508 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:19:13,509 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 09:19:13,511 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:19:13,511 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 09:19:13,512 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:19:13,513 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\predictions.json
+2025-07-01 09:19:13,525 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:19:13,527 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 09:19:13,528 - src.utils - INFO - Data saved successfully
+2025-07-01 09:19:13,528 - src.utils - INFO - Step 7/7 (100.0%) - Saving results - Elapsed: 0:00:06.849373
+2025-07-01 09:19:13,529 - src.utils - INFO - Model Training completed in 0:00:06.849578
+2025-07-01 09:19:13,530 - src.model_training - INFO - Model training completed successfully
+2025-07-01 09:19:13,531 - src.model_comparison - INFO - Starting comprehensive model comparison...
+2025-07-01 09:19:13,531 - src.utils - INFO - Starting Model Comparison - 6 steps
+2025-07-01 09:19:13,531 - src.model_comparison - INFO - Loading all results for comparison...
+2025-07-01 09:19:13,532 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\normalization_report.json
+2025-07-01 09:19:13,617 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:19:13,618 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:19:13,629 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:19:13,629 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 09:19:13,631 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:19:13,631 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 09:19:13,659 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:19:13,660 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 09:19:13,672 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:19:13,672 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 09:19:13,674 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:19:13,674 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 09:19:13,690 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-07-01 09:19:13,690 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 09:19:13,693 - src.utils - INFO - Data loaded successfully. Shape: (5, 2)
+2025-07-01 09:19:13,693 - src.model_comparison - INFO - All results loaded successfully
+2025-07-01 09:19:13,693 - src.utils - INFO - Step 1/6 (16.7%) - Loading all results - Elapsed: 0:00:00.161984
+2025-07-01 09:19:13,693 - src.model_comparison - INFO - Analyzing feature selection impact...
+2025-07-01 09:19:13,693 - src.model_comparison - INFO - Feature selection impact analysis completed
+2025-07-01 09:19:13,694 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing feature selection impact - Elapsed: 0:00:00.162553
+2025-07-01 09:19:13,694 - src.model_comparison - INFO - Performing comprehensive model comparison...
+2025-07-01 09:19:13,695 - src.model_comparison - INFO - Comprehensive model comparison completed
+2025-07-01 09:19:13,696 - src.utils - INFO - Step 3/6 (50.0%) - Comprehensive model comparison - Elapsed: 0:00:00.164531
+2025-07-01 09:19:13,696 - src.model_comparison - INFO - Generating recommendations...
+2025-07-01 09:19:13,696 - src.model_comparison - INFO - Recommendations generated
+2025-07-01 09:19:13,696 - src.utils - INFO - Step 4/6 (66.7%) - Generating recommendations - Elapsed: 0:00:00.165179
+2025-07-01 09:19:13,696 - src.model_comparison - INFO - Creating final comprehensive report...
+2025-07-01 09:19:13,697 - src.model_comparison - INFO - Final comprehensive report created
+2025-07-01 09:19:13,697 - src.utils - INFO - Step 5/6 (83.3%) - Creating final report - Elapsed: 0:00:00.165919
+2025-07-01 09:19:13,697 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\final_report.json
+2025-07-01 09:19:13,699 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:19:13,699 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\model_comparison.json
+2025-07-01 09:19:13,700 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:19:13,701 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\feature_selection_impact.json
+2025-07-01 09:19:13,702 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:19:13,703 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\recommendations.json
+2025-07-01 09:19:13,704 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:19:13,705 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\model_comparison.csv
+2025-07-01 09:19:13,707 - src.utils - INFO - Data saved successfully
+2025-07-01 09:19:13,707 - src.utils - INFO - Step 6/6 (100.0%) - Saving results - Elapsed: 0:00:00.175746
+2025-07-01 09:19:13,707 - src.utils - INFO - Model Comparison completed in 0:00:00.175954
+2025-07-01 09:19:13,708 - src.model_comparison - INFO - Comprehensive model comparison completed successfully
+2025-07-01 09:19:13,710 - src.visualization - INFO - Creating all 15 academic publication charts...
+2025-07-01 09:19:13,710 - src.utils - INFO - Starting Academic Visualization Suite - 15 steps
+2025-07-01 09:19:13,711 - src.visualization - INFO - Loading results data for academic visualization...
+2025-07-01 09:19:13,711 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:19:13,711 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:19:13,712 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 09:19:13,712 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:19:13,713 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 09:19:13,717 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:19:13,717 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 09:19:13,718 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:19:13,718 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 09:19:13,719 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:19:13,719 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 09:19:13,721 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-07-01 09:19:13,721 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 09:19:13,723 - src.utils - INFO - Data loaded successfully. Shape: (5, 2)
+2025-07-01 09:19:13,723 - src.visualization - INFO - Results data loaded successfully
+2025-07-01 09:19:13,723 - src.utils - INFO - Step 1/15 (6.7%) - Loading results data - Elapsed: 0:00:00.013077
+2025-07-01 09:19:13,724 - src.visualization - INFO - Creating Chart 1: RFECV CV Scores Analysis...
+2025-07-01 09:19:13,848 - src.visualization - ERROR - Academic visualization failed: '>' not supported between instances of 'str' and 'int'
+2025-07-01 09:19:13,849 - src.utils - ERROR - Step 5 failed: '>' not supported between instances of 'str' and 'int'
+2025-07-01 09:30:22,993 - src.visualization - INFO - Creating all 15 academic publication charts...
+2025-07-01 09:30:22,993 - src.utils - INFO - Starting Academic Visualization Suite - 15 steps
+2025-07-01 09:30:22,994 - src.visualization - INFO - Loading results data for academic visualization...
+2025-07-01 09:30:22,994 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:30:22,995 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:30:22,996 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 09:30:22,997 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:30:22,997 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 09:30:23,002 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:30:23,003 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 09:30:23,004 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:30:23,004 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 09:30:23,005 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:30:23,005 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 09:30:23,010 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-07-01 09:30:23,010 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 09:30:23,012 - src.utils - INFO - Data loaded successfully. Shape: (5, 2)
+2025-07-01 09:30:23,012 - src.visualization - INFO - Results data loaded successfully
+2025-07-01 09:30:23,013 - src.utils - INFO - Step 1/15 (6.7%) - Loading results data - Elapsed: 0:00:00.019304
+2025-07-01 09:30:23,013 - src.visualization - INFO - Creating Chart 1: RFECV CV Scores Analysis...
+2025-07-01 09:30:23,214 - src.visualization - ERROR - Academic visualization failed: '>' not supported between instances of 'str' and 'int'
+2025-07-01 09:30:23,214 - src.utils - ERROR - Step 5 failed: '>' not supported between instances of 'str' and 'int'
+2025-07-01 09:37:06,696 - src.visualization - INFO - Creating all 15 academic publication charts...
+2025-07-01 09:37:06,696 - src.utils - INFO - Starting Academic Visualization Suite - 15 steps
+2025-07-01 09:37:06,696 - src.visualization - INFO - Loading results data for academic visualization...
+2025-07-01 09:37:06,697 - src.visualization - ERROR - Error loading results data: File not found: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:37:06,697 - src.visualization - ERROR - Academic visualization failed: File not found: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:37:06,697 - src.utils - ERROR - Step 5 failed: File not found: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:37:56,582 - src.utils - INFO - Validating pipeline setup...
+2025-07-01 09:37:56,582 - src.utils - INFO - ✅ Data file found: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\student_realistic_data.csv
+2025-07-01 09:37:56,583 - src.utils - INFO - ✅ Configuration validation passed
+2025-07-01 09:37:56,583 - src.utils - INFO - ✅ All required packages available
+2025-07-01 09:37:56,583 - src.utils - INFO - Pipeline validation completed successfully
+2025-07-01 09:37:56,584 - src.data_preprocessing - INFO - Starting data preprocessing pipeline...
+2025-07-01 09:37:56,584 - src.utils - INFO - Starting Data Preprocessing - 6 steps
+2025-07-01 09:37:56,584 - src.data_preprocessing - INFO - Loading raw data...
+2025-07-01 09:37:56,585 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\student_realistic_data.csv
+2025-07-01 09:37:56,592 - src.utils - INFO - Data loaded successfully. Shape: (1789, 14)
+2025-07-01 09:37:56,592 - src.data_preprocessing - INFO - Raw data loaded: (1789, 14)
+2025-07-01 09:37:56,592 - src.utils - INFO - Step 1/6 (16.7%) - Loading raw data - Elapsed: 0:00:00.008302
+2025-07-01 09:37:56,593 - src.data_preprocessing - INFO - Analyzing raw data...
+2025-07-01 09:37:56,593 - src.utils - INFO - Analyzing data...
+2025-07-01 09:37:56,620 - src.utils - INFO - Data analysis completed
+2025-07-01 09:37:56,620 - src.utils - INFO - Detecting outliers using iqr method...
+2025-07-01 09:37:56,644 - src.utils - INFO - Outlier detection completed. Found outliers in 13 columns
+2025-07-01 09:37:56,644 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\raw_data_analysis.json
+2025-07-01 09:37:56,647 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:37:56,649 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing raw data - Elapsed: 0:00:00.064667
+2025-07-01 09:37:56,649 - src.data_preprocessing - INFO - Cleaning data...
+2025-07-01 09:37:56,652 - src.utils - INFO - Step 3/6 (50.0%) - Cleaning data - Elapsed: 0:00:00.068245
+2025-07-01 09:37:56,653 - src.data_preprocessing - INFO - Handling missing values...
+2025-07-01 09:37:56,663 - src.data_preprocessing - INFO - Missing values after imputation: 0
+2025-07-01 09:37:56,663 - src.utils - INFO - Step 4/6 (66.7%) - Handling missing values - Elapsed: 0:00:00.079119
+2025-07-01 09:37:56,664 - src.data_preprocessing - INFO - Encoding categorical features...
+2025-07-01 09:37:56,666 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\target_mapping.json
+2025-07-01 09:37:56,667 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:37:56,667 - src.data_preprocessing - INFO - Encoded 0 categorical features
+2025-07-01 09:37:56,667 - src.utils - INFO - Step 5/6 (83.3%) - Encoding categorical features - Elapsed: 0:00:00.082884
+2025-07-01 09:37:56,667 - src.data_preprocessing - INFO - Normalizing features using standard...
+2025-07-01 09:37:56,684 - src.data_preprocessing - INFO - Normalized 13 numeric features
+2025-07-01 09:37:56,685 - src.utils - INFO - Step 6/6 (100.0%) - Normalizing features - Elapsed: 0:00:00.100417
+2025-07-01 09:37:56,685 - src.utils - INFO - Data Preprocessing completed in 0:00:00.100765
+2025-07-01 09:37:56,686 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\data_normalization.csv
+2025-07-01 09:37:56,726 - src.utils - INFO - Data saved successfully
+2025-07-01 09:37:56,726 - src.data_preprocessing - INFO - Creating preprocessing report...
+2025-07-01 09:37:56,727 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\normalization_report.json
+2025-07-01 09:37:56,728 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:37:56,728 - src.data_preprocessing - INFO - Splitting data into train/test sets...
+2025-07-01 09:37:56,732 - src.data_preprocessing - INFO - Data split - Train: (1431, 13), Test: (358, 13)
+2025-07-01 09:37:56,733 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\data_split_info.json
+2025-07-01 09:37:56,734 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:37:56,736 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\train_data.csv
+2025-07-01 09:37:56,765 - src.utils - INFO - Data saved successfully
+2025-07-01 09:37:56,766 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\test_data.csv
+2025-07-01 09:37:56,774 - src.utils - INFO - Data saved successfully
+2025-07-01 09:37:56,775 - src.data_preprocessing - INFO - Data preprocessing completed successfully
+2025-07-01 09:37:56,776 - src.feature_selection - INFO - Starting RFECV feature selection pipeline...
+2025-07-01 09:37:56,777 - src.utils - INFO - Starting Feature Selection (RFECV) - 5 steps
+2025-07-01 09:37:56,777 - src.feature_selection - INFO - Loading normalized data...
+2025-07-01 09:37:56,777 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\train_data.csv
+2025-07-01 09:37:56,805 - src.utils - INFO - Data loaded successfully. Shape: (1431, 14)
+2025-07-01 09:37:56,805 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\test_data.csv
+2025-07-01 09:37:56,824 - src.utils - INFO - Data loaded successfully. Shape: (358, 14)
+2025-07-01 09:37:56,825 - src.feature_selection - INFO - Data loaded - Train: (1431, 13), Test: (358, 13)
+2025-07-01 09:37:56,826 - src.utils - INFO - Step 1/5 (20.0%) - Loading normalized data - Elapsed: 0:00:00.049037
+2025-07-01 09:37:56,826 - src.feature_selection - INFO - Comparing RFECV vs Baseline...
+2025-07-01 09:37:56,826 - src.feature_selection - INFO - Running RFECV...
+2025-07-01 09:37:56,826 - src.feature_selection - INFO - Starting RFECV Feature Selection...
+2025-07-01 09:37:56,827 - src.feature_selection - INFO - RFECV will test from 13 down to 1 features...
+2025-07-01 09:38:09,419 - src.feature_selection - INFO - RFECV completed - Selected 5 features
+2025-07-01 09:38:09,420 - src.feature_selection - INFO - Optimal features: 5, Best CV score: 0.8931
+2025-07-01 09:38:09,420 - src.feature_selection - INFO - Selected features: ['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ']
+2025-07-01 09:38:09,420 - src.feature_selection - INFO - Running Baseline (All Features)...
+2025-07-01 09:38:11,735 - src.feature_selection - INFO - Comparison completed - Best: rfecv (0.8931)
+2025-07-01 09:38:11,736 - src.feature_selection - INFO - RFECV vs Baseline: 0.8931 vs 0.8889 (Δ+0.0042)
+2025-07-01 09:38:11,736 - src.utils - INFO - Step 2/5 (40.0%) - Comparing RFECV vs Baseline - Elapsed: 0:00:14.959535
+2025-07-01 09:38:11,736 - src.feature_selection - INFO - Creating dataset with selected features...
+2025-07-01 09:38:11,739 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\train_data_selected.csv
+2025-07-01 09:38:11,752 - src.utils - INFO - Data saved successfully
+2025-07-01 09:38:11,753 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\test_data_selected.csv
+2025-07-01 09:38:11,757 - src.utils - INFO - Data saved successfully
+2025-07-01 09:38:11,759 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\data_selection.csv
+2025-07-01 09:38:11,777 - src.utils - INFO - Data saved successfully
+2025-07-01 09:38:11,778 - src.feature_selection - INFO - Selected dataset saved - Train: (1431, 6), Test: (358, 6)
+2025-07-01 09:38:11,778 - src.utils - INFO - Step 3/5 (60.0%) - Creating selected dataset - Elapsed: 0:00:15.001477
+2025-07-01 09:38:11,778 - src.feature_selection - INFO - Creating feature selection report...
+2025-07-01 09:38:11,779 - src.utils - INFO - Step 4/5 (80.0%) - Creating feature selection report - Elapsed: 0:00:15.002070
+2025-07-01 09:38:11,779 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:38:11,781 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:38:11,782 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 09:38:11,783 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:38:11,785 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 09:38:11,787 - src.utils - INFO - Data saved successfully
+2025-07-01 09:38:11,788 - src.utils - INFO - Step 5/5 (100.0%) - Saving results - Elapsed: 0:00:15.010941
+2025-07-01 09:38:11,788 - src.utils - INFO - Feature Selection (RFECV) completed in 0:00:15.011371
+2025-07-01 09:38:11,791 - src.feature_selection - INFO - Feature selection completed successfully (RFECV)
+2025-07-01 09:38:11,793 - src.model_training - INFO - Starting model training pipeline...
+2025-07-01 09:38:11,793 - src.utils - INFO - Starting Model Training - 7 steps
+2025-07-01 09:38:11,793 - src.model_training - INFO - Loading selected features data...
+2025-07-01 09:38:11,794 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\train_data_selected.csv
+2025-07-01 09:38:11,818 - src.utils - INFO - Data loaded successfully. Shape: (1431, 6)
+2025-07-01 09:38:11,818 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\test_data_selected.csv
+2025-07-01 09:38:11,836 - src.utils - INFO - Data loaded successfully. Shape: (358, 6)
+2025-07-01 09:38:11,838 - src.model_training - INFO - Data loaded - Train: (1431, 5), Test: (358, 5)
+2025-07-01 09:38:11,838 - src.model_training - INFO - Features: ['คะแนนคณิตศาสตร์', 'คะแนนคอมพิวเตอร์', 'คะแนนภาษาไทย', 'คะแนนวิทยาศาสตร์', 'คะแนนศิลปะ']
+2025-07-01 09:38:11,839 - src.utils - INFO - Step 1/7 (14.3%) - Loading selected data - Elapsed: 0:00:00.045641
+2025-07-01 09:38:11,839 - src.model_training - INFO - Initializing models...
+2025-07-01 09:38:11,839 - src.model_training - INFO - Initialized 3 models: ['Random_Forest', 'Gradient_Boosting', 'Logistic_Regression']
+2025-07-01 09:38:11,840 - src.utils - INFO - Step 2/7 (28.6%) - Initializing models - Elapsed: 0:00:00.046598
+2025-07-01 09:38:11,840 - src.model_training - INFO - Starting 10-fold cross-validation...
+2025-07-01 09:38:11,840 - src.model_training - INFO - Cross-validating Random_Forest...
+2025-07-01 09:38:14,053 - src.model_training - INFO - Random_Forest CV completed - Accuracy: 0.8931 (+/- 0.0407)
+2025-07-01 09:38:14,054 - src.model_training - INFO - Cross-validating Gradient_Boosting...
+2025-07-01 09:38:16,101 - src.model_training - INFO - Gradient_Boosting CV completed - Accuracy: 0.9007 (+/- 0.0371)
+2025-07-01 09:38:16,101 - src.model_training - INFO - Cross-validating Logistic_Regression...
+2025-07-01 09:38:16,208 - src.model_training - INFO - Logistic_Regression CV completed - Accuracy: 0.9329 (+/- 0.0407)
+2025-07-01 09:38:16,208 - src.utils - INFO - Step 3/7 (42.9%) - Cross-validation evaluation - Elapsed: 0:00:04.415142
+2025-07-01 09:38:16,208 - src.model_training - INFO - Training final models...
+2025-07-01 09:38:16,209 - src.model_training - INFO - Training Random_Forest...
+2025-07-01 09:38:16,406 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\random_forest.pickle
+2025-07-01 09:38:16,411 - src.utils - INFO - Model saved successfully
+2025-07-01 09:38:16,412 - src.model_training - INFO - Random_Forest training completed
+2025-07-01 09:38:16,412 - src.model_training - INFO - Training Gradient_Boosting...
+2025-07-01 09:38:17,584 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\gradient_boosting.pickle
+2025-07-01 09:38:17,594 - src.utils - INFO - Model saved successfully
+2025-07-01 09:38:17,595 - src.model_training - INFO - Gradient_Boosting training completed
+2025-07-01 09:38:17,595 - src.model_training - INFO - Training Logistic_Regression...
+2025-07-01 09:38:17,609 - src.utils - INFO - Saving model to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\models\logistic_regression.pickle
+2025-07-01 09:38:17,610 - src.utils - INFO - Model saved successfully
+2025-07-01 09:38:17,611 - src.model_training - INFO - Logistic_Regression training completed
+2025-07-01 09:38:17,611 - src.utils - INFO - Step 4/7 (57.1%) - Training final models - Elapsed: 0:00:05.817766
+2025-07-01 09:38:17,611 - src.model_training - INFO - Evaluating models on test set...
+2025-07-01 09:38:17,611 - src.model_training - INFO - Evaluating Random_Forest on test set...
+2025-07-01 09:38:17,749 - src.model_training - INFO - Random_Forest test evaluation completed - Accuracy: 0.8883
+2025-07-01 09:38:17,749 - src.model_training - INFO - Evaluating Gradient_Boosting on test set...
+2025-07-01 09:38:17,784 - src.model_training - INFO - Gradient_Boosting test evaluation completed - Accuracy: 0.8827
+2025-07-01 09:38:17,785 - src.model_training - INFO - Evaluating Logistic_Regression on test set...
+2025-07-01 09:38:17,808 - src.model_training - INFO - Logistic_Regression test evaluation completed - Accuracy: 0.9246
+2025-07-01 09:38:17,809 - src.utils - INFO - Step 5/7 (71.4%) - Test set evaluation - Elapsed: 0:00:06.015530
+2025-07-01 09:38:17,809 - src.model_training - INFO - Creating confusion matrices...
+2025-07-01 09:38:17,809 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\target_mapping.json
+2025-07-01 09:38:17,811 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:38:18,713 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\confusion_matrices.png
+2025-07-01 09:38:19,195 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\confusion_matrices.png
+2025-07-01 09:38:19,195 - src.model_training - INFO - Confusion matrices created and saved
+2025-07-01 09:38:19,195 - src.utils - INFO - Step 6/7 (85.7%) - Creating confusion matrices - Elapsed: 0:00:07.402321
+2025-07-01 09:38:19,196 - src.model_training - INFO - Creating training report...
+2025-07-01 09:38:19,196 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 09:38:19,211 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:38:19,212 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 09:38:19,214 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:38:19,215 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 09:38:19,217 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:38:19,217 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\predictions.json
+2025-07-01 09:38:19,231 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:38:19,232 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 09:38:19,233 - src.utils - INFO - Data saved successfully
+2025-07-01 09:38:19,234 - src.utils - INFO - Step 7/7 (100.0%) - Saving results - Elapsed: 0:00:07.440640
+2025-07-01 09:38:19,234 - src.utils - INFO - Model Training completed in 0:00:07.440929
+2025-07-01 09:38:19,236 - src.model_training - INFO - Model training completed successfully
+2025-07-01 09:38:19,237 - src.model_comparison - INFO - Starting comprehensive model comparison...
+2025-07-01 09:38:19,237 - src.utils - INFO - Starting Model Comparison - 6 steps
+2025-07-01 09:38:19,237 - src.model_comparison - INFO - Loading all results for comparison...
+2025-07-01 09:38:19,238 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\normalization_report.json
+2025-07-01 09:38:19,323 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:38:19,324 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:38:19,334 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:38:19,334 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 09:38:19,336 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:38:19,336 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 09:38:19,361 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:38:19,362 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 09:38:19,374 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:38:19,374 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 09:38:19,376 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:38:19,377 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 09:38:19,392 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-07-01 09:38:19,393 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 09:38:19,395 - src.utils - INFO - Data loaded successfully. Shape: (5, 2)
+2025-07-01 09:38:19,395 - src.model_comparison - INFO - All results loaded successfully
+2025-07-01 09:38:19,396 - src.utils - INFO - Step 1/6 (16.7%) - Loading all results - Elapsed: 0:00:00.158724
+2025-07-01 09:38:19,396 - src.model_comparison - INFO - Analyzing feature selection impact...
+2025-07-01 09:38:19,396 - src.model_comparison - INFO - Feature selection impact analysis completed
+2025-07-01 09:38:19,396 - src.utils - INFO - Step 2/6 (33.3%) - Analyzing feature selection impact - Elapsed: 0:00:00.159341
+2025-07-01 09:38:19,397 - src.model_comparison - INFO - Performing comprehensive model comparison...
+2025-07-01 09:38:19,398 - src.model_comparison - INFO - Comprehensive model comparison completed
+2025-07-01 09:38:19,399 - src.utils - INFO - Step 3/6 (50.0%) - Comprehensive model comparison - Elapsed: 0:00:00.161711
+2025-07-01 09:38:19,399 - src.model_comparison - INFO - Generating recommendations...
+2025-07-01 09:38:19,399 - src.model_comparison - INFO - Recommendations generated
+2025-07-01 09:38:19,399 - src.utils - INFO - Step 4/6 (66.7%) - Generating recommendations - Elapsed: 0:00:00.162466
+2025-07-01 09:38:19,400 - src.model_comparison - INFO - Creating final comprehensive report...
+2025-07-01 09:38:19,400 - src.model_comparison - INFO - Final comprehensive report created
+2025-07-01 09:38:19,400 - src.utils - INFO - Step 5/6 (83.3%) - Creating final report - Elapsed: 0:00:00.163141
+2025-07-01 09:38:19,401 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\final_report.json
+2025-07-01 09:38:19,402 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:38:19,403 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\model_comparison.json
+2025-07-01 09:38:19,404 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:38:19,404 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\feature_selection_impact.json
+2025-07-01 09:38:19,405 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:38:19,406 - src.utils - INFO - Saving JSON to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\recommendations.json
+2025-07-01 09:38:19,407 - src.utils - INFO - JSON saved successfully
+2025-07-01 09:38:19,408 - src.utils - INFO - Saving data to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\model_comparison.csv
+2025-07-01 09:38:19,410 - src.utils - INFO - Data saved successfully
+2025-07-01 09:38:19,410 - src.utils - INFO - Step 6/6 (100.0%) - Saving results - Elapsed: 0:00:00.172880
+2025-07-01 09:38:19,410 - src.utils - INFO - Model Comparison completed in 0:00:00.173078
+2025-07-01 09:38:19,412 - src.model_comparison - INFO - Comprehensive model comparison completed successfully
+2025-07-01 09:38:19,414 - src.visualization - INFO - Creating all 15 academic publication charts...
+2025-07-01 09:38:19,414 - src.utils - INFO - Starting Academic Visualization Suite - 15 steps
+2025-07-01 09:38:19,414 - src.visualization - INFO - Loading results data for academic visualization...
+2025-07-01 09:38:19,415 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\feature_selection_report.json
+2025-07-01 09:38:19,415 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:38:19,415 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selected_features.json
+2025-07-01 09:38:19,416 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:38:19,416 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\training_report.json
+2025-07-01 09:38:19,420 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:38:19,421 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\cv_results.json
+2025-07-01 09:38:19,422 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:38:19,422 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\test_results.json
+2025-07-01 09:38:19,422 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:38:19,423 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\model_performance.csv
+2025-07-01 09:38:19,424 - src.utils - INFO - Data loaded successfully. Shape: (3, 12)
+2025-07-01 09:38:19,425 - src.utils - INFO - Loading data from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\selection_scores.csv
+2025-07-01 09:38:19,427 - src.utils - INFO - Data loaded successfully. Shape: (5, 2)
+2025-07-01 09:38:19,427 - src.visualization - INFO - Results data loaded successfully
+2025-07-01 09:38:19,427 - src.utils - INFO - Step 1/15 (6.7%) - Loading results data - Elapsed: 0:00:00.013274
+2025-07-01 09:38:19,427 - src.visualization - INFO - Creating Chart 1: RFECV CV Scores Analysis...
+2025-07-01 09:38:19,641 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\chart_01_rfecv_cv_scores.png
+2025-07-01 09:38:20,230 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\chart_01_rfecv_cv_scores.png
+2025-07-01 09:38:20,230 - src.utils - INFO - Step 2/15 (13.3%) - Chart 1: RFECV CV Scores - Elapsed: 0:00:00.816197
+2025-07-01 09:38:20,231 - src.visualization - INFO - Creating Chart 2: Feature Selection Process Timeline...
+2025-07-01 09:38:20,507 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\chart_02_feature_selection_process.png
+2025-07-01 09:38:21,193 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\chart_02_feature_selection_process.png
+2025-07-01 09:38:21,193 - src.utils - INFO - Step 3/15 (20.0%) - Chart 2: Feature Selection Process - Elapsed: 0:00:01.779057
+2025-07-01 09:38:21,193 - src.visualization - INFO - Creating Chart 3: RFECV vs Baseline Detailed Comparison...
+2025-07-01 09:38:21,494 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\chart_03_rfecv_vs_baseline.png
+2025-07-01 09:38:22,341 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\chart_03_rfecv_vs_baseline.png
+2025-07-01 09:38:22,341 - src.utils - INFO - Step 4/15 (26.7%) - Chart 3: RFECV vs Baseline - Elapsed: 0:00:02.927230
+2025-07-01 09:38:22,342 - src.visualization - INFO - Creating Chart 4: Feature Importance Analysis...
+2025-07-01 09:38:22,556 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\chart_04_feature_importance_analysis.png
+2025-07-01 09:38:23,076 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\feature_selection\chart_04_feature_importance_analysis.png
+2025-07-01 09:38:23,076 - src.utils - INFO - Step 5/15 (33.3%) - Chart 4: Feature Importance Analysis - Elapsed: 0:00:03.662330
+2025-07-01 09:38:23,077 - src.visualization - INFO - Creating Chart 5: Individual Model Performance Metrics...
+2025-07-01 09:38:23,490 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\chart_05_individual_model_metrics.png
+2025-07-01 09:38:24,593 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\chart_05_individual_model_metrics.png
+2025-07-01 09:38:24,593 - src.utils - INFO - Step 6/15 (40.0%) - Chart 5: Individual Model Metrics - Elapsed: 0:00:05.178975
+2025-07-01 09:38:24,593 - src.visualization - INFO - Creating Chart 6: CV Score Distribution...
+2025-07-01 09:38:24,820 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\chart_06_cv_score_distribution.png
+2025-07-01 09:38:25,323 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\chart_06_cv_score_distribution.png
+2025-07-01 09:38:25,324 - src.utils - INFO - Step 7/15 (46.7%) - Chart 6: CV Score Distribution - Elapsed: 0:00:05.910008
+2025-07-01 09:38:25,324 - src.visualization - INFO - Creating Chart 7: Training vs Test Performance...
+2025-07-01 09:38:25,553 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\chart_07_training_vs_test_performance.png
+2025-07-01 09:38:26,148 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\chart_07_training_vs_test_performance.png
+2025-07-01 09:38:26,149 - src.utils - INFO - Step 8/15 (53.3%) - Chart 7: Training vs Test Performance - Elapsed: 0:00:06.734778
+2025-07-01 09:38:26,149 - src.visualization - INFO - Creating Chart 8: Model Efficiency Analysis...
+2025-07-01 09:38:26,425 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\chart_08_model_efficiency_analysis.png
+2025-07-01 09:38:26,992 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\evaluation\chart_08_model_efficiency_analysis.png
+2025-07-01 09:38:26,993 - src.utils - INFO - Step 9/15 (60.0%) - Chart 8: Model Efficiency Analysis - Elapsed: 0:00:07.578785
+2025-07-01 09:38:26,993 - src.visualization - INFO - Creating Chart 9: CV Scores by Fold...
+2025-07-01 09:38:27,270 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\chart_09_cv_scores_by_fold.png
+2025-07-01 09:38:28,594 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\chart_09_cv_scores_by_fold.png
+2025-07-01 09:38:28,595 - src.utils - INFO - Step 10/15 (66.7%) - Chart 9: CV Scores by Fold - Elapsed: 0:00:09.180687
+2025-07-01 09:38:28,595 - src.visualization - INFO - Creating Chart 10: Statistical Significance Analysis...
+2025-07-01 09:38:28,823 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\chart_10_statistical_significance.png
+2025-07-01 09:38:29,344 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\chart_10_statistical_significance.png
+2025-07-01 09:38:29,345 - src.utils - INFO - Step 11/15 (73.3%) - Chart 10: Statistical Significance - Elapsed: 0:00:09.930878
+2025-07-01 09:38:29,345 - src.visualization - INFO - Creating Chart 11: Performance Stability Analysis...
+2025-07-01 09:38:29,564 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\chart_11_performance_stability.png
+2025-07-01 09:38:30,140 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\chart_11_performance_stability.png
+2025-07-01 09:38:30,140 - src.utils - INFO - Step 12/15 (80.0%) - Chart 11: Performance Stability - Elapsed: 0:00:10.726389
+2025-07-01 09:38:30,141 - src.visualization - INFO - Creating Chart 12: Comprehensive Model Comparison...
+2025-07-01 09:38:30,377 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\chart_12_comprehensive_model_comparison.png
+2025-07-01 09:38:31,447 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\chart_12_comprehensive_model_comparison.png
+2025-07-01 09:38:31,448 - src.utils - INFO - Step 13/15 (86.7%) - Chart 12: Comprehensive Model Comparison - Elapsed: 0:00:12.033681
+2025-07-01 09:38:31,448 - src.visualization - INFO - Creating Chart 13: Feature vs Performance Trade-off...
+2025-07-01 09:38:31,677 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\chart_13_feature_performance_tradeoff.png
+2025-07-01 09:38:32,308 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\chart_13_feature_performance_tradeoff.png
+2025-07-01 09:38:32,308 - src.utils - INFO - Step 14/15 (93.3%) - Chart 13: Feature Performance Trade-off - Elapsed: 0:00:12.894498
+2025-07-01 09:38:32,309 - src.visualization - INFO - Creating Chart 14: Enhanced Confusion Matrices...
+2025-07-01 09:38:32,309 - src.utils - INFO - Loading JSON from: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\preprocessing\target_mapping.json
+2025-07-01 09:38:32,309 - src.utils - INFO - JSON loaded successfully
+2025-07-01 09:38:35,249 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\chart_14_enhanced_confusion_matrices.png
+2025-07-01 09:38:36,440 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\comparison\chart_14_enhanced_confusion_matrices.png
+2025-07-01 09:38:36,441 - src.utils - INFO - Step 15/15 (100.0%) - Chart 14: Enhanced Confusion Matrices - Elapsed: 0:00:17.026658
+2025-07-01 09:38:36,441 - src.visualization - INFO - Creating Chart 15: Executive Summary Dashboard...
+2025-07-01 09:38:36,670 - src.utils - INFO - Saving plot to: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\chart_15_executive_summary_dashboard.png
+2025-07-01 09:38:37,891 - src.utils - INFO - Plot saved: C:\Users\847\Desktop\ying_v2\ying_project_v2_13Feature\result\chart_15_executive_summary_dashboard.png
+2025-07-01 09:38:37,892 - src.utils - INFO - Step 16/15 (106.7%) - Chart 15: Executive Summary Dashboard - Elapsed: 0:00:18.477554
+2025-07-01 09:38:37,892 - src.utils - INFO - Academic Visualization Suite completed in 0:00:18.477783
+2025-07-01 09:38:37,892 - src.visualization - ERROR - Academic visualization failed: name 'RESULT_DIR' is not defined
+2025-07-01 09:38:37,892 - src.utils - ERROR - Step 5 failed: name 'RESULT_DIR' is not defined
